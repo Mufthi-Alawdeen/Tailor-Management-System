@@ -1,0 +1,246 @@
+.center{
+  align-items: center;
+  text-align: center;  
+}
+
+.container {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+  height: 100%;
+  width: 98%;
+ 
+  border-radius: 10px;
+  align-items: center;
+  margin-left: 12px;
+}
+
+.uploadImages {
+  width: 40%;
+  padding-right: 20px;
+  margin-left: 20px;
+}
+
+.uploadImages h2 {
+  margin-bottom: 20px;
+  margin-left: 30px;
+}
+
+.uploadImages label {
+  display: block;
+  margin-bottom: 10px;
+  margin-left: 30px;
+}
+
+.uploadImages input[type="file"] {
+  display: block;
+  margin-bottom: 10px;
+  border: 2px solid #000;
+  padding: 10px;
+  width: calc(100% - 24px);
+  margin-left: 30px;
+}
+
+.uploadImages input[type="file"].uploadInputFirst {
+  width: calc(100% - 24px);
+}
+
+.uploadImages .imageContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px; /* Increase the gap between images */
+  margin-top: 20px; /* Add margin to the top */
+}
+
+.uploadImages .imageContainer img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.uploadImages .imageContainer img:hover {
+  transform: scale(1.05);
+}
+
+.uploadImages .noImagesMessage {
+  font-size: 1.2rem;
+  color: #888;
+  text-align: center;
+}
+
+.imageContainer {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  
+}
+
+.imageTitle {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+.firstImage {
+  width: 120px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+.productImage {
+  width: 100%;
+  height: 325px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+  margin-left: 25px; /* Adjust as needed */
+}
+.productImage1 {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+  margin-top: 350px; /* Adjust as needed */
+  margin-left: -60px; /* Adjust as needed */
+}
+
+.productImage:hover {
+  transform: scale(1.05);
+}
+
+.noImagesMessage {
+  font-style: italic;
+  color: #999;
+}
+
+.productDetails {
+  width: 50%;
+  padding-left: 20px;
+
+}
+
+.productDetails h2 {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  
+}
+
+.productDetails label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.productDetails input[type="text"],
+.productDetails input[type="number"]{
+  width: 82%;
+  padding: 10px;
+  border: 2px solid #000;
+  margin-bottom: 10px;
+}
+
+.productDetails select {
+  width: 70%;
+  padding: 10px;
+  border: 2px solid #000;
+  margin-bottom: 10px;
+}
+
+.productDetails textarea {
+  width: 82%;
+  padding: 10px;
+  border: 2px solid #000;
+  margin-bottom: 10px;
+  height: 100px;
+}
+
+.productDetails .submitButton {
+  padding: 10px 20px;
+  background-color: #010101;
+  border: 1px solid black;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 20%; /* Add space to the left */
+  margin-top: 15px; /* Adjust vertical positioning */
+}
+
+.productDetails .submitButton:hover {
+  background-color: #afafaf;
+}
+
+.productDetails .cancelButton {
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid black;
+  cursor: pointer;
+  margin-left: 30%; /* Add space to the left */
+  margin-top: 15px; /* Adjust vertical positioning */
+}
+
+.productDetails .cancelButton:hover {
+  background-color: #828282;
+}
+
+.productDetails .inlineInputs {
+  display: flex;
+  gap: 20px; /* Adjust the space between inputs */
+}
+
+.productDetails .inputWrapper {
+  flex: 1;
+}
+
+
+/* dashboard */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+
+:root {
+    --primary-color: #000000;
+    --secondary-color: #c3c3c3;
+    --gray-color: #808080;
+}
+
+
+
+body {
+    background-color: #ececec;
+}
+
+.heading {
+  background-color: var(--primary-color);
+  padding: 25px 0; /* Adjusted padding */
+  margin-bottom: 20px;
+}
+
+.heading h1 {
+  margin: auto;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .heading h1 {
+      font-size: 21px;
+  }
+}
+
+
+/*generate report*/
+canvas {
+  background-color: white; /* Set canvas background color to white */
+}
+

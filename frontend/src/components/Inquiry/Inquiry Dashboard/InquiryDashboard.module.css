@@ -1,0 +1,75 @@
+
+.dashboard_button1{
+    background-color: black;
+    color: #fff;
+    padding: 25px;
+    font-size: 18px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+.dashboard_button1:hover{
+    background-color: rgb(74, 74, 74);
+  }
+
+
+.heading1 {
+  background-color: var(--primary-color);
+  padding: 25px 0;
+  margin-bottom: 20px;
+}
+
+.heading1 h1 {
+  margin: auto;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: white;
+}
+
+.inquiry_summary_container {
+  background-color: #fafafa;
+  margin-left: 65px;
+  margin-right: 25px;
+  padding: 34px;
+  margin-bottom: 40px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+
+.inquiry_summary_container h2 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.inquiry_summary_container .summary_item {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.inquiry_summary_container .summary_item .item {
+  text-align: center;
+}
+
+.inquiry_summary_container .summary_item .item h3 {
+  margin-bottom: 12px;
+}
+
+.inquiry_summary_container .summary_item .item .item_value {
+  background-color: #e3e3e3;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 12px;
+  font-weight: 650;
+  font-size: 22px;
+  margin: 0;
+}
+
+.button_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}

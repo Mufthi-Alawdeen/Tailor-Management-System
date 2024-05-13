@@ -1,0 +1,27 @@
+
+.button_2{
+    background-color: black;
+    color: #fff;
+    padding: 25px;
+    font-size: 18px;
+    border: none;
+  }
+
+.button_2:hover{
+    background-color: rgb(74, 74, 74);
+  }
+
+
+.heading_2 {
+  background-color: var(--primary-color);
+  padding: 25px 0;
+  margin-bottom: 20px;
+}
+
+.heading_2 h1 {
+  margin: auto;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: white;
+}

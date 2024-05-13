@@ -1,0 +1,91 @@
+  /* All Details Container Styles */
+  #All_details_container {
+    padding: 30px; /* Padding for spacing */
+    margin-top: 40px;
+    border-radius: 0px;
+  }
+  /*Add_Employees_container*/
+  #Add_Employees_container{
+    padding: 20px; /* Padding for spacing */
+
+  }
+  #Leaves_container{
+    padding: 20px; /* Padding for spacing */
+
+  }
+
+#my-horizontal-line {
+    border: 2px solid #000000; /* Adjust the border color */
+    margin: 15px 0; /* Add vertical spacing */
+    width: 100%; /* Make the line full-width */
+}
+
+.table-responsive{
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+/* Side Navigation Styles */
+#side_nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 375px;
+  height: 100vh;
+  background-color: #D1D4DB;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  
+}
+#nav-link {
+  color: black; /* Change this to your preferred color */
+  font-size: 17px;
+}
+#nav-link:hover {
+  color: white; /* Change this to your preferred color */
+}
+
+/* Style for nav links */
+#option-link {
+  color: black; /* Set the default color to black */
+  padding: 8px 10px; /* Add padding for better spacing */
+  border-radius: 5px; /* Add rounded corners */
+  margin-bottom: 10px; /* Add margin between options */
+  text-decoration: none;
+  display: block; /* Ensure full width for easier hover */
+}
+
+/* Hover effect */
+#option-link:hover {
+  background-color: black; /* Background turns black on hover */
+  color: white; /* Text turns white on hover */
+  width: 320px;
+}
+
+/* Active link effect */
+#option-link.active {
+  background-color: black; /* Background turns black when selected */
+  color: white; /* Text turns white when selected */
+  width: 320px;
+}
+
+
+#logo-img {
+  width: 37%;
+  border: "10px solid #fff";
+  border-radius: 7px;
+}
+
+#logout_btn{
+    color: #fff;
+    background-color: #343a40;
+    border-color: #212529;
+    width: 320px;
+  }
+  #Headeremp{
+    align-self: center;
+  }
+#Headeremp2{
+  margin-left: 15px;
+}

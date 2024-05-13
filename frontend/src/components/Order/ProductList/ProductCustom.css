@@ -1,0 +1,13 @@
+.shop-btn {
+    display: inline-block;
+    background-color: #000000; /* Blue color for primary button */
+    color: #fff; /* White text color */
+    text-decoration: none; /* Remove underline */
+    padding: 0.5rem 1rem; /* Add padding */
+    border-radius: 0.25rem; /* Add border radius */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.shop-btn:hover {
+    
+}

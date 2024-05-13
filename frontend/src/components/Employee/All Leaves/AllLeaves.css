@@ -1,0 +1,208 @@
+
+/* CSS */
+#button-group{
+  margin-top: 15px;
+}
+#button-4 {
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+  border-width: 2px;
+}
+
+#button-4:hover {
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+#button-4:disabled {
+  background-color: #FAFBFC;
+  border-color: rgba(12, 0, 187, 0.39);
+  color: #000000;
+  cursor: default;
+}
+
+#button-4:active {
+  background-color: #EDEFF2;
+  box-shadow: rgba(88, 70, 255, 0.527) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+#button-4:focus {
+  outline: 1px transparent;
+}
+
+#button-4:before {
+  display: none;
+}
+
+#button-4:-webkit-details-marker {
+  display: none;
+}
+
+/* CSS */
+#button-27 {
+  appearance: none;
+  background-color: #000000;
+  border: 1px solid 1A1A1A;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 10px;
+  
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+#button-27:hover {
+  background-color: #000000b2;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+#button-27:disabled {
+  background-color: #000000;
+  border-color: rgba(49, 99, 62, 0.15);
+  color: #1d1f20;
+  cursor: default;
+}
+
+#button-27:active {
+  background-color: #323438;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+#button-27:focus {
+  outline: 1px transparent;
+}
+
+#button-27:before {
+  display: none;
+}
+
+#button-27:-webkit-details-marker {
+  display: none;
+}
+
+
+/* Table styling */
+#employee-details-table {
+  border-collapse: separate; /* Allows for cell spacing */
+  border-spacing: 10px 5px; /* Adjusts the spacing between cells */
+  border-radius: 10px; /* Rounds the corners of the table */
+  overflow: hidden; /* Ensures rounded corners are maintained */
+
+}
+
+/* Styling for each table cell (td) */
+#table-row {
+  padding: 8px; /* Adjust padding inside cells */
+  border-radius: 5px; /* Rounds corners of each cell */
+  background-color: #d5d5d5bd; /* Background color for each cell */
+  color: black; /* Text color for each cell */
+  border-color: #FFFFFF;
+  border-width: 5px;
+  font-size: 18px;
+}
+#table-row2 {
+  padding: 8px; /* Adjust padding inside cells */
+  border-radius: 5px; /* Rounds corners of each cell */
+  background-color: #afafaf30; /* Background color for each cell */
+  color: black; /* Text color for each cell */
+  border-color: #FFFFFF;
+  border-width: 5px;
+  font-size: 18px;
+}
+
+#button-44 {
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+  width: fit-content;
+  margin-left: 10px;
+}
+
+#button-44:hover {
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+#button-44:disabled {
+  background-color: #FAFBFC;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959DA5;
+  cursor: default;
+}
+
+#button-44:active {
+  background-color: #EDEFF2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+#button-44:focus {
+  outline: 1px transparent;
+}
+
+#button-44:before {
+  display: none;
+}
+
+#button-44:-webkit-details-marker {
+  display: none;
+}

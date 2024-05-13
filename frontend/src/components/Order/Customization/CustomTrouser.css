@@ -1,0 +1,41 @@
+.trouser-customization-form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    color: black;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label{
+    margin-bottom: 10px;
+}
+
+.measurements-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 10px;
+}
+
+.instructions {
+    margin-top: 50px;
+}
+
+.instructions h3 {
+    margin-bottom: 10px;
+}
+
+.instructions p {
+    margin-bottom: 20px;
+}
+
+#submit {
+    background-color: black;
+    color: white;
+}
+
+.measurements-group div {
+    margin: 10px;
+}

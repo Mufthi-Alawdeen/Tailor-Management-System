@@ -1,0 +1,35 @@
+
+  
+.dashboard_button{
+    background-color: black;
+    color: #fff;
+    padding: 25px;
+    font-size: 18px;
+    border: none;
+  }
+
+.dashboard_button:hover{
+    background-color: rgb(74, 74, 74);
+  }
+
+
+.heading {
+  background-color: var(--primary-color);
+  padding: 25px 0;
+  margin-bottom: 20px;
+}
+
+.heading h1 {
+  margin: auto;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: white;
+}
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+
+:root {
+    --primary-color: #000000;
+    --secondary-color: #c3c3c3;
+    --gray-color: #808080;
+}

@@ -1,0 +1,90 @@
+.container {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+}
+
+table th, table td {
+    padding: 8px;
+    text-align: center;
+}
+
+.btn {
+    color: #fff; /* White text */
+}
+
+.btn-primary {
+    background-color: #000; /* Black button */
+}
+
+.btn-danger {
+    background-color: #000; /* Black button */
+}
+
+.btn-success {
+    background-color: #000; /* Black button */
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+}
+
+.shop-btn {
+    display: inline-block;
+    background-color: #000; /* Black button */
+    color: #fff; /* White text */
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.shop-btn:hover {
+    background-color: #333; /* Darker shade of black */
+}
+
+button {
+    background-color: #000; /* Black button */
+    color: #fff; /* White text */
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover{
+    transform: scale(1.1);
+}
+
+.cart-footer {
+    text-align: right;
+    margin-top: 30px;
+}
+
+.cart-footer .total-price {
+    margin-right: 20px;
+}
+
+.cart-footer button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.cart-footer button:hover {
+    background-color: #333;
+}
