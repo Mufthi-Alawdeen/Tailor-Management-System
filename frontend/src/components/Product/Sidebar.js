@@ -1,17 +1,15 @@
 
 import { NavLink } from "react-router-dom";
 import { FaAngleDown, FaBars, FaHome, FaUser, FaLock, FaMoneyBill , FaBox ,FaClipboardList} from "react-icons/fa";
-import { MdMessage } from "react-icons/md";
-import { BiAnalyse, BiSearch } from "react-icons/bi";
+import { BiSolidSpreadsheet } from "react-icons/bi";
 import { BiCog } from "react-icons/bi";
-import { AiFillHeart, AiTwotoneFileExclamation } from "react-icons/ai";
+import { BsPeopleFill,BsClipboardPlusFill } from "react-icons/bs";
 import { BsCartCheck } from "react-icons/bs";
 import { AnimatePresence, motion } from "framer-motion";
+import { LuMessagesSquare } from "react-icons/lu";
 
 import React, { useState, useEffect, useRef } from 'react';
 import MSRLogo from '../../res/MSRLogo.png';
-
-
 
 
 const menuAnimation = {
@@ -49,51 +47,37 @@ const menuItemAnimation = {
 
 const routes = [
   {
-    path: "/",
+    path: "/AdminDashboard",
     name: "Dashboard",
     icon: <FaHome />,
   },
+  
   {
-    path: "/users",
+    path: "/user/dashboard",
     name: "Users",
     icon: <FaUser />,
-  },
-  {
-    path: "/messages",
-    name: "Messages",
-    icon: <MdMessage />,
-  },
-  {
-    path: "/analytics",
-    name: "Analytics",
-    icon: <BiAnalyse />,
-  },
-  {
-    path: "/file-manager",
-    name: "File Manager",
-    icon: <AiTwotoneFileExclamation />,
-    subRoutes: [
+    exact: true,
+    subRoutes: [{
+       path: "/user/dashboard",
+        name: "Dashboard",
+        icon: <FaHome />,
+    },
       {
-        path: "/settings/profile",
-        name: "Profile ",
-        icon: <FaUser />,
+        path: "/user/all",
+        name: "Customer Accounts",
+        icon: <FaBox />,
       },
       {
-        path: "/settings/2fa",
-        name: "2FA",
+        path: "/employee/allAccounts",
+        name: "Employee Accounts",
         icon: <FaLock />,
-      },
-      {
-        path: "/settings/billing",
-        name: "Billing",
-        icon: <FaMoneyBill />,
       },
     ],
   },
   {
     path: "/product/dashboard",
     name: "Product",
-    icon: <BsCartCheck />,
+    icon: <BsClipboardPlusFill />,
     exact: true,
     subRoutes: [{
        path: "/product/dashboard",
@@ -114,6 +98,122 @@ const routes = [
         path: "/product/generate-report",
         name: "Report",
         icon: <FaClipboardList />,
+      },
+    ],
+  },
+
+  {
+    path: "/product/dashboard",
+    name: "Orders & Rentals",
+    icon: <BsCartCheck />,
+    exact: true,
+    subRoutes: [{
+       path: "/product/dashboard",
+        name: "Dashboard",
+        icon: <FaHome />,
+    },
+      {
+        path: "/product/add",
+        name: "Add",
+        icon: <FaBox />,
+      },
+      {
+        path: "/product/all",
+        name: "Manage",
+        icon: <FaLock />,
+      },
+      {
+        path: "/product/generate-report",
+        name: "Report",
+        icon: <FaClipboardList />,
+      },
+    ],
+  },
+  {
+    path: "/inquiry/dashboard",
+    name: "Inquiries",
+    icon: <LuMessagesSquare />,
+    exact: true,
+    subRoutes: [{
+       path: "/inquiry/dashboard",
+        name: "Dashboard",
+        icon: <FaHome />,
+    },
+      {
+        path: "/inquiry/hradmin/inquiries",
+        name: "View Inquiries ",
+        icon: <FaBox />,
+      },
+
+      {
+        path: "/inquiry/report",
+        name: "Report",
+        icon: <FaClipboardList />,
+      },
+    ],
+  },
+  {
+    path: "/inventory/dashboard",
+    name: "Inventory",
+    icon: <BiSolidSpreadsheet />,
+    exact: true,
+    subRoutes: [{
+       path: "/inventory/dashboard",
+        name: "Dashboard",
+        icon: <FaHome />,
+    },
+      {
+        path: "/inventory/all",
+        name: "Manage Inventory",
+        icon: <FaBox />,
+      },
+
+      {
+        path: "/inventory/addinventory",
+        name: "Add Inventory",
+        icon: <FaBox />,
+      },
+
+      {
+        path: "/inventory/report",
+        name: "Report",
+        icon: <FaClipboardList />,
+      },
+    ],
+  },
+  {
+    path: "/employee/dashboard",
+    name: "Employees",
+    icon: <BsPeopleFill />,
+    exact: true,
+    subRoutes: [{
+       path: "/employee/dashboard",
+        name: "Dashboard",
+        icon: <FaHome />,
+    },
+      
+      {
+        path: "/employee/add",
+        name: "Add Employees",
+        icon: <FaClipboardList />,
+      },
+
+      {
+        path: "/employee/all",
+        name: "All Employees List",
+        icon: <FaClipboardList />,
+      },
+
+      {
+        path: "/employee/admin/leave",
+        name: "All Leaves",
+        icon: <FaBox />,
+      },
+      
+      {
+        path: "/employee/report",
+        name: "Salary Report",
+        icon: <FaBox />,
       },
     ],
   },
@@ -139,11 +239,6 @@ const routes = [
         icon: <FaMoneyBill />,
       },
     ],
-  },
-  {
-    path: "/saved",
-    name: "Saved",
-    icon: <AiFillHeart />,
   },
 ];
 

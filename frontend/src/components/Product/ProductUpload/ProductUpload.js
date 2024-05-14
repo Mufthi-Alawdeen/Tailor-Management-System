@@ -16,7 +16,48 @@ const ProductUpload = () => {
     size: "" // String for sizes separated by commas or spaces
   });
   const [loading, setLoading] = useState(false);
+  const [voiceCommand, setVoiceCommand] = useState('');
+  const [buttonColor, setButtonColor] = useState('#524A4E');
+  const [currentColor, setCurrentColor] = useState('#FF342B');
+  
+  const [isListening, setIsListening] = useState(false); 
+  // Function to parse voice command and redirect accordingly
+  const handleVoiceCommand = (command) => {
+    let responseText = '';
+    switch (command) {
+      default:
+        responseText = "Sorry, You have to upload manually.";
+        break;
+    }
+    // Speak the response text
+    speak(responseText);
+  };
+  
 
+// Function to start or stop voice recognition
+const toggleVoiceRecognition = () => {
+    if (isListening) {
+        // Stop voice recognition
+        setIsListening(false);
+    } else {
+        // Start voice recognition
+        setIsListening(true);
+        const recognition = new window.webkitSpeechRecognition();
+        recognition.onresult = (event) => {
+            const result = event.results[0][0].transcript.toLowerCase();
+            setVoiceCommand(result);
+            handleVoiceCommand(result);
+            setIsListening(false); // Turn off microphone after task is completed
+        };
+        recognition.start();
+    }
+};
+
+// Function to speak the given text
+const speak = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(utterance);
+};
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -29,44 +70,48 @@ const ProductUpload = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Check if required fields are filled
     if (
-      formData.images.length < 4 ||
-      !formData.name ||
-      !formData.price ||
-      !formData.category ||
-      !formData.type ||
-      !formData.description ||
-      formData.images.length === 0
-    ) {
-      Swal.fire({
-        icon: "error",
-        title: "Validation Error",
-        text:
-          "Please select at least 4 images, fill all required fields, and upload at least one image.",
-        confirmButtonColor: "#000000",
-      });
-      return;
-    }
-  
-    // If category is "tie" or "bow", remove the Size field from the required fields
-    const requiredFields = ["name", "price", "category", "type", "description"];
-    if (formData.category !== "tie" && formData.category !== "bow") {
-      requiredFields.push("size");
-    }
-  
-    // Check if all required fields are filled
-    for (const field of requiredFields) {
-      if (!formData[field]) {
-        Swal.fire({
-          icon: "error",
-          title: "Validation Error",
-          text: `Please fill ${field} field.`,
-          confirmButtonColor: "#000000",
-        });
-        return;
-      }
-    }
+  formData.images.length < 4 ||
+  !formData.name ||
+  !formData.price ||
+  !formData.category ||
+  !formData.type ||
+  !formData.description ||
+  formData.images.length === 0
+) {
+  Swal.fire({
+    icon: "error",
+    title: "Validation Error",
+    text:
+      "Please select at least 4 images, fill all required fields, and upload at least one image.",
+    confirmButtonColor: "#000000",
+  });
+  return;
+}
+
+// If category is "tie" or "bow", remove the Size field from the required fields
+const requiredFields = ["name", "price", "category", "type", "description"];
+if (formData.category !== "tie" && formData.category !== "bow") {
+  requiredFields.push("size");
+}
+
+// Check if all required fields are filled
+for (const field of requiredFields) {
+  if (field === "size" && (formData.category === "tie" || formData.category === "bow")) {
+    // Skip size validation if category is "tie" or "bow"
+    continue;
+  }
+
+  if (!formData[field]) {
+    Swal.fire({
+      icon: "error",
+      title: "Validation Error",
+      text: `Please fill ${field} field.`,
+      confirmButtonColor: "#000000",
+    });
+    return;
+  }
+}
   
     try {
       setLoading(true);
@@ -144,6 +189,59 @@ const ProductUpload = () => {
       <Header />
       <div className={styles.heading}>
         <h1>Add products</h1>
+      </div>
+      <div>
+        
+      <button
+                style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    right: '20px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '6px 10px',
+                    gap: '8px',
+                    height: '30px',
+                    width: '100px',
+                    border: 'none',
+                    background: isListening ? 'black' : buttonColor, // Change color to red when listening
+                    borderRadius: '20px',
+                    cursor: 'pointer',
+                    animation: 'scale 1s infinite', // Apply animation
+                    transition: 'background-color 0.3s' // Apply transition
+                }}
+                onClick={toggleVoiceRecognition}
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    viewBox="0 0 24 24"
+                    height="24"
+                    fill="none"
+                    className="svg-icon"
+                    style={{ stroke: '#ffff' }}
+                >
+                    <g strokeWidth="2" strokeLinecap="round">
+                        <rect y="3" x="9" width="6" rx="3" height="11"></rect>
+                        <path d="m12 18v3"></path>
+                        <path d="m8 21h8"></path>
+                        <path d="m19 11c0 3.866-3.134 7-7 7-3.86599 0-7-3.134-7-7"></path>
+                    </g>
+                </svg>
+                <span
+                    className="label"
+                    style={{
+                        lineHeight: '20px',
+                        fontSize: '17px',
+                        color: currentColor,
+                        fontFamily: 'sans-serif',
+                        letterSpacing: '1px'
+                    }}
+                >
+                    Speak
+                </span>
+            </button>
       </div>
       <div className={styles.container}>
         <div className={styles.uploadImages}>

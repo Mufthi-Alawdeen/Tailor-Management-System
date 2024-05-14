@@ -12,7 +12,69 @@ const GenerateReportButton = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const chartRef = useRef(null); // Initialize chartRef
-
+    const [voiceCommand, setVoiceCommand] = useState('');
+    const [buttonColor, setButtonColor] = useState('#524A4E');
+    const [currentColor, setCurrentColor] = useState('#FF342B');
+    
+    const [isListening, setIsListening] = useState(false); 
+    const handleVoiceCommand = (command) => {
+        console.log("Command received:", command); // Add this line to log the received command
+    
+        let responseText = '';
+        switch (command) {
+            case 'month':
+                setDuration('month');
+                responseText = "Duration set to month. Please confirm to generate the report.";
+                setIsResponsible(true);
+                generateReport();
+                responseText = "Generating report...";
+                break;
+            case 'week':
+                setDuration('week');
+                responseText = "Duration set to week. Please confirm to generate the report.";
+                setIsResponsible(true);
+                generateReport();
+                responseText = "Generating report...";
+                break;
+           
+            default:
+                responseText = "sorry, I could not understand that. please try again.";
+                break;
+        }
+        // Speak the response text
+        speak(responseText);
+    };
+    
+    
+      
+    
+    const toggleVoiceRecognition = () => {
+        if (isListening) {
+            // Stop voice recognition
+            setIsListening(false);
+        } else {
+            // Start voice recognition
+            setIsListening(true);
+            const recognition = new window.webkitSpeechRecognition();
+            recognition.onresult = (event) => {
+                const result = event.results[0][0].transcript.toLowerCase();
+                setVoiceCommand(result);
+                handleVoiceCommand(result);
+                setIsListening(false); // Turn off microphone after task is completed
+            };
+            recognition.start();
+    
+            // Initial voice prompt
+            speak("Please select the duration");
+        }
+    };
+    
+    
+    // Function to speak the given text
+    const speak = (text) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(utterance);
+    };
     useEffect(() => {
         fetchProducts(duration);
     }, [duration]);
@@ -227,6 +289,59 @@ const GenerateReportButton = () => {
             <div className={style.heading} style={{ marginBottom: '30px', textAlign: 'center' }}>
                 <h1 >Generate Report</h1>
             </div>
+            <div>
+        
+      <button
+                style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    right: '20px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '6px 10px',
+                    gap: '8px',
+                    height: '30px',
+                    width: '100px',
+                    border: 'none',
+                    background: isListening ? 'black' : buttonColor, // Change color to red when listening
+                    borderRadius: '20px',
+                    cursor: 'pointer',
+                    animation: 'scale 1s infinite', // Apply animation
+                    transition: 'background-color 0.3s' // Apply transition
+                }}
+                onClick={toggleVoiceRecognition}
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    viewBox="0 0 24 24"
+                    height="24"
+                    fill="none"
+                    className="svg-icon"
+                    style={{ stroke: '#ffff' }}
+                >
+                    <g strokeWidth="2" strokeLinecap="round">
+                        <rect y="3" x="9" width="6" rx="3" height="11"></rect>
+                        <path d="m12 18v3"></path>
+                        <path d="m8 21h8"></path>
+                        <path d="m19 11c0 3.866-3.134 7-7 7-3.86599 0-7-3.134-7-7"></path>
+                    </g>
+                </svg>
+                <span
+                    className="label"
+                    style={{
+                        lineHeight: '20px',
+                        fontSize: '17px',
+                        color: currentColor,
+                        fontFamily: 'sans-serif',
+                        letterSpacing: '1px'
+                    }}
+                >
+                    Speak
+                </span>
+            </button>
+      </div>
             <div style={{ margin: '0 auto', width: '50%', padding: '20px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: '10px', textAlign: 'center' }}>
                 <div style={{ marginBottom: '20px', color: 'black', textAlign: 'justify' }}>
                     <p>MSR Tailors generates weekly and monthly reports for decision-making purposes. These reports provide valuable insights into the performance of products over specific durations, helping stakeholders make informed decisions. With detailed information on product details, trends, and average prices, these reports empower product managers and decision-makers to optimize strategies and drive business growth.</p>

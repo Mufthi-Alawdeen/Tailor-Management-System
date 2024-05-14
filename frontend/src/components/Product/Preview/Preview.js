@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import Header from "../Header";
 import React, { useState, useEffect, useRef } from 'react';
 import MSRLogo from '../../../res/MSRLogo.png';
-
+import SideBar from "../Sidebar";
 
 const PAGE_SIZE = 12; // Number of products per page
 
@@ -15,7 +15,7 @@ const Preview = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
   const [isListening, setIsListening] = useState(false); // State to track if microphone is active
-  const [buttonColor, setButtonColor] = useState('#1b1b1cde'); // Button color
+  const [buttonColor, setButtonColor] = useState('#524A4E'); // Button color
   const [currentColor, setCurrentColor] = useState('#FF342B');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1); // Current page number
@@ -167,6 +167,11 @@ const Preview = () => {
   const toggleSidebar = () => {
       setIsSidebarOpen(!isSidebarOpen);
   };
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    const endIndex = startIndex + PAGE_SIZE;
+    setFilteredProducts(products.slice(startIndex, endIndex));
+  }, [currentPage, products]);
 
   useEffect(() => {
       // Function to handle click outside of sidebar
@@ -190,212 +195,9 @@ const Preview = () => {
     <div>
       <div>
       <div style={{ position: 'relative' }}>
-            <button
-                onClick={toggleSidebar}
-                style={{
-                    position: 'absolute',
-                    top: '15px',
-                    left: '10px',
-                    zIndex: '999',
-                    border: 'none',
-                    background: 'none',
-                    cursor: 'pointer'
-                }}
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#333"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                >
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
-            {isSidebarOpen && (
-                <div  ref={sidebarRef}  style={{ fontFamily: 'Arial', backgroundColor: 'rgba(240, 240, 240, 0.9)'
-                , padding: '10px', borderRadius: '5px', boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)', width: '200px', position: 'absolute', top: '0', left: '0' }}>
-                    <div style={{ marginBottom: '10px' }}>
-                        <br></br>
-                        <br></br>
-                    </div>
-                    <select
-                        style={{
-                            width: '100%',
-                            padding: '8px',
-                            borderRadius: '5px',
-                            border: '1px solid #ccc',
-                            backgroundColor: '#fff',
-                            outline: 'none',
-                            appearance: 'none',
-                            cursor: 'pointer',
-                            textAlign: 'center',
-                            fontSize: '0.9rem',
-                            color: '#333',
-                            marginBottom: '10px' // Add margin bottom
-                        }}
-                        onChange={(e) => window.location.href = e.target.value}
-                    >
-                      
-                            <option value="">Dashboard</option>
-                       
-                    </select>     
-                    <select
-                        style={{
-                            width: '100%',
-                            padding: '8px',
-                            borderRadius: '5px',
-                            border: '1px solid #ccc',
-                            backgroundColor: '#fff',
-                            outline: 'none',
-                            appearance: 'none',
-                            cursor: 'pointer',
-                            textAlign: 'center',
-                            fontSize: '0.9rem',
-                            color: '#333',
-                            marginBottom: '10px' // Add margin bottom
-                        }}
-                        onChange={(e) => window.location.href = e.target.value}
-                    >
-                        <optgroup label="Products">
-                            <option value="">Product</option>
-                            <option value="/product/add">Upload Product</option>
-                            <option value="/product/generate-report">Generate Report</option>
-                            <option value="/product/all">Preview All Products</option>
-                           
-                        </optgroup>
-                    </select>
-                    <select
-                        style={{
-                            width: '100%',
-                            padding: '8px',
-                            borderRadius: '5px',
-                            border: '1px solid #ccc',
-                            backgroundColor: '#fff',
-                            outline: 'none',
-                            appearance: 'none',
-                            cursor: 'pointer',
-                            textAlign: 'center',
-                            fontSize: '0.9rem',
-                            color: '#333',
-                            marginBottom: '10px' // Add margin bottom
-                        }}
-                        onChange={(e) => window.location.href = e.target.value}
-                    >
-                        <optgroup label="Inquiries">
-                            <option value="">Inquiry</option>
-                            <option value="/inquiry/hradmin/inquiries">Received Inquiry</option>
-                            <option value="/inquiry/report">Generate Report</option>
-                        </optgroup>
-                    </select>
-                    <select
-                        style={{
-                            width: '100%',
-                            padding: '8px',
-                            borderRadius: '5px',
-                            border: '1px solid #ccc',
-                            backgroundColor: '#fff',
-                            outline: 'none',
-                            appearance: 'none',
-                            cursor: 'pointer',
-                            textAlign: 'center',
-                            fontSize: '0.9rem',
-                            color: '#333',
-                            marginBottom: '10px' // Add margin bottom
-                        }}
-                        onChange={(e) => window.location.href = e.target.value}
-                    >
-                        <optgroup label="Orders">
-                            <option value="">Orders</option>
-                            <option value="/orders/received">Received Orders</option>
-                            <option value="/orders/processed">Processed Orders</option>
-                            <option value="/orders/completed">Completed Orders</option>
-                        </optgroup>
-                    </select>
-                    <select
-                        style={{
-                            width: '100%',
-                            padding: '8px',
-                            borderRadius: '5px',
-                            border: '1px solid #ccc',
-                            backgroundColor: '#fff',
-                            outline: 'none',
-                            appearance: 'none',
-                            cursor: 'pointer',
-                            textAlign: 'center',
-                            fontSize: '0.9rem',
-                            color: '#333',
-                            marginBottom: '10px' // Add margin bottom
-                        }}
-                        onChange={(e) => window.location.href = e.target.value}
-                    >
-                        <optgroup label="Retail">
-                            <option value="">Retail</option>
-                            <option value="/retail/sales">Sales</option>
-                            <option value="/retail/inventory">Inventory</option>
-                            <option value="/retail/reports">Reports</option>
-                        </optgroup>
-                    </select>
-                    <select
-                        style={{
-                            width: '100%',
-                            padding: '8px',
-                            borderRadius: '5px',
-                            border: '1px solid #ccc',
-                            backgroundColor: '#fff',
-                            outline: 'none',
-                            appearance: 'none',
-                            cursor: 'pointer',
-                            textAlign: 'center',
-                            fontSize: '0.9rem',
-                            color: '#333',
-                            marginBottom: '10px' // Add margin bottom
-                        }}
-                        onChange={(e) => window.location.href = e.target.value}
-                    >
-                        <optgroup label="Employees">
-                            <option value="">Employees</option>
-                            <option value="/employees/list">Employee List</option>
-                            <option value="/employees/add">Add Employee</option>
-                            <option value="/employees/payroll">Payroll</option>
-                        </optgroup>
-                    </select>
-                    <select
-                        style={{
-                            width: '100%',
-                            padding: '8px',
-                            borderRadius: '5px',
-                            border: '1px solid #ccc',
-                            backgroundColor: '#fff',
-                            outline: 'none',
-                            appearance: 'none',
-                            cursor: 'pointer',
-                            textAlign: 'center',
-                            fontSize: '0.9rem',
-                            color: '#333',
-                            marginBottom: '10px' // Add margin bottom
-                        }}
-                        onChange={(e) => window.location.href = e.target.value}
-                    >
-                        <optgroup label="Inventory">
-                            <option value="">Inventory</option>
-                            <option value="/inventory/dashboard">Dashboard</option>
-                            <option value="/inventory/addinventory">Add new Inventory</option>
-                            <option value="/inventory/request">Manage Inventory Request</option>
-                            <option value="/inventory/all">Manage Inventory</option>
-
-                            
-                        </optgroup>
-                    </select>
-               
-                </div>
-            )}
+           <SideBar/>
+            
+            
             {/* Header */}
             <div className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', backgroundColor: '#f0f0f0', flexGrow: 1 }}>
                 <div className="logo">
@@ -476,7 +278,7 @@ const Preview = () => {
           height: '30px',
           width: '100px',
           border: 'none',
-          background: isListening ? 'red' : buttonColor, // Change color to red when listening
+          background: isListening ? 'black' : buttonColor, // Change color to red when listening
           borderRadius: '20px',
           cursor: 'pointer',
           animation: 'scale 1s infinite', // Apply animation

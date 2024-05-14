@@ -245,13 +245,8 @@
   }
   
 
-  .buttonlinkcontainer {
   
-    flex-direction: column;
-    align-items: center; /* Vertically center align the buttons */
-    justify-content: center; /* Horizontally center align the buttons */
-     /* Set the height to 100% of the viewport height */
-  }
+
   
   .buttonlink {
     display: inline-block;
@@ -263,6 +258,7 @@
     border-radius: 1%;
     margin: 10px; /* Adjust margin between buttons */
     transition: background-color 0.3s ease;
+    align-items: center;
   }
   
   .buttonlink:hover {

@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ProductDashboard.module.css';
 import Header from '../Header';
 import Sidebar from '../Sidebar';
-
+import axios from 'axios'; // Import axios for making HTTP requests
 
 function ProductDashboard() {
     const [voiceCommand, setVoiceCommand] = useState('');
-    const [buttonColor, setButtonColor] = useState('#1b1b1cde');
+    const [buttonColor, setButtonColor] = useState('#524A4E');
     const [currentColor, setCurrentColor] = useState('#FF342B');
     const [isListening, setIsListening] = useState(false); // State to track if microphone is active
-
+    const [productCounts, setProductCounts] = useState({
+        shirts: 0,
+        trousers: 0,
+        suits: 0,
+        bows: 0,
+        ties: 0
+    });
     // Function to parse voice command and redirect accordingly
     const handleVoiceCommand = (command) => {
         let responseText = '';
@@ -26,14 +32,6 @@ function ProductDashboard() {
             case 'open preview all products':
                 window.location.href = '/product/all'; // Redirect to preview all products page
                 responseText = 'Directing to preview all products';
-                break;
-            case 'open buy products':
-                window.location.href = '/product/buyproducts'; // Redirect to buy products page
-                responseText = 'Directing to buy products';
-                break;
-            case 'open rent products':
-                window.location.href = '/product/rentproducts'; // Redirect to rent products page
-                responseText = 'Directing to rent products';
                 break;
             default:
                 responseText = "Sorry, I couldn't understand that. Please try again.";
@@ -67,29 +65,70 @@ function ProductDashboard() {
         const utterance = new SpeechSynthesisUtterance(text);
         speechSynthesis.speak(utterance);
     };
+    useEffect(() => {
+        // Fetch product counts from the server
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:8075/product/all");
+                // Assuming the response data is an array of products
+                const products = response.data;
+
+                // Calculate counts for different product types
+                const counts = {
+                    shirts: products.filter(product => product.category === 'shirt').length,
+                    trousers: products.filter(product => product.category === 'trousers').length,
+                    suits: products.filter(product => product.category === 'suit').length,
+                    bows: products.filter(product => product.category === 'bow').length,
+                    ties: products.filter(product => product.category === 'tie').length
+                };
+
+                setProductCounts(counts);
+            } catch (error) {
+                console.error('Error fetching product data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+     // Utility function to generate random colors
+     const fixedColors = ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#ccd5ae'];
 
     return (
-        <div style={{  }}>
+        <div style={{}}>
             <div>
-                <Header/>
+                <Header />
             </div>
             <div className={styles.heading}>
-           
-  <h1>Welcome to Product Dashboard</h1>
-</div>
-<div className="buttonlinkcontainer">
-  <Link to="/product/add" className={styles.buttonlink}>Upload Product</Link>
-  <br />
-  <Link to="/product/generate-report" className={styles.buttonlink}>Generate Report</Link>
-  <br />
-  <Link to="/product/all" className={styles.buttonlink}>Preview All Products</Link>
-  <br />
-  <Link to="/product/buyproducts" className={styles.buttonlink}>Buy Products</Link>
-  <br />
-  <Link to="/product/rentproducts" className={styles.buttonlink}>Rent Products</Link>
-  <br />
+                <h1>Welcome to Product Dashboard</h1>
+            </div>
+            <div className="buttonlinkcontainer">
+                {/* Links to different product pages */}
+            </div>
+
+            <div style={{ margin: '20px auto', width: '100%', maxWidth: '600px', height: '300px', border: '3px solid #000', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    {/* Bars */}
+    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', height: '100%', position: 'relative' }}>
+        {Object.entries(productCounts).map(([productType, count], index) => (
+            <div key={productType} style={{ width: 'calc(100% / 5)', textAlign: 'center', position: 'relative' }}>
+                <div style={{ backgroundColor: fixedColors[index % fixedColors.length], width: '50%', height: `${(count / Math.max(...Object.values(productCounts))) * 100}%`, margin: '0 auto', position: 'absolute', bottom: '0', left: '25%' }}></div>
+                <div style={{ marginTop: '300px', marginBottom: '5px', fontSize: '14px', fontWeight: 'bold' }}>{productType}</div>
+                <div style={{ marginTop: '10px' }}>{count}</div>
+            </div>
+        ))}
+    </div>
 </div>
 
+<div className="buttonlinkcontainer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop : "5%" }}>
+  <Link to="/product/add" className={styles.buttonlink}>Upload Product</Link>
+  
+  <Link to="/product/generate-report" className={styles.buttonlink}>Generate Report</Link>
+
+  <Link to="/product/all" className={styles.buttonlink}>Preview All Products</Link>
+</div>
+
+
+
+            {/* Voice recognition button */}
             <button
                 style={{
                     position: 'fixed',
@@ -103,7 +142,7 @@ function ProductDashboard() {
                     height: '30px',
                     width: '100px',
                     border: 'none',
-                    background: isListening ? 'red' : buttonColor, // Change color to red when listening
+                    background: isListening ? 'black' : buttonColor, // Change color to red when listening
                     borderRadius: '20px',
                     cursor: 'pointer',
                     animation: 'scale 1s infinite', // Apply animation
