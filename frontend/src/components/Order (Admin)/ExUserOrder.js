@@ -188,11 +188,10 @@ const OrderForm = () => {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style={{ borderRadius: 0 }}
               >
                 Select Form
               </button>
-              <ul className="dropdown-menu" style={{ borderRadius: 0 }}>
+              <ul className="dropdown-menu">
                 <li>
                   <Link to="/AddOrderNewUser" className="dropdown-item">
                     New User Order
@@ -234,13 +233,13 @@ const OrderForm = () => {
                   value={searchTerm}
                   onChange={handleSearchChange}
                   placeholder="Search or Select User ID"
-                  style={{ borderRadius: 0 }} // Apply CSS for border radius
+                  // Apply CSS for border radius
                 />
                 <select
                   className="form-select mt-2"
                   onChange={handleUserIDChange}
                   value={formData.orderDetails.UserID}
-                  style={{ borderRadius: 0 }} // Apply CSS for border radius
+                  // Apply CSS for border radius
                 >
                   <option value="" disabled>
                     Select User ID
@@ -315,17 +314,12 @@ const OrderForm = () => {
                   className="form-select"
                   onChange={handleProductIDChange}
                   value={formData.orderDetails.ProductID}
-                  style={{ borderRadius: 0 }}
                 >
                   <option value="" disabled>
                     Select Product ID
                   </option>
                   {filteredProductIDs.map((productID) => (
-                    <option
-                      key={productID}
-                      value={productID}
-                      style={{ borderRadius: 0 }}
-                    >
+                    <option key={productID} value={productID}>
                       {productID}
                     </option>
                   ))}
@@ -380,16 +374,11 @@ const OrderForm = () => {
                     name="Description"
                     value={formData.orderDetails.Description}
                     onChange={handleChange}
-                    style={{ borderRadius: 0 }}
                   />
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className="btn btn-dark"
-                style={{ borderRadius: 0 }}
-              >
+              <button type="submit" className="btn btn-dark">
                 Submit
               </button>
             </form>

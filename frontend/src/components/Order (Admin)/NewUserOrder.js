@@ -155,11 +155,10 @@ const OrderAndUserForm = () => {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style={{ borderRadius: 0 }}
               >
                 Select Form
               </button>
-              <ul className="dropdown-menu" style={{ borderRadius: 0 }}>
+              <ul className="dropdown-menu">
                 <li>
                   <Link to="/AddOrderNewUser" className="dropdown-item">
                     New User Order
@@ -186,6 +185,7 @@ const OrderAndUserForm = () => {
               </ul>
             </div>
           </div>
+
           <div className="col-sm-8">
             <form onSubmit={handleSubmit}>
               <h3>User Details</h3>
@@ -336,11 +336,7 @@ const OrderAndUserForm = () => {
                   </div>
                 </div>
               </div>
-              <button
-                type="submit"
-                className="btn btn-dark mt-3"
-                style={{ borderRadius: 0 }}
-              >
+              <button type="submit" className="btn btn-dark mt-3">
                 Submit
               </button>
               <div style={{ height: "34px" }}></div>

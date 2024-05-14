@@ -101,11 +101,10 @@ const AllRentals = () => {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style={{ borderRadius: 0 }}
               >
                 Select Table
               </button>
-              <ul class="dropdown-menu" style={{ borderRadius: 0 }}>
+              <ul class="dropdown-menu">
                 <li>
                   <Link to="/ManageOrder" className="dropdown-item">
                     Orders
@@ -166,7 +165,6 @@ const AllRentals = () => {
                     variant="danger"
                     onClick={() => handleDeleteRental(rental._id, rental.Type)}
                     disabled={rental.Type.toLowerCase() !== "manual"}
-                    style={{ borderRadius: 0 }}
                   >
                     Delete
                   </Button>
@@ -175,7 +173,6 @@ const AllRentals = () => {
                   <Button
                     variant="primary"
                     onClick={() => handleViewDetails(rental)}
-                    style={{ borderRadius: 0 }}
                   >
                     More
                   </Button>

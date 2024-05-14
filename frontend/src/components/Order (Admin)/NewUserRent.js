@@ -179,7 +179,6 @@ const RentAndUserForm = () => {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style={{ borderRadius: "0" }}
               >
                 Select Form
               </button>

@@ -143,11 +143,10 @@ const OrderList = () => {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style={{ borderRadius: 0 }}
               >
                 Select Table
               </button>
-              <ul className="dropdown-menu" style={{ borderRadius: 0 }}>
+              <ul className="dropdown-menu">
                 <li>
                   <Link to="/ManageOrder" className="dropdown-item">
                     Orders
@@ -214,7 +213,6 @@ const OrderList = () => {
                           order.ProductName
                         )
                       }
-                      style={{ borderRadius: 0 }} // Apply CSS for border radius
                     >
                       Pending
                     </Button>
@@ -224,7 +222,6 @@ const OrderList = () => {
                   <Button
                     variant="primary"
                     onClick={() => handleViewDetails(order)}
-                    style={{ borderRadius: 0 }} // Apply CSS for border radius
                   >
                     More
                   </Button>
@@ -267,7 +264,6 @@ const OrderList = () => {
                     <Button
                       variant="success"
                       onClick={() => handleStatusChange(order._id, "Finished")}
-                      style={{ borderRadius: 0 }} // Apply CSS for border radius
                     >
                       Finish
                     </Button>
@@ -277,7 +273,6 @@ const OrderList = () => {
                   <Button
                     variant="primary"
                     onClick={() => handleViewDetails(order)}
-                    style={{ borderRadius: 0 }} // Apply CSS for border radius
                   >
                     More
                   </Button>

@@ -219,7 +219,6 @@ const Report = () => {
             <button
               onClick={handleDownloadPDF}
               className="btn btn-primary float-right mt-3"
-              style={{ borderRadius: 0 }}
             >
               Download Report
             </button>

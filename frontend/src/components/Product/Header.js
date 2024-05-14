@@ -112,7 +112,7 @@ const routes = [
   },
 
   {
-    path: "/product/dashboard",
+    path: "/ReportOrder",
     name: "Orders & Rentals",
     icon: <BsCartCheck />,
     exact: true,
@@ -133,7 +133,7 @@ const routes = [
         icon: <FaLock />,
       },
       {
-        path: "/product/generate-report",
+        path: "/ReportOrder",
         name: "Report",
         icon: <FaClipboardList />,
       },

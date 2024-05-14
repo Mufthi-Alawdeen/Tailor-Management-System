@@ -83,8 +83,7 @@
     /* Adjust the padding as needed */
 }
 
-.editform1 input[type="text"],
-input[type="email"] {
+.editform1 input[type="text"] {
     width: 65%;
     padding: 6px;
     font-size: 15px;

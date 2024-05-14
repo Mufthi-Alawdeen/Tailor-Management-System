@@ -94,11 +94,10 @@ const RentalList = () => {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style={{ borderRadius: 0 }}
               >
                 Select Table
               </button>
-              <ul className="dropdown-menu" style={{ borderRadius: 0 }}>
+              <ul className="dropdown-menu">
                 <li>
                   <Link to="/ManageOrder" className="dropdown-item">
                     Orders
@@ -163,7 +162,6 @@ const RentalList = () => {
                           onClick={() =>
                             handleStatusChange(rental._id, "returned")
                           }
-                          style={{ borderRadius: 0 }} // Apply CSS for border radius
                         >
                           Return
                         </Button>
@@ -173,7 +171,6 @@ const RentalList = () => {
                       <Button
                         variant="primary"
                         onClick={() => handleViewDetails(rental)}
-                        style={{ borderRadius: 0 }} // Apply CSS for border radius
                       >
                         View
                       </Button>

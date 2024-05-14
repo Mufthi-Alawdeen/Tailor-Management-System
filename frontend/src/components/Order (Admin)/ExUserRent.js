@@ -225,7 +225,6 @@ const RentForm = () => {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style={{ borderRadius: 0 }}
               >
                 Select Form
               </button>
@@ -271,13 +270,11 @@ const RentForm = () => {
                   value={searchTerm}
                   onChange={handleSearchChange}
                   placeholder="Search or Select User ID"
-                  style={{ borderRadius: 0 }}
                 />
                 <select
                   className="form-select mt-2"
                   onChange={handleUserIDChange}
                   value={formData.UserID}
-                  style={{ borderRadius: 0 }}
                 >
                   <option value="" disabled>
                     Select User ID
@@ -387,7 +384,6 @@ const RentForm = () => {
                   name="ProductID"
                   value={formData.ProductID}
                   onChange={handleChange}
-                  style={{ borderRadius: 0 }}
                   hidden
                 />
               </div>
@@ -405,7 +401,6 @@ const RentForm = () => {
                     onChange={handleChange}
                     min={currentDate}
                     required
-                    style={{ borderRadius: 0 }}
                   />
                 </div>
                 <div className="col-md-6 mb-3">
@@ -420,16 +415,11 @@ const RentForm = () => {
                     onChange={handleChange}
                     min={formData.PickupDate}
                     required
-                    style={{ borderRadius: 0 }}
                   />
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className="btn btn-dark"
-                style={{ borderRadius: 0 }}
-              >
+              <button type="submit" className="btn btn-dark">
                 Submit
               </button>
             </form>
