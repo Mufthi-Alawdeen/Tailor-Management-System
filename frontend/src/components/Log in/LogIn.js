@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Logo from "../Inquiry/Img/MSR.png"
+import Logo from "../Inquiry/Img/MSR.png";
+import bgImage from "./img/loginbg.jpg";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -15,31 +16,29 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post(
-            "http://localhost:8075/onlineuser/login",
-            formData
+      const response = await axios.post(
+        "http://localhost:8075/onlineuser/login",
+        formData
+      );
+      if (response.data.success && response.data.user) {
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify(response.data.user)
         );
-        if (response.data.success && response.data.user) {
-            // Save user details in local storage
-            localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
-            
-            // Redirect to specific page based on user type
-            if (response.data.user.Role === "Admin") {
-                window.location.href = "/AdminDashboard"; // Redirect to admin dashboard page
-            } else {
-                window.location.href = "/Home"; // Redirect to default page for non-admin users
-            }
+        if (response.data.user.Role === "Admin") {
+          window.location.href = "/AdminDashboard";
         } else {
-            setError("Invalid email or password");
+          window.location.href = "/";
         }
+      } else {
+        setError("Invalid email or password");
+      }
     } catch (error) {
-        console.error("Error logging in:", error);
-        setError("An error occurred while logging in");
+      console.error("Error logging in:", error);
+      setError("An error occurred while logging in");
     }
-};
+  };
 
-
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -49,58 +48,110 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="container mt-5" >
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card" style={{borderRadius:'0px', marginBottom:'30px' , padding:'20px' }}>
-          <img src={Logo} style={{ width: '80px', margin: '0 auto', display: 'block', marginTop:'5px'}}></img>
-          <hr></hr>
-            <div className="card-body">
-              <h2 className="mb-4" style={{textAlign:'center', textDecoration:'underline', marginTop:'-10px'}}>Login</h2>
-              {error && <div className="alert alert-danger">{error}</div>}
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3" style={{display:'grid', marginLeft:'20px', marginTop:'40px'}}>
-                  <label style={{fontWeight:'600', fontSize:'17px'}} className="form-label">Email:</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    name="Email"
-                    value={formData.Email}
-                    onChange={handleChange}
-                    required
-                    style={{width:'95%', padding:'8px'}}
-                  />
-                </div>
-                <div className="mb-3" style={{marginLeft:'20px', marginTop:'20px'}}>
-                  <label style={{fontWeight:'600', fontSize:'17px'}} className="form-label">Password:</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="Password"
-                    value={formData.Password}
-                    onChange={handleChange}
-                    required
-                    style={{width:'95%', padding:'8px'}}
-                  />
-                </div>
-                <div style={{marginBottom:'30px'}}> 
-                <button type="submit" className="btn btn-primary" style={{border:'none',display: 'block', margin: '0 auto', width:'26%', padding:'13px',backgroundColor:'black', borderRadius:'0px', fontWeight:'650', fontSize:'19px', marginTop:'35px'}}>
-                  Login
-                </button>
-                </div>
-              </form>
-              <p className="mt-3" style={{textAlign:'center', marginTop:'25px'}}>
-                Don't have an account? <Link to="/signin">Sign Up</Link>
+    <div
+      className="position-relative d-flex align-items-center justify-content-center vh-100"
+      style={{ backgroundImage: `url(${bgImage})`, backgroundSize: "cover" }}
+    >
+      <div className="position-absolute w-100 h-100" style={{ zIndex: -1 }}>
+        <div
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.002)",
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+          }}
+        ></div>
+      </div>
+      <div
+        className="card shadow-lg border-0 rounded p-4"
+        style={{
+          maxWidth: "400px",
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          marginTop: "50px",
+          marginBottom: "50px",
+        }}
+      >
+        <div className="card-body text-white">
+          <img
+            src={Logo}
+            alt="Logo"
+            className="mb-3 mx-auto d-block"
+            style={{ width: "60px" }}
+          />
+          <h2 className="text-center mb-3">Login</h2>
+          {error && <div className="alert alert-danger">{error}</div>}
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                className="form-control shadow-sm bg-transparent text-white"
+                id="email"
+                name="Email"
+                value={formData.Email}
+                onChange={handleChange}
+                placeholder="Email"
+                style={{ borderBottom: "1px solid white", color: "white" }}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                className="form-control shadow-sm bg-transparent text-white"
+                id="password"
+                name="Password"
+                value={formData.Password}
+                onChange={handleChange}
+                placeholder="Password"
+                style={{ borderBottom: "1px solid white", color: "white" }}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary btn-block"
+              style={{
+                width: "100%",
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                border: "1px solid white",
+              }}
+            >
+              Login
+            </button>
+          </form>
+          <div style={{ marginTop: "30px" }}>
+            <p className="text-center mt-3">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                <b>Sign Up</b>
+              </Link>
+            </p>
+            <p className="text-center">
+              Forgot your password?{" "}
+              <Link
+                to="/resetPW"
+                className="text-white"
+                style={{ textDecoration: "none" }}
+              >
+                <b>Reset</b>
+              </Link>
+            </p>
+            <div style={{ marginTop: "30px" }}>
+              <p className="text-center mt-3">
+                <Link
+                  to="/employee/login"
+                  className="text-white"
+                  style={{ textDecoration: "none" }}
+                >
+                  <b>Log In As An Employee</b>
+                </Link>
               </p>
-              <p className="mt-3" style={{textAlign:'center', marginTop:'25px'}}>
-                Forgot your password? <Link to="/resetPW">Reset</Link>
-              </p>
-              <div style={{ marginTop:'35px'}}>
-              <p className="mt-3" style={{textAlign:'center', fontWeight:'600', fontSize:'17px'}}>
-                 <Link to="/employee/login"> Log In As An Employee</Link>
-              </p>
-              </div>
-              
             </div>
           </div>
         </div>
@@ -110,4 +161,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
- 

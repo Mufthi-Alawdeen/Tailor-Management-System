@@ -42,13 +42,15 @@ const Report = () => {
 
   const fetchData = async () => {
     try {
-      // Fetch orders
       const ordersResponse = await axios.get(
         "http://localhost:8075/order/getAllOrders"
       );
+      const transactionsResponse = await axios.get(
+        "http://localhost:8075/transaction/getAllTransactions"
+      );
       const orders = ordersResponse.data;
+      const transactions = transactionsResponse.data;
 
-      // Get current month's orders
       const currentMonthOrders = orders.filter((order) => {
         const orderDate = new Date(order.OrderDate);
         const currentDate = new Date();
@@ -58,7 +60,6 @@ const Report = () => {
         );
       });
 
-      // Count new, pending, and finished orders
       const newOrders = currentMonthOrders.filter(
         (order) => order.Status === "New"
       );
@@ -69,21 +70,20 @@ const Report = () => {
         (order) => order.Status === "Finished"
       );
 
-      // Count online and manual orders
       const onlineOrders = currentMonthOrders.filter(
-        (order) => order.Type === "Online"
+        (order) => order.Type === "online"
       );
       const manualOrders = currentMonthOrders.filter(
         (order) => order.Type === "Manual"
       );
 
-      // Calculate total profit from finished orders
-      const totalOrderProfit = finishedOrders.reduce(
-        (acc, order) => acc + order.TotalAmount,
-        0
-      );
+      const totalOrderProfit = finishedOrders.reduce((acc, order) => {
+        const transaction = transactions.find(
+          (trans) => trans.TransactionID === order.TransactionID
+        );
+        return acc + (transaction ? transaction.Amount : 0);
+      }, 0);
 
-      // Set state for order-related data
       setNewOrdersCount(newOrders.length);
       setPendingOrdersCount(pendingOrders.length);
       setFinishedOrdersCount(finishedOrders.length);
@@ -91,21 +91,23 @@ const Report = () => {
       setOnlineOrdersCount(onlineOrders.length);
       setManualOrdersCount(manualOrders.length);
     } catch (error) {
-      console.error("Error fetching orders:", error);
+      console.error("Error fetching orders or transactions:", error);
     }
   };
 
   const fetchRent = async () => {
     try {
-      // Fetch rentals
       const rentalsResponse = await axios.get(
         "http://localhost:8075/rent/getAllRents"
       );
+      const transactionsResponse = await axios.get(
+        "http://localhost:8075/transaction/getAllTransactions"
+      );
       const rentals = rentalsResponse.data;
+      const transactions = transactionsResponse.data;
 
-      // Get current month's rentals
       const currentMonthRentals = rentals.filter((rental) => {
-        const rentalDate = new Date(rental.RentDate);
+        const rentalDate = new Date(rental.PickupDate);
         const currentDate = new Date();
         return (
           rentalDate.getMonth() === currentDate.getMonth() &&
@@ -113,7 +115,6 @@ const Report = () => {
         );
       });
 
-      // Count rented and returned cloths
       const rentedCloths = currentMonthRentals.filter(
         (rental) => rental.Status === "Rented"
       );
@@ -121,7 +122,6 @@ const Report = () => {
         (rental) => rental.Status === "returned"
       );
 
-      // Count online and manual rentals
       const onlineRentals = currentMonthRentals.filter(
         (rental) => rental.Type === "Online"
       );
@@ -129,26 +129,26 @@ const Report = () => {
         (rental) => rental.Type === "Manual"
       );
 
-      // Calculate total rent profit from returned cloths
-      const totalRentProfit = returnedCloths.reduce(
-        (acc, rental) => acc + rental.Payment,
-        0
-      );
+      const totalRentProfit = returnedCloths.reduce((acc, rental) => {
+        const transaction = transactions.find(
+          (trans) => trans.TransactionID === rental.TransactionID
+        );
+        return acc + (transaction ? transaction.Amount : 0);
+      }, 0);
 
-      // Set state for rental-related data
       setRentedClothsCount(rentedCloths.length);
       setReturnedClothsCount(returnedCloths.length);
       setTotalRentProfit(totalRentProfit);
       setOnlineRentalsCount(onlineRentals.length);
       setManualRentalsCount(manualRentals.length);
     } catch (error) {
-      console.error("Error fetching rentals:", error);
+      console.error("Error fetching rentals or transactions:", error);
     }
   };
 
   const handleDownloadPDF = () => {
     const element = document.getElementById("report");
-    const filename = "Order_and_Rental_Report.pdf"; // Specify the filename here
+    const filename = "Order_and_Rental_Report.pdf";
     html2pdf().from(element).save(filename);
   };
 

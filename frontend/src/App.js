@@ -93,7 +93,7 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/Home" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/product/dashboard" element={<ProductDashboard />} />
           <Route path="/product/add" element={<ProductUpload />} />
           <Route
@@ -173,7 +173,7 @@ function App() {
           />
           <Route path="/order/cart" exact element={<Cart />} />
           <Route path="/order/Checkout" exact element={<Checkout />} />
-          <Route path="/AddOrderNewUser" element={<OrderAndUserForm />} />
+          <Route path="/OrderAdmin" element={<OrderAndUserForm />} />
           <Route path="/AddOrderExUser" element={<OrderExUserForm />} />
           <Route path="/AddRentNewUser" element={<RentAndUserForm />} />
           <Route path="/AddRentExUser" element={<RentExUserForm />} />
@@ -211,8 +211,8 @@ function App() {
           <Route path="/user/all" exact element={<UserTable />} />
           <Route path="/user/dashboard" exact element={<UserDashboard />} />
           <Route path="/AdminDashboard" exact element={<Ad_Dashboard />} />
-          <Route path="/signin" exact element={<UserForm />} />
-          <Route path="/" exact element={<LoginForm />} />
+          <Route path="/signup" exact element={<UserForm />} />
+          <Route path="/login" exact element={<LoginForm />} />
           <Route path="/profile" exact element={<UserProfile />} />
           <Route path="/delete" exact element={<DeleteAccount />} />
           <Route path="/resetPW" exact element={<ResetPassword />} />

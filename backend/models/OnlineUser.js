@@ -21,10 +21,10 @@ const usersSchema = new Schema({
     required: true,
     unique: true,
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(v); // Email format validation
       },
-      message: props => `${props.value} is not a valid email address!`,
+      message: (props) => `${props.value} is not a valid email address!`,
     },
   },
   Address: {
@@ -35,10 +35,10 @@ const usersSchema = new Schema({
     type: String,
     required: true,
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         return /^\d{10}$/.test(v); // Contact number format validation (10 digits)
       },
-      message: props => `${props.value} is not a valid contact number!`,
+      message: (props) => `${props.value} is not a valid contact number!`,
     },
   },
   Type: {
@@ -52,37 +52,40 @@ const usersSchema = new Schema({
   Password: {
     type: String,
     required: true,
-    minlength: [6, 'Password must be at least 6 characters long'], // Minimum length validation
+    minlength: [6, "Password must be at least 6 characters long"], // Minimum length validation
   },
   ConfirmPassword: {
     type: String,
     required: false,
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         // Validate if confirm password matches password field
         return v === this.Password;
       },
-      message: () => 'Confirm password does not match the password!',
+      message: () => "Confirm password does not match the password!",
     },
   },
 });
 
 // Pre-save middleware to generate UserID
-usersSchema.pre('save', async function (next) {
+usersSchema.pre("save", async function (next) {
   try {
     // Check if this is a new document
     if (this.isNew) {
       // Find the document with the highest UserID
-      const highestUser = await mongoose.model('OnlineUsers')
+      const highestUser = await mongoose
+        .model("OnlineUsers")
         .findOne({}, { UserID: 1 }) // Only retrieve the UserID field
-        .sort({ UserID: -1 }) // Sort in descending order to get the highest UserID first
+        .sort({ UserID: +1 }); // Sort in descending order to get the highest UserID first
 
       // If there are no documents or UserID is not found, start from 1
       let highestUserIDNumber = 0;
       if (highestUser && highestUser.UserID) {
-        // Extract the numeric part of the UserID
-        const numericPart = parseInt(highestUser.UserID.substr(2)); 
-        highestUserIDNumber = isNaN(numericPart) ? 0 : numericPart;
+        // Extract the numeric part of the UserID and increment it by 1
+        const match = highestUser.UserID.match(/(\d+)$/);
+        if (match) {
+          highestUserIDNumber = parseInt(match[0]);
+        }
       }
 
       // Generate the next UserID by incrementing the highest UserID by 1
@@ -94,9 +97,6 @@ usersSchema.pre('save', async function (next) {
     next(error);
   }
 });
-
-
-
 
 const OnlineUsers = mongoose.model("OnlineUsers", usersSchema);
 
