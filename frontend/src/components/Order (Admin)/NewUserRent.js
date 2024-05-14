@@ -7,6 +7,7 @@ import {
   generateRentID,
   generateTransactionID,
 } from "../../utils/genId";
+import Header from "../Product/Header";
 
 const RentAndUserForm = () => {
   const initialUserID = generateUserID();
@@ -166,198 +167,201 @@ const RentAndUserForm = () => {
   };
 
   return (
-    <div className="container col-md-10">
-      <div style={{ height: "34px" }}></div>
-      <div className="row">
-        <div className="col-2">
-          <div className="dropdown">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style={{ borderRadius: "0" }}
-            >
-              Select Form
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <Link to="/" className="dropdown-item">
-                  New User Order
-                </Link>
-              </li>
-              <li>
-                <Link to="/AddOrderExUser" className="dropdown-item">
-                  Existing User Order
-                </Link>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <Link to="/AddRentNewUser" className="dropdown-item">
-                  New User Rental
-                </Link>
-              </li>
-              <li>
-                <Link to="/AddRentExUser" className="dropdown-item">
-                  Existing User Rental
-                </Link>
-              </li>
-            </ul>
+    <div>
+      <Header />
+      <div className="container col-md-10">
+        <div style={{ height: "34px" }}></div>
+        <div className="row">
+          <div className="col-2">
+            <div className="dropdown">
+              <button
+                className="btn btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style={{ borderRadius: "0" }}
+              >
+                Select Form
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link to="/AddOrderNewUser" className="dropdown-item">
+                    New User Order
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/AddOrderExUser" className="dropdown-item">
+                    Existing User Order
+                  </Link>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li>
+                  <Link to="/AddRentNewUser" className="dropdown-item">
+                    New User Rental
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/AddRentExUser" className="dropdown-item">
+                    Existing User Rental
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div className="col-8">
-          <form onSubmit={handleSubmit}>
-            <h3>User Details</h3>
-            <div className="mb-3">
-              <label className="form-label">User ID:</label>
-              <input
-                type="text"
-                className="form-control"
-                name="UserID"
-                value={userDetails.UserID}
-                onChange={handleUserChange}
-                disabled
-              />
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">First Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="FirstName"
-                    value={userDetails.FirstName}
-                    onChange={handleUserChange}
-                    required
-                  />
+          <div className="col-8">
+            <form onSubmit={handleSubmit}>
+              <h3>User Details</h3>
+              <div className="mb-3">
+                <label className="form-label">User ID:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="UserID"
+                  value={userDetails.UserID}
+                  onChange={handleUserChange}
+                  disabled
+                />
+              </div>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">First Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="FirstName"
+                      value={userDetails.FirstName}
+                      onChange={handleUserChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Last Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="LastName"
+                      value={userDetails.LastName}
+                      onChange={handleUserChange}
+                      required
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Last Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="LastName"
-                    value={userDetails.LastName}
-                    onChange={handleUserChange}
-                    required
-                  />
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Contact Number:</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="ContactNumber"
+                      value={userDetails.ContactNumber}
+                      onChange={handleUserChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Email:</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      name="Email"
+                      value={userDetails.Email}
+                      onChange={handleUserChange}
+                      required
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Contact Number:</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="ContactNumber"
-                    value={userDetails.ContactNumber}
-                    onChange={handleUserChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Email:</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    name="Email"
-                    value={userDetails.Email}
-                    onChange={handleUserChange}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Address:</label>
-              <input
-                type="text"
-                className="form-control"
-                name="Address"
-                value={userDetails.Address}
-                onChange={handleUserChange}
-                required
-              />
-            </div>
-
-            <h3>Rent Details</h3>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Product Name:</label>
-                  <select
-                    className="form-select"
-                    value={rentDetails.ProductID}
-                    onChange={handleProductSelect}
-                    required
-                  >
-                    <option value="">Select Product</option>
-                    {products.map((product) => (
-                      <option key={product._id} value={product._id}>
-                        {product.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Amount:</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="Amount"
-                    value={transactionDetails.Amount || productPrice}
-                    onChange={handleTransactionChange}
-                    disabled
-                  />
-                </div>
+              <div className="mb-3">
+                <label className="form-label">Address:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="Address"
+                  value={userDetails.Address}
+                  onChange={handleUserChange}
+                  required
+                />
               </div>
 
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Pickup Date:</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="PickupDate"
-                    value={rentDetails.PickupDate}
-                    onChange={handleRentChange}
-                    min={currentDate}
-                    required
-                  />
+              <h3>Rent Details</h3>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Product Name:</label>
+                    <select
+                      className="form-select"
+                      value={rentDetails.ProductID}
+                      onChange={handleProductSelect}
+                      required
+                    >
+                      <option value="">Select Product</option>
+                      {products.map((product) => (
+                        <option key={product._id} value={product._id}>
+                          {product.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Return Date:</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="ReturnDate"
-                    value={rentDetails.ReturnDate}
-                    onChange={handleRentChange}
-                    min={rentDetails.PickupDate}
-                    required
-                  />
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Amount:</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="Amount"
+                      value={transactionDetails.Amount || productPrice}
+                      onChange={handleTransactionChange}
+                      disabled
+                    />
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <button type="submit" className="btn btn-dark mt-3">
-              Submit
-            </button>
-            <div style={{ height: "34px" }}></div>
-          </form>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Pickup Date:</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="PickupDate"
+                      value={rentDetails.PickupDate}
+                      onChange={handleRentChange}
+                      min={currentDate}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Return Date:</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="ReturnDate"
+                      value={rentDetails.ReturnDate}
+                      onChange={handleRentChange}
+                      min={rentDetails.PickupDate}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" className="btn btn-dark mt-3">
+                Submit
+              </button>
+              <div style={{ height: "34px" }}></div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -1,18 +1,23 @@
-
 import { NavLink } from "react-router-dom";
-import { FaAngleDown, FaBars, FaHome, FaUser, FaLock, FaMoneyBill , FaBox ,FaClipboardList} from "react-icons/fa";
+import {
+  FaAngleDown,
+  FaBars,
+  FaHome,
+  FaUser,
+  FaLock,
+  FaMoneyBill,
+  FaBox,
+  FaClipboardList,
+} from "react-icons/fa";
 import { BiSolidSpreadsheet } from "react-icons/bi";
 import { BiCog } from "react-icons/bi";
-import { BsPeopleFill,BsClipboardPlusFill } from "react-icons/bs";
+import { BsPeopleFill, BsClipboardPlusFill } from "react-icons/bs";
 import { BsCartCheck } from "react-icons/bs";
 import { AnimatePresence, motion } from "framer-motion";
 import { LuMessagesSquare } from "react-icons/lu";
 
-import React, { useState, useEffect, useRef } from 'react';
-import MSRLogo from '../../res/MSRLogo.png';
-
-
-
+import React, { useState, useEffect, useRef } from "react";
+import MSRLogo from "../../res/MSRLogo.png";
 
 const menuAnimation = {
   hidden: {
@@ -53,17 +58,18 @@ const routes = [
     name: "Dashboard",
     icon: <FaHome />,
   },
-  
+
   {
     path: "/user/dashboard",
     name: "Users",
     icon: <FaUser />,
     exact: true,
-    subRoutes: [{
-       path: "/user/dashboard",
+    subRoutes: [
+      {
+        path: "/user/dashboard",
         name: "Dashboard",
         icon: <FaHome />,
-    },
+      },
       {
         path: "/user/all",
         name: "Customer Accounts",
@@ -81,11 +87,12 @@ const routes = [
     name: "Product",
     icon: <BsClipboardPlusFill />,
     exact: true,
-    subRoutes: [{
-       path: "/product/dashboard",
+    subRoutes: [
+      {
+        path: "/product/dashboard",
         name: "Dashboard",
         icon: <FaHome />,
-    },
+      },
       {
         path: "/product/add",
         name: "Add Product ",
@@ -109,18 +116,19 @@ const routes = [
     name: "Orders & Rentals",
     icon: <BsCartCheck />,
     exact: true,
-    subRoutes: [{
-       path: "/product/dashboard",
+    subRoutes: [
+      {
+        path: "/ReportOrder",
         name: "Dashboard",
         icon: <FaHome />,
-    },
+      },
       {
-        path: "/product/add",
+        path: "/AddOrderNewUser",
         name: "Add",
         icon: <FaBox />,
       },
       {
-        path: "/product/all",
+        path: "/ManageOrder",
         name: "Manage",
         icon: <FaLock />,
       },
@@ -136,11 +144,12 @@ const routes = [
     name: "Inquiries",
     icon: <LuMessagesSquare />,
     exact: true,
-    subRoutes: [{
-       path: "/inquiry/dashboard",
+    subRoutes: [
+      {
+        path: "/inquiry/dashboard",
         name: "Dashboard",
         icon: <FaHome />,
-    },
+      },
       {
         path: "/inquiry/hradmin/inquiries",
         name: "View Inquiries ",
@@ -159,11 +168,12 @@ const routes = [
     name: "Inventory",
     icon: <BiSolidSpreadsheet />,
     exact: true,
-    subRoutes: [{
-       path: "/inventory/dashboard",
+    subRoutes: [
+      {
+        path: "/inventory/dashboard",
         name: "Dashboard",
         icon: <FaHome />,
-    },
+      },
       {
         path: "/inventory/all",
         name: "Manage Inventory",
@@ -188,12 +198,13 @@ const routes = [
     name: "Employees",
     icon: <BsPeopleFill />,
     exact: true,
-    subRoutes: [{
-       path: "/employee/dashboard",
+    subRoutes: [
+      {
+        path: "/employee/dashboard",
         name: "Dashboard",
         icon: <FaHome />,
-    },
-      
+      },
+
       {
         path: "/employee/add",
         name: "Add Employees",
@@ -211,7 +222,7 @@ const routes = [
         name: "All Leaves",
         icon: <FaBox />,
       },
-      
+
       {
         path: "/employee/report",
         name: "Salary Report",
@@ -281,48 +292,75 @@ const SideBar = ({ children }) => {
       },
     },
   };
-  
+
   const handleLogout = () => {
     // Clear user details from local storage
     localStorage.removeItem("loggedInUser");
     // Redirect to the home page
     window.location.href = "/";
-};
+  };
 
   return (
     <>
-    <div>
-    <div className="SideBar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 25px', backgroundColor: '#f0f0f0', flexGrow: 1}}>
-                <div className="logo">
-                    <img src={MSRLogo} alt="Logo" style={{ width: '60px', height: 'auto', marginLeft: '42px' }} />
-                </div>
+      <div>
+        <div
+          className="SideBar"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "15px 25px",
+            backgroundColor: "#f0f0f0",
+            flexGrow: 1,
+          }}
+        >
+          <div className="logo">
+            <img
+              src={MSRLogo}
+              alt="Logo"
+              style={{ width: "60px", height: "auto", marginLeft: "42px" }}
+            />
+          </div>
 
-                <div className="header-content" style={{ display: 'flex', fontWeight:'700',alignItems: 'center',justifyContent: 'center' , marginTop:'5px', fontFamily:'serif'}}>
-                    {/* Your header content */}
-                    <p style={{color:'#d11002', fontSize:'26px' }}> MSR </p>
-                    <p style={{color:'black', fontSize:'26px', marginLeft:'7px'}}> TAILORS </p>
-                </div>
-                <button
-                    onClick={handleLogout}
-                    className="Btn"
-                    style={{
-                        width: '100px',
-                        height: '40px',
-                        borderRadius: '5px',
-                        border: 'none',
-                        cursor: 'pointer',
-                        backgroundColor: 'black',
-                        color: 'white',
-                        fontSize: '16px',
-                        fontWeight: 'bold',
-                        boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)',
-                        transition: 'background-color 0.3s, color 0.3s, box-shadow 0.3s'
-                    }}
-                >
-                    Logout
-                </button>
-            </div>
-    </div>
+          <div
+            className="header-content"
+            style={{
+              display: "flex",
+              fontWeight: "700",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "5px",
+              fontFamily: "serif",
+            }}
+          >
+            {/* Your header content */}
+            <p style={{ color: "#d11002", fontSize: "26px" }}> MSR </p>
+            <p style={{ color: "black", fontSize: "26px", marginLeft: "7px" }}>
+              {" "}
+              TAILORS{" "}
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="Btn"
+            style={{
+              width: "100px",
+              height: "40px",
+              borderRadius: "5px",
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: "black",
+              color: "white",
+              fontSize: "16px",
+              fontWeight: "bold",
+              boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)",
+              transition: "background-color 0.3s, color 0.3s, box-shadow 0.3s",
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      </div>
       <div className="main-container">
         <motion.div
           animate={{
@@ -345,7 +383,7 @@ const SideBar = ({ children }) => {
                   exit="hidden"
                   className="logo"
                 >
-                 Menu
+                  Menu
                 </motion.h1>
               )}
             </AnimatePresence>
@@ -354,7 +392,7 @@ const SideBar = ({ children }) => {
               <FaBars onClick={toggle} />
             </div>
           </div>
-         
+
           <section className="routes">
             {routes.map((route, index) => {
               if (route.subRoutes) {
@@ -417,7 +455,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
   }, [isOpen]);
 
   return (
-    <> 
+    <>
       <div className="menu" onClick={toggleMenu}>
         <div className="menu_item">
           <div className="icon">{route.icon}</div>
@@ -473,37 +511,29 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
   );
 };
 function Header() {
-   
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const sidebarRef = useRef(null);
 
-    
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const sidebarRef = useRef(null);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
+  useEffect(() => {
+    // Function to handle click outside of sidebar
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsSidebarOpen(false);
+      }
     };
 
-    useEffect(() => {
-        // Function to handle click outside of sidebar
-        const handleClickOutside = (event) => {
-            if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-                setIsSidebarOpen(false);
-            }
-        };
+    // Add event listener for clicks outside of sidebar
+    document.addEventListener("mousedown", handleClickOutside);
 
-        // Add event listener for clicks outside of sidebar
-        document.addEventListener('mousedown', handleClickOutside);
-
-        // Cleanup function to remove event listener
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
-
-    
+    // Cleanup function to remove event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 }
-
-
-
 
 export default SideBar;

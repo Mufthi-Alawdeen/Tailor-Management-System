@@ -3,6 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { generateRentID, generateTransactionID } from "../../utils/genId";
 import { Link } from "react-router-dom";
+import Headers from "../Product/Header";
 
 const RentForm = () => {
   const initialRentID = generateRentID();
@@ -212,224 +213,227 @@ const RentForm = () => {
   }
 
   return (
-    <div className="container col-md-10">
-      <div style={{ height: "34px" }}></div>
-      <div className="row">
-        <div className="col-2">
-          <div className="dropdown">
-            <button
-              className="btn btn-secondary dropdown-toggle btn-box"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style={{ borderRadius: 0 }}
-            >
-              Select Form
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <Link to="/" className="dropdown-item">
-                  New User Order
-                </Link>
-              </li>
-              <li>
-                <Link to="/AddOrderExUser" className="dropdown-item">
-                  Existing User Order
-                </Link>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <Link to="/AddRentNewUser" className="dropdown-item">
-                  New User Rental
-                </Link>
-              </li>
-              <li>
-                <Link to="/AddRentExUser" className="dropdown-item">
-                  Existing User Rental
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="col-8">
-          <h2>Existing User Details</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="UserID" className="form-label">
-                User ID:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="UserID"
-                name="UserID"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                placeholder="Search or Select User ID"
-                style={{ borderRadius: 0 }}
-              />
-              <select
-                className="form-select mt-2"
-                onChange={handleUserIDChange}
-                value={formData.UserID}
+    <div>
+      <Headers />
+      <div className="container col-md-10">
+        <div style={{ height: "34px" }}></div>
+        <div className="row">
+          <div className="col-2">
+            <div className="dropdown">
+              <button
+                className="btn btn-secondary dropdown-toggle btn-box"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
                 style={{ borderRadius: 0 }}
               >
-                <option value="" disabled>
-                  Select User ID
-                </option>
-                {filteredUserIDs.map((userID) => (
-                  <option key={userID} value={userID}>
-                    {userID}
+                Select Form
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link to="/AddOrderNewUser" className="dropdown-item">
+                    New User Order
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/AddOrderExUser" className="dropdown-item">
+                    Existing User Order
+                  </Link>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li>
+                  <Link to="/AddRentNewUser" className="dropdown-item">
+                    New User Rental
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/AddRentExUser" className="dropdown-item">
+                    Existing User Rental
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="col-8">
+            <h2>Existing User Details</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label htmlFor="UserID" className="form-label">
+                  User ID:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="UserID"
+                  name="UserID"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  placeholder="Search or Select User ID"
+                  style={{ borderRadius: 0 }}
+                />
+                <select
+                  className="form-select mt-2"
+                  onChange={handleUserIDChange}
+                  value={formData.UserID}
+                  style={{ borderRadius: 0 }}
+                >
+                  <option value="" disabled>
+                    Select User ID
                   </option>
-                ))}
-              </select>
-            </div>
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <div className="mb-3">
-                  <label className="form-label">First Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="FirstName"
-                    value={selectedUser.FirstName || ""}
-                    disabled
-                  />
+                  {filteredUserIDs.map((userID) => (
+                    <option key={userID} value={userID}>
+                      {userID}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <div className="mb-3">
+                    <label className="form-label">First Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="FirstName"
+                      value={selectedUser.FirstName || ""}
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="mb-3">
+                    <label className="form-label">Last Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="LastName"
+                      value={selectedUser.LastName || ""}
+                      disabled
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="col-md-6 mb-3">
-                <div className="mb-3">
-                  <label className="form-label">Last Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="LastName"
-                    value={selectedUser.LastName || ""}
-                    disabled
-                  />
-                </div>
-              </div>
-            </div>
 
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <div className="mb-3">
-                  <label className="form-label">Contact Number:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="PhoneNumber"
-                    value={selectedUser.ContactNumber || ""}
-                    disabled
-                  />
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <div className="mb-3">
+                    <label className="form-label">Contact Number:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="PhoneNumber"
+                      value={selectedUser.ContactNumber || ""}
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="mb-3">
+                    <label className="form-label">Address:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="Address"
+                      value={selectedUser.Address || ""}
+                      disabled
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="col-md-6 mb-3">
-                <div className="mb-3">
-                  <label className="form-label">Address:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="Address"
-                    value={selectedUser.Address || ""}
-                    disabled
-                  />
+
+              <h2>Add New Rental</h2>
+
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Product Name:</label>
+                    <select
+                      className="form-select"
+                      value={formData.ProductID}
+                      onChange={handleProductSelect}
+                      required
+                    >
+                      <option value="">Select Product</option>
+                      {products.map((product) => (
+                        <option key={product._id} value={product._id}>
+                          {product.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Amount:</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="Amount"
+                      value={transactionDetails.Amount || productPrice}
+                      onChange={handleTransactionChange}
+                      disabled
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <h2>Add New Rental</h2>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="ProductID"
+                  name="ProductID"
+                  value={formData.ProductID}
+                  onChange={handleChange}
+                  style={{ borderRadius: 0 }}
+                  hidden
+                />
+              </div>
 
-            <div className="row">
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Product Name:</label>
-                  <select
-                    className="form-select"
-                    value={formData.ProductID}
-                    onChange={handleProductSelect}
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="PickupDate" className="form-label">
+                    Pickup Date:
+                  </label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="PickupDate"
+                    value={formData.PickupDate}
+                    onChange={handleChange}
+                    min={currentDate}
                     required
-                  >
-                    <option value="">Select Product</option>
-                    {products.map((product) => (
-                      <option key={product._id} value={product._id}>
-                        {product.name}
-                      </option>
-                    ))}
-                  </select>
+                    style={{ borderRadius: 0 }}
+                  />
                 </div>
-              </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Amount:</label>
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="ReturnDate" className="form-label">
+                    Return Date:
+                  </label>
                   <input
-                    type="number"
+                    type="date"
                     className="form-control"
-                    name="Amount"
-                    value={transactionDetails.Amount || productPrice}
-                    onChange={handleTransactionChange}
-                    disabled
+                    name="ReturnDate"
+                    value={formData.ReturnDate}
+                    onChange={handleChange}
+                    min={formData.PickupDate}
+                    required
+                    style={{ borderRadius: 0 }}
                   />
                 </div>
               </div>
-            </div>
 
-            <div className="mb-3">
-              <input
-                type="text"
-                className="form-control"
-                id="ProductID"
-                name="ProductID"
-                value={formData.ProductID}
-                onChange={handleChange}
+              <button
+                type="submit"
+                className="btn btn-dark"
                 style={{ borderRadius: 0 }}
-                hidden
-              />
-            </div>
-
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <label htmlFor="PickupDate" className="form-label">
-                  Pickup Date:
-                </label>
-                <input
-                  type="date"
-                  className="form-control"
-                  name="PickupDate"
-                  value={formData.PickupDate}
-                  onChange={handleChange}
-                  min={currentDate}
-                  required
-                  style={{ borderRadius: 0 }}
-                />
-              </div>
-              <div className="col-md-6 mb-3">
-                <label htmlFor="ReturnDate" className="form-label">
-                  Return Date:
-                </label>
-                <input
-                  type="date"
-                  className="form-control"
-                  name="ReturnDate"
-                  value={formData.ReturnDate}
-                  onChange={handleChange}
-                  min={formData.PickupDate}
-                  required
-                  style={{ borderRadius: 0 }}
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-dark"
-              style={{ borderRadius: 0 }}
-            >
-              Submit
-            </button>
-          </form>
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

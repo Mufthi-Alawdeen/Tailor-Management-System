@@ -141,7 +141,7 @@ function App() {
         <Route path='/order/cart' exact element={<Cart />} />
         <Route path='/order/Checkout' exact element={<Checkout />} />
 
-        <Route path="/OrderAdmin" element={<OrderAndUserForm />} />
+        <Route path="/AddOrderNewUser" element={<OrderAndUserForm />} />
         <Route path="/AddOrderExUser" element={<OrderExUserForm />} />
         <Route path="/AddRentNewUser" element={<RentAndUserForm />} />
         <Route path="/AddRentExUser" element={<RentExUserForm />} />

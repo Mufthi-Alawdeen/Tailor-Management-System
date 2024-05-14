@@ -7,7 +7,7 @@ import {
   generateUserID,
   generateTransactionID,
 } from "../../utils/genId";
-import Header from '../Product/Header';
+import Header from "../Product/Header";
 
 const OrderAndUserForm = () => {
   const initialOrderID = generateOrderID();
@@ -143,209 +143,211 @@ const OrderAndUserForm = () => {
   };
 
   return (
-    <div> 
-      <Header/>
-    <div className="container col-md-10">
-      <div style={{ height: "34px" }}></div>
-      <div className="row">
-        <div className="col-sm-2">
-          <div className="dropdown">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style={{ borderRadius: 0 }}
-            >
-              Select Form
-            </button>
-            <ul className="dropdown-menu" style={{ borderRadius: 0 }}>
-              <li>
-                <Link to="/" className="dropdown-item">
-                  New User Order
-                </Link>
-              </li>
-              <li>
-                <Link to="/AddOrderExUser" className="dropdown-item">
-                  Existing User Order
-                </Link>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <Link to="/AddRentNewUser" className="dropdown-item">
-                  New User Rental
-                </Link>
-              </li>
-              <li>
-                <Link to="/AddRentExUser" className="dropdown-item">
-                  Existing User Rental
-                </Link>
-              </li>
-            </ul>
+    <div>
+      <Header />
+      <div className="container col-md-10">
+        <div style={{ height: "34px" }}></div>
+        <div className="row">
+          <div className="col-sm-2">
+            <div className="dropdown">
+              <button
+                className="btn btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style={{ borderRadius: 0 }}
+              >
+                Select Form
+              </button>
+              <ul className="dropdown-menu" style={{ borderRadius: 0 }}>
+                <li>
+                  <Link to="/AddOrderNewUser" className="dropdown-item">
+                    New User Order
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/AddOrderExUser" className="dropdown-item">
+                    Existing User Order
+                  </Link>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li>
+                  <Link to="/AddRentNewUser" className="dropdown-item">
+                    New User Rental
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/AddRentExUser" className="dropdown-item">
+                    Existing User Rental
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="col-sm-8">
+            <form onSubmit={handleSubmit}>
+              <h3>User Details</h3>
+              <div className="col-md-12">
+                <div className="mb-3">
+                  <label className="form-label">User ID:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="UserID"
+                    value={formDetails.userDetails.UserID}
+                    onChange={(e) => handleInputChange(e, "userDetails")}
+                    disabled
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">First Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="FirstName"
+                      value={formDetails.userDetails.FirstName}
+                      onChange={(e) => handleInputChange(e, "userDetails")}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Last Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="LastName"
+                      value={formDetails.userDetails.LastName}
+                      onChange={(e) => handleInputChange(e, "userDetails")}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Contact Number:</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="ContactNumber"
+                      value={formDetails.userDetails.ContactNumber}
+                      onChange={(e) => handleInputChange(e, "userDetails")}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Email:</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      name="Email"
+                      value={formDetails.userDetails.Email}
+                      onChange={(e) => handleInputChange(e, "userDetails")}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-12">
+                  <div className="mb-3">
+                    <label className="form-label">Address:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="Address"
+                      value={formDetails.userDetails.Address}
+                      onChange={(e) => handleInputChange(e, "userDetails")}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <h3>Order Details</h3>
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="mb-3">
+                    <label htmlFor="ProductID" className="form-label">
+                      Product ID:
+                    </label>
+                    <select
+                      className="form-select"
+                      name="ProductID"
+                      value={formDetails.orderDetails.ProductID}
+                      onChange={(e) => handleInputChange(e, "orderDetails")}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select Product ID
+                      </option>
+                      {formDetails.filteredProductIDs.map((productID) => (
+                        <option key={productID} value={productID}>
+                          {productID}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Total Payment:</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="Amount"
+                      value={formDetails.transactionDetails.Amount}
+                      onChange={(e) =>
+                        handleInputChange(e, "transactionDetails")
+                      }
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="form-label">Pickup Date:</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="PickupDate"
+                      value={formDetails.orderDetails.PickupDate}
+                      onChange={(e) => handleInputChange(e, "orderDetails")}
+                      min={new Date().toISOString().split("T")[0]} // Set min date to today
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-12">
+                  <div className="mb-3">
+                    <label className="form-label">Description:</label>
+                    <textarea
+                      type="text"
+                      className="form-control"
+                      name="Description"
+                      value={formDetails.orderDetails.Description}
+                      onChange={(e) => handleInputChange(e, "orderDetails")}
+                    />
+                  </div>
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="btn btn-dark mt-3"
+                style={{ borderRadius: 0 }}
+              >
+                Submit
+              </button>
+              <div style={{ height: "34px" }}></div>
+            </form>
           </div>
         </div>
-        <div className="col-sm-8">
-          <form onSubmit={handleSubmit}>
-            <h3>User Details</h3>
-            <div className="col-md-12">
-              <div className="mb-3">
-                <label className="form-label">User ID:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="UserID"
-                  value={formDetails.userDetails.UserID}
-                  onChange={(e) => handleInputChange(e, "userDetails")}
-                  disabled
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">First Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="FirstName"
-                    value={formDetails.userDetails.FirstName}
-                    onChange={(e) => handleInputChange(e, "userDetails")}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Last Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="LastName"
-                    value={formDetails.userDetails.LastName}
-                    onChange={(e) => handleInputChange(e, "userDetails")}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Contact Number:</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="ContactNumber"
-                    value={formDetails.userDetails.ContactNumber}
-                    onChange={(e) => handleInputChange(e, "userDetails")}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Email:</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    name="Email"
-                    value={formDetails.userDetails.Email}
-                    onChange={(e) => handleInputChange(e, "userDetails")}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-12">
-                <div className="mb-3">
-                  <label className="form-label">Address:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="Address"
-                    value={formDetails.userDetails.Address}
-                    onChange={(e) => handleInputChange(e, "userDetails")}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <h3>Order Details</h3>
-            <div className="row">
-              <div className="col-md-12">
-                <div className="mb-3">
-                  <label htmlFor="ProductID" className="form-label">
-                    Product ID:
-                  </label>
-                  <select
-                    className="form-select"
-                    name="ProductID"
-                    value={formDetails.orderDetails.ProductID}
-                    onChange={(e) => handleInputChange(e, "orderDetails")}
-                    required
-                  >
-                    <option value="" disabled>
-                      Select Product ID
-                    </option>
-                    {formDetails.filteredProductIDs.map((productID) => (
-                      <option key={productID} value={productID}>
-                        {productID}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Total Payment:</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="Amount"
-                    value={formDetails.transactionDetails.Amount}
-                    onChange={(e) => handleInputChange(e, "transactionDetails")}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Pickup Date:</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="PickupDate"
-                    value={formDetails.orderDetails.PickupDate}
-                    onChange={(e) => handleInputChange(e, "orderDetails")}
-                    min={new Date().toISOString().split("T")[0]} // Set min date to today
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-12">
-                <div className="mb-3">
-                  <label className="form-label">Description:</label>
-                  <textarea
-                    type="text"
-                    className="form-control"
-                    name="Description"
-                    value={formDetails.orderDetails.Description}
-                    onChange={(e) => handleInputChange(e, "orderDetails")}
-                  />
-                </div>
-              </div>
-            </div>
-            <button
-              type="submit"
-              className="btn btn-dark mt-3"
-              style={{ borderRadius: 0 }}
-            >
-              Submit
-            </button>
-            <div style={{ height: "34px" }}></div>
-          </form>
-        </div>
       </div>
-    </div>
     </div>
   );
 };

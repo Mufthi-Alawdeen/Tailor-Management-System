@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { generateOrderID, generateTransactionID } from "../../utils/genId";
 
 import { Link } from "react-router-dom";
+import Header from "../Product/Header";
 
 const OrderForm = () => {
   const initialOrderID = generateOrderID();
@@ -175,222 +176,225 @@ const OrderForm = () => {
   }
 
   return (
-    <div className="container col-md-10">
-      <div style={{ height: "34px" }}></div>
-      <div className="row">
-        <div className="col-2">
-          <div className="dropdown">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style={{ borderRadius: 0 }}
-            >
-              Select Form
-            </button>
-            <ul className="dropdown-menu" style={{ borderRadius: 0 }}>
-              <li>
-                <Link to="/" className="dropdown-item">
-                  New User Order
-                </Link>
-              </li>
-              <li>
-                <Link to="/AddOrderExUser" className="dropdown-item">
-                  Existing User Order
-                </Link>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <Link to="/AddRentNewUser" className="dropdown-item">
-                  New User Rental
-                </Link>
-              </li>
-              <li>
-                <Link to="/AddRentExUser" className="dropdown-item">
-                  Existing User Rental
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="col-8">
-          <form onSubmit={handleSubmit}>
-            <h2>Add User Details</h2>
-            <div className="mb-3">
-              <label htmlFor="UserID" className="form-label">
-                User ID:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="UserID"
-                name="UserID"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                placeholder="Search or Select User ID"
-                style={{ borderRadius: 0 }} // Apply CSS for border radius
-              />
-              <select
-                className="form-select mt-2"
-                onChange={handleUserIDChange}
-                value={formData.orderDetails.UserID}
-                style={{ borderRadius: 0 }} // Apply CSS for border radius
-              >
-                <option value="" disabled>
-                  Select User ID
-                </option>
-                {filteredUserIDs.map((userID) => (
-                  <option key={userID} value={userID}>
-                    {userID}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <div className="mb-3">
-                  <label className="form-label">First Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="FirstName"
-                    value={selectedUser.FirstName || ""}
-                    disabled
-                  />
-                </div>
-              </div>
-              <div className="col-md-6 mb-3">
-                <div className="mb-3">
-                  <label className="form-label">Last Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="LastName"
-                    value={selectedUser.LastName || ""}
-                    disabled
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <div className="mb-3">
-                  <label className="form-label">Conatct Number:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="PhoneNumber"
-                    value={selectedUser.ContactNumber || ""}
-                    disabled
-                  />
-                </div>
-              </div>
-              <div className="col-md-6 mb-3">
-                <div className="mb-3">
-                  <label className="form-label">Address:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="Address"
-                    value={selectedUser.Address || ""}
-                    disabled
-                  />
-                </div>
-              </div>
-            </div>
-
-            <h2>Add New Order</h2>
-            <div className="mb-3">
-              <label htmlFor="ProductName" className="form-label">
-                Product ID:
-              </label>
-              <select
-                className="form-select"
-                onChange={handleProductIDChange}
-                value={formData.orderDetails.ProductID}
+    <div>
+      <Header />
+      <div className="container col-md-10">
+        <div style={{ height: "34px" }}></div>
+        <div className="row">
+          <div className="col-2">
+            <div className="dropdown">
+              <button
+                className="btn btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
                 style={{ borderRadius: 0 }}
               >
-                <option value="" disabled>
-                  Select Product ID
-                </option>
-                {filteredProductIDs.map((productID) => (
-                  <option
-                    key={productID}
-                    value={productID}
-                    style={{ borderRadius: 0 }}
-                  >
-                    {productID}
-                  </option>
-                ))}
-              </select>
+                Select Form
+              </button>
+              <ul className="dropdown-menu" style={{ borderRadius: 0 }}>
+                <li>
+                  <Link to="/AddOrderNewUser" className="dropdown-item">
+                    New User Order
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/AddOrderExUser" className="dropdown-item">
+                    Existing User Order
+                  </Link>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li>
+                  <Link to="/AddRentNewUser" className="dropdown-item">
+                    New User Rental
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/AddRentExUser" className="dropdown-item">
+                    Existing User Rental
+                  </Link>
+                </li>
+              </ul>
             </div>
-
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <label htmlFor="PickupDate" className="form-label">
-                  Pickup Date:
-                </label>
-                <input
-                  type="date"
-                  className="form-control"
-                  name="PickupDate"
-                  value={formData.orderDetails.PickupDate}
-                  onChange={handleChange}
-                  min={new Date().toISOString().split("T")[0]} // Set min date to today
-                  required
-                />
-              </div>
-              <div className="col-md-6 mb-3">
-                <label htmlFor="TotalAmount" className="form-label">
-                  Total Amount:
+          </div>
+          <div className="col-8">
+            <form onSubmit={handleSubmit}>
+              <h2>Add User Details</h2>
+              <div className="mb-3">
+                <label htmlFor="UserID" className="form-label">
+                  User ID:
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="TotalAmount"
-                  name="TotalAmount"
-                  value={formData.transactionDetails.Amount}
-                  onChange={(e) =>
-                    setFormData((prevState) => ({
-                      ...prevState,
-                      transactionDetails: {
-                        ...prevState.transactionDetails,
-                        Amount: e.target.value,
-                      },
-                    }))
-                  }
+                  id="UserID"
+                  name="UserID"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  placeholder="Search or Select User ID"
+                  style={{ borderRadius: 0 }} // Apply CSS for border radius
                 />
+                <select
+                  className="form-select mt-2"
+                  onChange={handleUserIDChange}
+                  value={formData.orderDetails.UserID}
+                  style={{ borderRadius: 0 }} // Apply CSS for border radius
+                >
+                  <option value="" disabled>
+                    Select User ID
+                  </option>
+                  {filteredUserIDs.map((userID) => (
+                    <option key={userID} value={userID}>
+                      {userID}
+                    </option>
+                  ))}
+                </select>
               </div>
-            </div>
-            <div className="row mb-3">
-              <div className="col-md-12">
-                <label htmlFor="Description" className="form-label">
-                  Description:
-                </label>
-                <textarea
-                  className="form-control"
-                  id="Description"
-                  name="Description"
-                  value={formData.orderDetails.Description}
-                  onChange={handleChange}
-                  style={{ borderRadius: 0 }}
-                />
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <div className="mb-3">
+                    <label className="form-label">First Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="FirstName"
+                      value={selectedUser.FirstName || ""}
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="mb-3">
+                    <label className="form-label">Last Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="LastName"
+                      value={selectedUser.LastName || ""}
+                      disabled
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <button
-              type="submit"
-              className="btn btn-dark"
-              style={{ borderRadius: 0 }}
-            >
-              Submit
-            </button>
-          </form>
-          <div style={{ height: "34px" }}></div>
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <div className="mb-3">
+                    <label className="form-label">Conatct Number:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="PhoneNumber"
+                      value={selectedUser.ContactNumber || ""}
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                  <div className="mb-3">
+                    <label className="form-label">Address:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="Address"
+                      value={selectedUser.Address || ""}
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <h2>Add New Order</h2>
+              <div className="mb-3">
+                <label htmlFor="ProductName" className="form-label">
+                  Product ID:
+                </label>
+                <select
+                  className="form-select"
+                  onChange={handleProductIDChange}
+                  value={formData.orderDetails.ProductID}
+                  style={{ borderRadius: 0 }}
+                >
+                  <option value="" disabled>
+                    Select Product ID
+                  </option>
+                  {filteredProductIDs.map((productID) => (
+                    <option
+                      key={productID}
+                      value={productID}
+                      style={{ borderRadius: 0 }}
+                    >
+                      {productID}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="PickupDate" className="form-label">
+                    Pickup Date:
+                  </label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="PickupDate"
+                    value={formData.orderDetails.PickupDate}
+                    onChange={handleChange}
+                    min={new Date().toISOString().split("T")[0]} // Set min date to today
+                    required
+                  />
+                </div>
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="TotalAmount" className="form-label">
+                    Total Amount:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="TotalAmount"
+                    name="TotalAmount"
+                    value={formData.transactionDetails.Amount}
+                    onChange={(e) =>
+                      setFormData((prevState) => ({
+                        ...prevState,
+                        transactionDetails: {
+                          ...prevState.transactionDetails,
+                          Amount: e.target.value,
+                        },
+                      }))
+                    }
+                  />
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col-md-12">
+                  <label htmlFor="Description" className="form-label">
+                    Description:
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="Description"
+                    name="Description"
+                    value={formData.orderDetails.Description}
+                    onChange={handleChange}
+                    style={{ borderRadius: 0 }}
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-dark"
+                style={{ borderRadius: 0 }}
+              >
+                Submit
+              </button>
+            </form>
+            <div style={{ height: "34px" }}></div>
+          </div>
         </div>
       </div>
     </div>
