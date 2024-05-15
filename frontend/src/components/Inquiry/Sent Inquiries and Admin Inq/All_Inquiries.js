@@ -4,6 +4,7 @@ import '../Sent Inquiries and Admin Inq/All_Inquiries.module.css';
 import Swal from 'sweetalert2';
 import styles from '../Sent Inquiries and Admin Inq/All_Inquiries.module.css';
 import Header from "../Contact Us/UserHeader";
+import Footer from "../Contact Us/UserFooter";
 
 // This is the page where user view / update / delete their inquiries
 
@@ -295,6 +296,7 @@ function handleEditClick(inquiry) {
                 </div>
         </div>
         )}
+        <Footer/>
 
         </div>
     );

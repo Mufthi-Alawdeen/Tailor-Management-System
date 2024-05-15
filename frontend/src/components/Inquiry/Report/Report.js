@@ -19,9 +19,7 @@ export default function Report() {
 
   const fetchInquiries = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8075/inquiry/retrieve"
-      );
+      const response = await axios.get("http://localhost:8075/inquiry/retrieve");
       setInquiries(response.data);
     } catch (error) {
       console.error("Error fetching inquiries:", error);
@@ -32,11 +30,7 @@ export default function Report() {
     try {
       const lastMonth = new Date();
       lastMonth.setMonth(lastMonth.getMonth() - 1);
-      const response = await axios.get(
-        `http://localhost:8075/inquiry/retrieve?month=${
-          lastMonth.getMonth() + 1
-        }&year=${lastMonth.getFullYear()}`
-      );
+      const response = await axios.get(`http://localhost:8075/inquiry/retrieve?month=${lastMonth.getMonth() + 1}&year=${lastMonth.getFullYear()}`);
       setLastMonthInquiryCount(response.data.length);
     } catch (error) {
       console.error("Error fetching last month's inquiries:", error);
@@ -47,11 +41,7 @@ export default function Report() {
     try {
       const twoMonthsAgo = new Date();
       twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-      const response = await axios.get(
-        `http://localhost:8075/inquiry/retrieve?month=${
-          twoMonthsAgo.getMonth() + 1
-        }&year=${twoMonthsAgo.getFullYear()}`
-      );
+      const response = await axios.get(`http://localhost:8075/inquiry/retrieve?month=${twoMonthsAgo.getMonth() + 1}&year=${twoMonthsAgo.getFullYear()}`);
       setTwoMonthsAgoInquiryCount(response.data.length);
     } catch (error) {
       console.error("Error fetching two months ago inquiries:", error);
@@ -79,31 +69,21 @@ export default function Report() {
     const currentYear = new Date().getFullYear();
     const currentDay = new Date().getDate();
 
-    const filteredInquiries = inquiries.filter((inquiry) => {
+    const filteredInquiries = inquiries.filter(inquiry => {
       const inquiryDate = new Date(inquiry.createdAt);
       const inquiryMonth = inquiryDate.getMonth();
       const inquiryYear = inquiryDate.getFullYear();
-      return (
-        inquiryMonth === currentMonth &&
-        inquiryYear === currentYear &&
-        inquiryDate.getDate() <= currentDay
-      );
+      return inquiryMonth === currentMonth && inquiryYear === currentYear && inquiryDate.getDate() <= currentDay;
     });
 
-    const repliedCount = filteredInquiries.filter(
-      (inquiry) => inquiry.Reply !== "PENDING"
-    ).length;
-    const pendingCount = filteredInquiries.filter(
-      (inquiry) => inquiry.Reply === "PENDING"
-    ).length;
+    const repliedCount = filteredInquiries.filter(inquiry => inquiry.Reply !== "PENDING").length;
+    const pendingCount = filteredInquiries.filter(inquiry => inquiry.Reply === "PENDING").length;
 
     // Types
     const types = ["Order Issue", "General", "Rent Issues", "Other"];
 
     const typeCounts = types.reduce((acc, type) => {
-      const count = filteredInquiries.filter(
-        (inquiry) => inquiry.Type === type
-      ).length;
+      const count = filteredInquiries.filter(inquiry => inquiry.Type === type).length;
       acc[type] = count;
       return acc;
     }, {});
@@ -140,18 +120,12 @@ export default function Report() {
                 </tr>
               </thead>
               <tbody>
-                ${types
-                  .map(
-                    (type) => `
+                ${types.map(type => `
                   <tr>
                     <td style="padding: 8px; border-bottom: 1px solid #ccc;">${type}</td>
-                    <td style="padding: 8px; border-bottom: 1px solid #ccc;">${
-                      typeCounts[type] || 0
-                    }</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ccc;">${typeCounts[type] || 0}</td>
                   </tr>
-                `
-                  )
-                  .join("")}
+                `).join('')}
               </tbody>
             </table>
           </div>
@@ -200,65 +174,35 @@ export default function Report() {
 
   return (
     <div>
-      <Header />
-      <div
-        style={{
-          marginTop: "80px",
-          border: "1px solid #000000",
-          marginLeft: "90px",
-          marginRight: "40px",
-        }}
-      >
-        <h1
-          style={{
-            textAlign: "center",
-            marginTop: "30px",
-            marginBottom: "30px",
-          }}
-        >
-          Summary Report
-        </h1>
-        <p
-          style={{
-            textAlign: "center",
-            marginTop: "20px",
-            marginLeft: "80px",
-            marginRight: "50px",
-            fontSize: "20px",
-            marginBottom: "30px",
-          }}
-        >
-          This comprehensive report provides an insightful overview of inquiries
-          received by MSR Tailors categorized according to their nature and
-          presents a detailed summary of all inquiries within a 30-day period.
-          By meticulously analyzing the types and volume of inquiries, this
-          report offers valuable insights into customer engagement and
-          satisfaction levels, aiding in strategic decision-making and enhancing
-          overall operational efficiency.
-        </p>
+      <Header/>
+      <div style={{ marginTop:'80px' ,  border: '1px solid #000000' ,marginLeft:'70px', marginRight:'40px' }} >
+        <h1 style={{textAlign:'center' , marginTop:'30px', marginBottom:'30px'}}>Summary Report</h1>
+        <p style={{textAlign:'center', marginTop:'20px' , marginLeft:'50px', marginRight:'50px' , fontSize:'20px',marginBottom:'30px'}} >This comprehensive report provides an insightful overview of inquiries received by MSR Tailors categorized according
+         to their nature and presents a detailed summary of all inquiries within a 30-day period. 
+         By meticulously analyzing the types and volume of inquiries, this report offers valuable insights into customer 
+         engagement and satisfaction levels, aiding in strategic decision-making and enhancing overall operational efficiency.</p>
 
-        <button
-          className="Report_button"
-          style={{
-            display: "block",
-            margin: "0 auto",
-            marginTop: "20px",
-            marginBottom: "30px",
-            padding: "22px",
-            backgroundColor: "#000000",
-            color: "white",
-            border: "none",
-            fontSize: "18px",
-            cursor: "pointer",
-            transition: "background-color 0.3s",
-            fontWeight: "550",
-          }}
-          onClick={generateReport}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#333333")}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = "#000000")}
-        >
-          Download Report
-        </button>
+        <button className="Report_button"
+            style={{ 
+              display: 'block',
+              margin: '0 auto', 
+              marginTop:'20px', 
+              marginBottom:'30px',
+              padding:'22px', 
+              backgroundColor:'#000000', 
+              color:'white', 
+              border:'none', 
+              fontSize:'18px',
+              cursor: 'pointer',
+              transition: 'background-color 0.3s',
+              fontWeight:'550'
+            }} 
+            onClick={generateReport}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#333333'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = '#000000'}>
+
+              Download Report
+       </button>
       </div>
     </div>
   );

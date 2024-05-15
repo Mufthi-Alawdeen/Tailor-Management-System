@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from '../Img/suits.jpg'; // Assuming this is the correct path to your image file
+import Image from '../Img/suits2.jpg'; // Assuming this is the correct path to your image file
 import Image1 from '../Img/blazer.jpg'; 
 import Image2 from '../Img/user.png'; 
 import Header from '../Contact Us/UserHeader';
@@ -12,7 +12,7 @@ const AboutUsPage = () => {
 
   <Header/>
     <div style={styles.container}>
-        <h1 style={{ textAlign:'center' , fontSize:'44px', fontWeight:'600', marginTop:'20px', marginBottom:'50px'}}>About Us</h1>
+        <h1 style={{ textAlign:'center' , fontSize:'44px', fontWeight:'600', marginTop:'20px', marginBottom:'60px'}}>About Us</h1>
 
       <h1 style={styles.heading}>Who We Are</h1>
       <p style={{fontSize: '16px',
@@ -42,10 +42,13 @@ const AboutUsPage = () => {
                  marginTop:'-300px',
                  width:'50%'}}>
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et metus
-        nec magna suscipit sollicitudin. 
+        
+At MSR Tailors, we stand out for three key reasons: personalization, quality assurance, and expert guidance. Each garment is tailored to fit your unique style and body shape, ensuring you look and feel your best. Our meticulous attention to detail and use of premium materials guarantee exceptional and long-lasting pieces. 
       </p>
-      <h2 style={{marginTop:'370px' , textAlign:'center' }}>Meet Our Team</h2>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '300px' }}>
+        <hr style={{ border: '1px solid #000000', width: '60%' }} />
+      </div>
+      <h2 style={{marginTop:'100px' , textAlign:'center' }}>Meet Our Team</h2>
 
     <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={styles.imageBox}>
