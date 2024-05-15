@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import Chart from "chart.js/auto";
 import styles from "./AdminDash.module.css";
 
 export default function DashBoard() {
@@ -13,14 +14,44 @@ export default function DashBoard() {
   const [totalRents, setTotalRents] = useState(0);
   const [onlineRentals, setOnlineRentals] = useState(0);
   const [manualRentals, setManualRentals] = useState(0);
+  const [dailyProfits, setDailyProfits] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
+
+  const orderChartRef = useRef(null);
+  const rentChartRef = useRef(null);
+  const inquiryChartRef = useRef(null);
+  const profitChartRef = useRef(null);
 
   useEffect(() => {
     fetchInquiries();
     fetchOrders();
     fetchRents();
+    fetchDailyProfits();
     setCurrentDate(getFormattedDate());
   }, []);
+
+  useEffect(() => {
+    if (
+      totalOrders > 0 ||
+      totalRents > 0 ||
+      totalInquiries > 0 ||
+      dailyProfits.length > 0
+    ) {
+      createOrderChart();
+      createRentChart();
+      createInquiryChart();
+      createProfitChart();
+    }
+  }, [
+    onlineOrders,
+    totalOrders,
+    onlineRentals,
+    totalRents,
+    totalInquiries,
+    repliedInquiries,
+    pendingInquiries,
+    dailyProfits,
+  ]);
 
   const fetchInquiries = async () => {
     try {
@@ -87,6 +118,18 @@ export default function DashBoard() {
     }
   };
 
+  const fetchDailyProfits = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8075/transaction/getMonthlyProfits"
+      );
+      const profits = response.data;
+      setDailyProfits(profits);
+    } catch (error) {
+      console.error("Error fetching daily profits:", error);
+    }
+  };
+
   const getFormattedDate = () => {
     const now = new Date();
     const options = {
@@ -98,215 +141,163 @@ export default function DashBoard() {
     return now.toLocaleDateString(undefined, options);
   };
 
-  const calculatePercentage = (value, total) => {
-    return total !== 0 ? (value / total) * 100 : 0;
+  const createOrderChart = () => {
+    if (orderChartRef.current) {
+      orderChartRef.current.destroy();
+    }
+    const ctx = document.getElementById("orderChart").getContext("2d");
+    orderChartRef.current = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["Online Orders", "Manual Orders"],
+        datasets: [
+          {
+            data: [onlineOrders, totalOrders - onlineOrders],
+            backgroundColor: ["#d11002", "#333"], // Red and Black
+          },
+        ],
+      },
+    });
   };
 
-  const renderCircle = (value, total, color) => {
-    const percentage = calculatePercentage(value, total);
-    const circleStyle = {
-      border: `5px solid ${color}`,
-      borderRadius: "50%",
-      width: "80px",
-      height: "80px",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      marginLeft: "20px",
-    };
+  const createRentChart = () => {
+    if (rentChartRef.current) {
+      rentChartRef.current.destroy();
+    }
+    const ctx = document.getElementById("rentChart").getContext("2d");
+    rentChartRef.current = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["Online Rentals", "Manual Rentals"],
+        datasets: [
+          {
+            data: [onlineRentals, totalRents - onlineRentals],
+            backgroundColor: ["#d11002", "#333"], // Red and Black
+          },
+        ],
+      },
+    });
+  };
 
-    return (
-      <div style={circleStyle}>
-        <span>{percentage.toFixed(0)}%</span>
-      </div>
-    );
+  const createInquiryChart = () => {
+    if (inquiryChartRef.current) {
+      inquiryChartRef.current.destroy();
+    }
+    const ctx = document.getElementById("inquiryChart").getContext("2d");
+    inquiryChartRef.current = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["Replied ", "Pending "],
+        datasets: [
+          {
+            data: [repliedInquiries, pendingInquiries],
+            backgroundColor: ["#d11002", "#333"], // Red and Black
+          },
+        ],
+      },
+    });
+  };
+
+  const createProfitChart = () => {
+    if (profitChartRef.current) {
+      profitChartRef.current.destroy();
+    }
+    const ctx = document.getElementById("profitChart").getContext("2d");
+    const labels = dailyProfits.map((profit) => profit.date);
+    const data = dailyProfits.map((profit) => profit.amount);
+
+    profitChartRef.current = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Daily Profit",
+            data: data,
+            backgroundColor: "rgba(209, 16, 2, 0.2)", // Transparent red
+            borderColor: "#d11002",
+            borderWidth: 2,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Date",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Profit",
+            },
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   };
 
   return (
     <div>
-      <div
-        className="header-content"
-        style={{
-          display: "flex",
-          fontWeight: "700",
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: "0px",
-          fontFamily: "serif",
-          backgroundColor: "#f8f9fa",
-          padding: "12px",
-          width: "100%",
-        }}
-      >
-        {/* Your header content */}
+      <div className={styles["header-content"]}>
         <div style={{ textAlign: "center", display: "flex" }}>
-          <p style={{ color: "#d11002", fontSize: "26px", margin: 0 }}> MSR </p>
-          <p
-            style={{
-              color: "black",
-              fontSize: "26px",
-              margin: 0,
-              marginLeft: "6px",
-            }}
-          >
-            {" "}
-            TAILORS{" "}
-          </p>
+          <p style={{ color: "#d11002" }}>MSR</p>
+          <p style={{ color: "black", marginLeft: "6px" }}>TAILORS</p>
         </div>
       </div>
 
       <div className={styles.container}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "80%" }}>
-            {/* Inquiry Section */}
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div style={{ width: "30%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginTop: "10px", fontSize: "27px" }}>
-                      Total Inquiries
-                    </h3>
-                  </div>
-                  <div>
-                    <h1 style={{ marginBottom: "16px" }}>{totalInquiries}</h1>
-                  </div>
+                <div className={styles.box}>
+                  <h3>Orders Under Process</h3>
+                  <h1>{pendingOrders}</h1>
                 </div>
               </div>
               <div style={{ width: "30%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginBottom: "15px" }}>Replied Inquiries</h3>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    {renderCircle(repliedInquiries, totalInquiries, "green")}
-                    <h1 style={{ marginLeft: "40px", marginTop: "5px" }}>
-                      {repliedInquiries}
-                    </h1>
-                  </div>
+                <div className={styles.box}>
+                  <h3>New Orders</h3>
+                  <h1>{newOrders}</h1>
                 </div>
               </div>
               <div style={{ width: "30%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginBottom: "15px" }}>Pending Inquiries</h3>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    {renderCircle(pendingInquiries, totalInquiries, "orange")}
-                    <h1 style={{ marginLeft: "40px", marginTop: "5px" }}>
-                      {pendingInquiries}
-                    </h1>
-                  </div>
+                <div className={styles.box}>
+                  <h3>Pending Inquiries</h3>
+                  <h1>{pendingInquiries}</h1>
                 </div>
               </div>
             </div>
-            <br />
-            {/* Order Section */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "20px",
-              }}
-            >
-              <div style={{ width: "20%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginTop: "10px", fontSize: "27px" }}>
-                      Total Orders
-                    </h3>
-                  </div>
-                  <div>
-                    <h1 style={{ marginBottom: "16px" }}>{totalOrders}</h1>
-                  </div>
-                </div>
-              </div>
-              <div style={{ width: "20%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginBottom: "15px" }}>Pending Orders</h3>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    {renderCircle(pendingOrders, totalOrders, "orange")}
-                    <h1 style={{ marginLeft: "40px", marginTop: "5px" }}>
-                      {pendingOrders}
-                    </h1>
-                  </div>
-                </div>
-              </div>
-              <div style={{ width: "20%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginBottom: "15px" }}>Online Orders</h3>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    {renderCircle(onlineOrders, totalOrders, "blue")}
-                    <h1 style={{ marginLeft: "40px", marginTop: "5px" }}>
-                      {onlineOrders}
-                    </h1>
-                  </div>
-                </div>
-              </div>
-              <div style={{ width: "20%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginBottom: "15px" }}>New Orders</h3>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    {renderCircle(newOrders, totalOrders, "green")}
-                    <h1 style={{ marginLeft: "40px", marginTop: "5px" }}>
-                      {newOrders}
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div>
+
             <br />
 
-            {/* Rental Section */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "20px",
-              }}
-            >
-              <div style={{ width: "30%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginTop: "10px", fontSize: "27px" }}>
-                      Total Rentals
-                    </h3>
-                  </div>
-                  <div>
-                    <h1 style={{ marginBottom: "16px" }}>{totalRents}</h1>
-                  </div>
-                </div>
+            <div className={styles["chart-container"]}>
+              <div className={styles["chart-box"]}>
+                <div className={styles["chart-title"]}>Order Distribution</div>
+                <canvas id="orderChart"></canvas>
               </div>
-              <div style={{ width: "30%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginBottom: "15px" }}>Online Rentals</h3>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    {renderCircle(onlineRentals, totalRents, "blue")}
-                    <h1 style={{ marginLeft: "40px", marginTop: "5px" }}>
-                      {onlineRentals}
-                    </h1>
-                  </div>
-                </div>
+
+              <div className={styles["chart-box"]}>
+                <div className={styles["chart-title"]}>Rental Distribution</div>
+                <canvas id="rentChart"></canvas>
               </div>
-              <div style={{ width: "30%" }}>
-                <div className={`${styles.box}`}>
-                  <div>
-                    <h3 style={{ marginBottom: "15px" }}>Manual Rentals</h3>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    {renderCircle(manualRentals, totalRents, "gray")}
-                    <h1 style={{ marginLeft: "40px", marginTop: "5px" }}>
-                      {manualRentals}
-                    </h1>
-                  </div>
-                </div>
+
+              <div className={styles["chart-box"]}>
+                <div className={styles["chart-title"]}>Inquiry Status</div>
+                <canvas id="inquiryChart"></canvas>
+              </div>
+            </div>
+            <div className={styles["chart-container"]}>
+              <div
+                className={`${styles["chart-box"]} ${styles["profit-chart"]}`}
+              >
+                <div className={styles["chart-title"]}>Daily Profits</div>
+                <canvas id="profitChart"></canvas>
               </div>
             </div>
           </div>

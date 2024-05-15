@@ -66,5 +66,39 @@ router.get("/getTransactionById/:id", (req, res) => {
     .then((transaction) => res.status(200).json(transaction))
     .catch((err) => res.status(400).json({ error: err.message }));
 });
+// Get daily profits for the last month
+router.get("/getMonthlyProfits", async (req, res) => {
+  try {
+    const today = new Date();
+    const lastMonth = new Date(today);
+    lastMonth.setMonth(today.getMonth() - 1);
+    lastMonth.setHours(0, 0, 0, 0); // Set time to midnight for accurate date comparison
+
+    const transactions = await Transaction.find({
+      TransDate: { $gte: lastMonth, $lte: today },
+    });
+
+    const dailyProfits = {};
+
+    transactions.forEach((transaction) => {
+      const date = transaction.TransDate.toISOString().split("T")[0];
+      const amount = transaction.Amount;
+      if (!dailyProfits[date]) {
+        dailyProfits[date] = amount;
+      } else {
+        dailyProfits[date] += amount;
+      }
+    });
+
+    const profitArray = Object.keys(dailyProfits).map((date) => ({
+      date,
+      amount: dailyProfits[date],
+    }));
+
+    res.status(200).json(profitArray);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 
 module.exports = router;
