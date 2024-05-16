@@ -68,36 +68,7 @@ const usersSchema = new Schema({
   },
 });
 
-// Pre-save middleware to generate UserID
-usersSchema.pre("save", async function (next) {
-  try {
-    // Check if this is a new document
-    if (this.isNew) {
-      // Find the document with the highest UserID
-      const highestUser = await mongoose
-        .model("OnlineUsers")
-        .findOne({}, { UserID: 1 }) // Only retrieve the UserID field
-        .sort({ UserID: +1 }); // Sort in descending order to get the highest UserID first
 
-      // If there are no documents or UserID is not found, start from 1
-      let highestUserIDNumber = 0;
-      if (highestUser && highestUser.UserID) {
-        // Extract the numeric part of the UserID and increment it by 1
-        const match = highestUser.UserID.match(/(\d+)$/);
-        if (match) {
-          highestUserIDNumber = parseInt(match[0]);
-        }
-      }
-
-      // Generate the next UserID by incrementing the highest UserID by 1
-      this.UserID = `US${highestUserIDNumber + 1}`;
-    }
-    next();
-  } catch (error) {
-    // Pass any errors to the next middleware
-    next(error);
-  }
-});
 
 const OnlineUsers = mongoose.model("OnlineUsers", usersSchema);
 
