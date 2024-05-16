@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Logo from "../Inquiry/Img/MSR.png";
-import Swal from "sweetalert2";
+import Logo from "../Inquiry/Img/MSR.png"
+import Swal from 'sweetalert2';
 
 const UserForm = () => {
   const [formData, setFormData] = useState({
-    UserID: "",
     FirstName: "",
     LastName: "",
     Email: "",
@@ -38,14 +37,13 @@ const UserForm = () => {
     try {
       await axios.post("http://localhost:8075/onlineUser/addUser", formData);
       Swal.fire({
-        icon: "success",
-        title: "Success!",
-        text: "Account created successfully!",
+        icon: 'success',
+        title: 'Success!',
+        text: 'Account created successfully!',
       }).then(() => {
-        window.location.href = "/login";
+        window.location.href = '/login';
       });
       setFormData({
-        UserID: "",
         FirstName: "",
         LastName: "",
         Email: "",
@@ -64,36 +62,35 @@ const UserForm = () => {
       });
     } catch (error) {
       console.error("Error adding user:", error);
-      alert(
-        "An error occurred while adding the user. Check The Entered Contact Number and Password"
-      );
+      alert("An error occurred while adding the user. Check The Entered Contact Number and Password");
     }
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    let errorMessage = "";
+  const { name, value } = e.target;
+  let errorMessage = "";
 
-    if (name === "Email" && !validateEmail(value)) {
-      errorMessage = "Invalid email address";
-    } else if (name === "ContactNumber" && !validateContactNumber(value)) {
-      errorMessage = "Contact number must be 10 digits";
-    } else if (name === "Password" && value.length < 6) {
-      errorMessage = "Password must be at least 6 characters long";
-    } else if (name === "ConfirmPassword" && value !== formData.Password) {
-      errorMessage = "Passwords do not match";
-    }
+  if (name === "Email" && !validateEmail(value)) {
+    errorMessage = "Invalid email address";
+  } else if (name === "ContactNumber" && !validateContactNumber(value)) {
+    errorMessage = "Contact number must be 10 digits";
+  } else if (name === "Password" && value.length < 6) {
+    errorMessage = "Password must be at least 6 characters long";
+  } else if (name === "ConfirmPassword" && value !== formData.Password) {
+    errorMessage = "Passwords do not match";
+  }
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    [name]: value,
+  }));
 
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: errorMessage,
-    }));
-  };
+  setErrors((prevErrors) => ({
+    ...prevErrors,
+    [name]: errorMessage,
+  }));
+};
+
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -108,7 +105,7 @@ const UserForm = () => {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     let errorMessage = "";
-
+  
     if (name === "Email" && !validateEmail(value)) {
       errorMessage = "Invalid email address";
     } else if (name === "ContactNumber" && !validateContactNumber(value)) {
@@ -116,35 +113,23 @@ const UserForm = () => {
     } else if (name === "Password" && value.length < 6) {
       errorMessage = "Password must be at least 6 characters long";
     }
-
+  
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: errorMessage,
     }));
   };
+  
 
   return (
-    <div className="container mt-5" style={{ marginBottom: "30px" }}>
+    <div className="container mt-5" style={{marginBottom:'30px'}}>
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div
-            className="card"
-            style={{ padding: "10px", borderRadius: "0px", padding: "15px" }}
-          >
+          <div className="card" style={{padding:'10px', borderRadius:'0px', padding:'15px'}}>
             <div className="card-body">
-              <img
-                src={Logo}
-                style={{
-                  width: "80px",
-                  margin: "0 auto",
-                  display: "block",
-                  marginTop: "10px",
-                }}
-              ></img>
-              <hr></hr>
-              <h2 className="mb-4" style={{ textAlign: "center" }}>
-                Create Account
-              </h2>
+            <img src={Logo} style={{ width: '80px', margin: '0 auto', display: 'block', marginTop:'10px'}}></img>
+          <hr></hr>
+              <h2 className="mb-4" style={{textAlign:'center'}}>Create Account</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label className="form-label">First Name:</label>
@@ -168,7 +153,7 @@ const UserForm = () => {
                     required
                   />
                 </div>
-                <div className="mb-3" style={{ display: "grid" }}>
+                <div className="mb-3" style={{display:'grid'}}>
                   <label className="form-label">Email:</label>
                   <input
                     type="email"
@@ -179,7 +164,7 @@ const UserForm = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     required
-                    style={{ width: "100%" }}
+                    style={{width:'100%'}}
                   />
                   {errors.email && (
                     <div className="invalid-feedback">{errors.email}</div>
@@ -251,45 +236,19 @@ const UserForm = () => {
                     </div>
                   )}
                 </div>
-                <div>
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    style={{
-                      border: "none",
-                      marginBottom: "30px",
-                      display: "block",
-                      margin: "0 auto",
-                      width: "40%",
-                      padding: "17px",
-                      backgroundColor: "black",
-                      borderRadius: "5px",
-                      fontWeight: "650",
-                      fontSize: "18px",
-                      marginTop: "35px",
-                    }}
-                  >
-                    Create Account
-                  </button>
+                <div> 
+                <button type="submit" className="btn btn-primary" style={{border:'none',marginBottom:'30px',display: 'block', margin: '0 auto', width:'40%', padding:'17px',backgroundColor:'black', borderRadius:'5px', fontWeight:'650', fontSize:'18px', marginTop:'35px'}}>
+                  Create Account
+                </button>
                 </div>
               </form>
-              <p
-                className="mt-3"
-                style={{ textAlign: "center", marginTop: "25px" }}
-              >
+              <p className="mt-3" style={{textAlign:'center', marginTop:'25px'}}>
                 Already have an account? <Link to="/login">Sign In</Link>
               </p>
-              <div style={{ marginTop: "30px" }}>
-                <p
-                  className="mt-3"
-                  style={{
-                    textAlign: "center",
-                    fontWeight: "600",
-                    fontSize: "17px",
-                  }}
-                >
-                  <Link to="/employee/signin"> Create An Employee Account</Link>
-                </p>
+              <div style={{ marginTop:'30px'}}>
+              <p className="mt-3" style={{textAlign:'center', fontWeight:'600', fontSize:'17px'}}>
+              <Link to="/employee/signin"> Create An Employee Account</Link>
+              </p>
               </div>
             </div>
           </div>

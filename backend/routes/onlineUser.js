@@ -4,6 +4,35 @@ const OnlineUsers = require("../models/OnlineUser"); // Assuming your schema fil
 const nodemailer = require('nodemailer');
 const randomstring = require('randomstring');
 
+const generateUniqueUserID = async () => {
+  let isUnique = false;
+  let attemptCount = 0;
+  let generatedUserID;
+
+  while (!isUnique && attemptCount < 10) {
+    // Generate a random number
+    const randomNumber = Math.floor(Math.random() * 1000);
+
+    generatedUserID = `US${randomNumber}`;
+
+    // Check if the generated UserID already exists
+    const existingUser = await OnlineUsers.findOne({ UserID: generatedUserID });
+    if (!existingUser) {
+      isUnique = true; // Set isUnique to true if the generated UserID is unique
+    } else {
+      attemptCount++; // Increment attempt count
+    }
+  }
+
+  if (!isUnique) {
+    throw new Error('Failed to generate a unique UserID after 10 attempts.');
+  }
+
+  return generatedUserID;
+};
+
+
+
 router.post("/addUser", async (req, res) => {
   try {
     const {
@@ -29,14 +58,13 @@ router.post("/addUser", async (req, res) => {
       return res.status(400).json({ error: "User with the same Email already exists." });
     }
 
-    // Generate UserID (e.g., US1, US2, etc.)
-    const usersCount = await OnlineUsers.countDocuments();
-    const UserID = `US${usersCount + 1}`;
+    // Encrypt the password
+    const hashedPassword = await bcrypt.hash(Password, 10); // 10 is the saltRounds
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(Password, 10);
+    // Generate a unique random UserID
+    const UserID = await generateUniqueUserID();
 
-    // Create a new user instance
+    // Create a new user instance with encrypted password
     const newUser = new OnlineUsers({
       UserID,
       FirstName,
@@ -46,18 +74,20 @@ router.post("/addUser", async (req, res) => {
       ContactNumber,
       Type,
       Role,
-      Password: hashedPassword, // Store hashed password in the database
+      Password: hashedPassword, // Store the hashed password
     });
 
     // Save the user to the database
     await newUser.save();
 
-    res.status(201).json({ message: "User added successfully", UserID });
+    res.status(201).json({ message: "User added successfully", UserID: newUser.UserID });
   } catch (error) {
     console.error("Error adding user:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+
 
 
 

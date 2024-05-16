@@ -29,16 +29,24 @@ const AddEmployeeForm = () => {
       const response = await axios.get(`http://localhost:8075/employee/getby/${Eid}`);
   
       if (response.data.exists) {
-        // Eid exists, proceed with creating the account
+        // Eid already exists in the Employee database
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'An account already exists for this Employee ID.',
+        });
+      } else {
+        // Eid doesn't exist, proceed with creating the account
         await axios.post('http://localhost:8075/employeeAccount/add', formData);
         Swal.fire({
           icon: 'success',
           title: 'Success!',
-          text: 'Employee added successfully',
+          text: 'Employee account created successfully',
+        }).then(() => {
+          // Redirect to the login page after clicking OK in the SweetAlert
+          window.location.href = '/employee/login';
         });
-
-        
-
+  
         setFormData({
           Eid: '',
           firstName: '',
@@ -51,15 +59,8 @@ const AddEmployeeForm = () => {
           password: '',
           confirmPassword: '',
         });
-
+  
         window.location.href = '/employee/login';
-      } else {
-        // Eid doesn't exist in the Employee database
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Employee with this Eid does not exist. Please enter a valid Eid.',
-        });
       }
     } catch (error) {
       console.error('Error adding employee:', error);
@@ -70,6 +71,7 @@ const AddEmployeeForm = () => {
       });
     }
   };
+  
   
 
   const handleChange = (e) => {
@@ -168,7 +170,7 @@ const AddEmployeeForm = () => {
                     required
                   />
                 </div>
-                <button type="submit" className="btn btn-primary" style={{border:'none',marginBottom:'30px',display: 'block', margin: '0 auto', width:'40%', padding:'15px',backgroundColor:'black', borderRadius:'0px', fontWeight:'650', fontSize:'18px', marginTop:'30px'}}>
+                <button type="submit" className="btn btn-primary" style={{border:'none',marginBottom:'30px',display: 'block', margin: '0 auto', width:'40%', padding:'15px',backgroundColor:'black', borderRadius:'5px', fontWeight:'650', fontSize:'18px', marginTop:'30px'}}>
                  Create Account
                 </button>
               </form>

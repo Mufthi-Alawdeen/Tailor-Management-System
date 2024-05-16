@@ -33,8 +33,14 @@ const EmployeeTable = () => {
     // Proceed with deletion if user confirms
     if (confirmationResult.isConfirmed) {
       try {
+        // Delete the employee account
         await axios.delete(`http://localhost:8075/employeeAccount/delete/${eid}`);
-        setEmployees(prevEmployees => prevEmployees.filter(emp => emp.Eid !== eid));
+        
+        // Fetch the updated list of employees
+        const response = await axios.get('http://localhost:8075/employeeAccount/get');
+        setEmployees(response.data);
+        
+        // Show success message
         Swal.fire('Deleted!', 'Employee account has been deleted.', 'success');
       } catch (error) {
         console.error('Error deleting employee:', error);
@@ -42,7 +48,7 @@ const EmployeeTable = () => {
       }
     }
   };
-
+  
   const handleSearchChange = event => {
     setSearchTerm(event.target.value);
   };
