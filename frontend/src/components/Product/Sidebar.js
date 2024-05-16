@@ -103,27 +103,28 @@ const routes = [
   },
 
   {
-    path: "/product/dashboard",
+    path: "/ReportOrder",
     name: "Orders & Rentals",
     icon: <BsCartCheck />,
     exact: true,
-    subRoutes: [{
-       path: "/product/dashboard",
+    subRoutes: [
+      {
+        path: "/ReportOrder",
         name: "Dashboard",
         icon: <FaHome />,
-    },
+      },
       {
-        path: "/product/add",
+        path: "/AddOrderNewUser",
         name: "Add",
         icon: <FaBox />,
       },
       {
-        path: "/product/all",
+        path: "/ManageOrder",
         name: "Manage",
         icon: <FaLock />,
       },
       {
-        path: "/product/generate-report",
+        path: "/ReportOrder",
         name: "Report",
         icon: <FaClipboardList />,
       },
