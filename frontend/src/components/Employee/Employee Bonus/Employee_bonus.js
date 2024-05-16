@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Select from 'react-select';
+import Header from '../../Product/Header';
+
 
 const AddEmployeeBonus = () => {
   const [formData, setFormData] = useState({
@@ -8,10 +11,33 @@ const AddEmployeeBonus = () => {
     bonus: '',
     month: '',
   });
+  const [employeeOptions, setEmployeeOptions] = useState([]);
+
+  useEffect(() => {
+    fetchEmployeeIds();
+  }, []);
+
+  const fetchEmployeeIds = async () => {
+    try {
+      const response = await axios.get('http://localhost:8075/employee');
+      const employees = response.data;
+      const options = employees.map(emp => ({
+        value: emp.Eid,
+        label: `${emp.Eid} - ${emp.fname} ${emp.lname}`
+      }));
+      setEmployeeOptions(options);
+    } catch (error) {
+      console.error('Error fetching employee IDs:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSelectChange = (selectedOption) => {
+    setFormData({ ...formData, Eid: selectedOption ? selectedOption.value : '' });
   };
 
   const handleSubmit = async (e) => {
@@ -35,6 +61,9 @@ const AddEmployeeBonus = () => {
   };
 
   return (
+    <div> 
+      <Header/>
+  
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -44,13 +73,12 @@ const AddEmployeeBonus = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label className="form-label">Employee ID:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="Eid"
-                    value={formData.Eid}
-                    onChange={handleChange}
-                    required
+                  <Select
+                    options={employeeOptions}
+                    onChange={handleSelectChange}
+                    isClearable
+                    value={employeeOptions.find(option => option.value === formData.Eid) || null}
+                    placeholder="Select employee"
                   />
                 </div>
                 <div className="mb-3">
@@ -77,7 +105,18 @@ const AddEmployeeBonus = () => {
                     <option value="January">January</option>
                     <option value="February">February</option>
                     <option value="March">March</option>
-                    {/* Add other months as needed */}
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+
+                    
+                    
                   </select>
                 </div>
                 <button type="submit" className="btn btn-primary">Add Bonus</button>
@@ -86,6 +125,7 @@ const AddEmployeeBonus = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
