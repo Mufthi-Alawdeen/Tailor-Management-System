@@ -6,6 +6,7 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import MSR from '../Img/MSRLogo.png';
+import gif from '../Img/warning.gif';
 
 const InventoryTable = () => {
     const [inventoryData, setInventoryData] = useState([]);
@@ -289,6 +290,21 @@ const InventoryTable = () => {
     // Sort inventory by date in descending order
     const sortedInventoryData = searchResults.length > 0 ? searchResults : filteredInventoryData.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+    const handleInstructionsClick = () => {
+        Swal.fire({
+          title: 'Before Adding The Same Raw Material Twice In Same Color',
+          text: 'If you are trying to add the same raw material stock in same color which received more than once in the same day then no need to add again just update it in the current stock page and add a note in description as well.',
+          icon: 'info',
+          confirmButtonText: 'OK'
+        });
+      };
+
+      const handleLogout = () => {
+        // Clear user details from local storage
+        localStorage.removeItem("loggedInUser");
+        // Redirect to the home page
+        window.location.href = "/";
+    };
     
 
     return (
@@ -321,7 +337,8 @@ const InventoryTable = () => {
                             fontWeight: 'bold',
                             boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)',
                             marginLeft: '10px'
-                        }}>
+                        }}
+                        onClick={handleLogout}>
                         Logout
                     </button>
             
@@ -330,11 +347,16 @@ const InventoryTable = () => {
             </div>
 
         <h1 style={{textAlign:'center', marginTop:'40px', marginBottom:'20px', textDecoration:'underline', fontWeight:'675'}}>Current Stocks</h1>
+        <div style={{ display: 'flex', textAlign: 'center', marginBottom: '5px' }}>            
+        <div>
+          <a onClick={handleInstructionsClick}>
+        <img src={gif} style={{ marginBottom: '5px', marginLeft: '490px', width: '17%', height: '90%', marginTop: '-10px', cursor: 'pointer' }} alt="Description of GIF" />
+          </a>
+        </div>
+        <h3 style={{ cursor: 'pointer', marginRight:'540px' }} onClick={handleInstructionsClick}>Instructions</h3>
+        </div>   
 
-           
-           
-
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px', color: 'gray' , marginTop:'50px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px', color: 'gray' , marginTop:'10px' }}>
         <div style={{ display: 'flex', alignContent: 'center', gap:'10px' }}>
 
         <input
@@ -365,7 +387,7 @@ const InventoryTable = () => {
         <option value="Other">Other</option>
         </select>
     </div>
-
+    
     <div style={{display:'flex', justifyContent:'center', marginBottom:'65px'}}>
             <Link to="/inventory/addinventory" style={{ textDecoration: 'none' }}>
                     <button
