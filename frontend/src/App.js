@@ -45,6 +45,7 @@ import EmployeeDashboard from "./components/Employee/Employee Dashboard/Employee
 import AdminLeaves from "./components/Employee/AdminLeaves";
 import EmployeeDetails from "./components/Log in/Employee Log in/EmployeeProfile";
 import AddEmployeeBonus from "./components/Employee/Employee Bonus/Employee_bonus";
+import EmployeeBonusTable from './components/Employee/Employee Bonus/Salary Details'
 
 import Ad_Dashboard from "./components/Admin/Sidebar";
 
@@ -207,7 +208,8 @@ function App() {
           />
           <Route path="/employee/admin/leave" exact element={<AdminLeaves />} />
           <Route path="/employee/profile" exact element={<EmployeeDetails />} />
-          <Route path="/employee/bonus" exact element={<AddEmployeeBonus />} />
+          <Route path='/employee/addBonus' exact element={<AddEmployeeBonus/>}/>
+          <Route path='/employee/salary' exact element={<EmployeeBonusTable/>}/>
           <Route path="/user/all" exact element={<UserTable />} />
           <Route path="/user/dashboard" exact element={<UserDashboard />} />
           <Route path="/AdminDashboard" exact element={<Ad_Dashboard />} />
