@@ -154,6 +154,26 @@ router.get('/getby/:eid', async (req, res) => {
     }
 });
 
+router.get('/getbyEid/:eid', async (req, res) => {
+    const Eid = req.params.eid;
+
+    try {
+        // Find an employee with the given Eid
+        const employee = await Employee.findOne({ Eid });
+
+        if (employee) {
+            // Employee with the given Eid exists
+            res.status(200).json({ exists: true, employee });
+        } else {
+            // Employee with the given Eid does not exist
+            res.status(200).json({ exists: false });
+        }
+    } catch (err) {
+        console.error('Error checking employee existence:', err);
+        res.status(500).json({ error: 'An error occurred while checking employee existence' });
+    }
+});
+
 
 /*router.route("/get/:id").get(async(req,res)=>{
     let userId = req.params.id;
