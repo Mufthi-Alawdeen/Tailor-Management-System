@@ -4,7 +4,8 @@ import "../All Employees/AllEmployees.css";
 import Modal from 'react-modal';
 import Header from '../../Product/Header';
 import html2pdf from "html2pdf.js";
-import logo from "../../Inquiry/Img/MSR.png"
+import logo from "../../Inquiry/Img/MSR.png";
+import { Link } from 'react-router-dom';
 
 export default function AllEmployees() {
   const [employees, setEmployees] = useState([]);
@@ -227,7 +228,7 @@ export default function AllEmployees() {
           <div className="col-12">
             <div className="card"  style={{borderRadius:'0px'}}>
               <div className="card-body text-center">
-                <h3 className="card-title m-b-0" style={{fontWeight:'700', textDecoration:'underline', marginTop:'20px', marginBottom:'20px'}}>Employees Table</h3>
+                <h2 className="card-title m-b-0" style={{fontWeight:'700', textDecoration:'underline', marginTop:'20px', marginBottom:'20px', fontSize:'27px'}}>Employees Table</h2>
               </div>
               <div className="table-responsive">
                 <div style={{textAlign:'center',marginBottom:'30px'}}>
@@ -247,33 +248,33 @@ export default function AllEmployees() {
                   </select>
                   </div>
                 </div>
-                <table className="table">
+                <table className="table" style={{marginBottom:'40px'}}>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Employee ID</th>
-                      <th scope="col">First Name</th>
-                      <th scope="col">Last Name</th>
-                      <th scope="col">Phone Number</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Job Role</th>
-                      <th scope="col">Salary</th>
-                      <th scope="col">Employee ID Card</th>
+                      <th style={{border:'1px solid #ccc', backgroundColor:'#ccc'}} scope="col">#</th>
+                      <th style={{border:'1px solid #ccc', backgroundColor:'#ccc'}} scope="col">Employee ID</th>
+                      <th style={{border:'1px solid #ccc', backgroundColor:'#ccc'}}scope="col">First Name</th>
+                      <th style={{border:'1px solid #ccc', backgroundColor:'#ccc'}}scope="col">Last Name</th>
+                      <th style={{border:'1px solid #ccc', backgroundColor:'#ccc'}}scope="col">Phone Number</th>
+                      <th style={{border:'1px solid #ccc', backgroundColor:'#ccc'}}scope="col">Email</th>
+                      <th style={{border:'1px solid #ccc', backgroundColor:'#ccc'}}scope="col">Job Role</th>
+                      <th style={{border:'1px solid #ccc', backgroundColor:'#ccc'}}scope="col">Salary</th>
+                      <th style={{border:'1px solid #ccc', backgroundColor:'#ccc'}}scope="col">Employee ID Card</th>
                     </tr>
                   </thead>
                   <tbody>
                     {sortedEmployees.map((employee, index) => (
                       <tr key={employee._id}>
-                        <td>{index + 1}</td>
-                        <td onClick={() => handleEmployeeClick(employee)}>{employee.Eid}</td>
-                        <td onClick={() => handleEmployeeClick(employee)}>
+                        <td style={{border:'1px solid #ccc'}}>{index + 1}</td>
+                        <td style={{border:'1px solid #ccc'}} onClick={() => handleEmployeeClick(employee)}>{employee.Eid}</td>
+                        <td style={{border:'1px solid #ccc'}} onClick={() => handleEmployeeClick(employee)}>
                           {employee.fname}
                         </td>
-                        <td>{employee.lname}</td>
-                        <td>{employee.phoneNumber}</td>
-                        <td>{employee.email}</td>
-                        <td>{employee.jobrole}</td>
-                        <td>{employee.salary}</td>
+                        <td style={{border:'1px solid #ccc'}} >{employee.lname}</td>
+                        <td style={{border:'1px solid #ccc'}}>{employee.phoneNumber}</td>
+                        <td style={{border:'1px solid #ccc'}}>{employee.email}</td>
+                        <td style={{border:'1px solid #ccc'}}>{employee.jobrole}</td>
+                        <td style={{border:'1px solid #ccc'}}>{employee.salary}</td>
                         
                         <td>
                           <button style={{padding:'9px', backgroundColor:'black', color:'white', border:'none', fontSize:'15px'}} onClick={() => generateIDCard(employee)}>Generate Card</button>
@@ -300,9 +301,9 @@ export default function AllEmployees() {
               border: "none",
               borderRadius: "0px",
               padding: "50px",
-              maxWidth: "530px",
+              maxWidth: "580px",
               margin: "auto",
-              maxHeight:'350px'
+              maxHeight:'500px'
             }
           }}
           contentLabel="Employee Details" >
@@ -312,7 +313,7 @@ export default function AllEmployees() {
         <div className="modal-content">
           <h2 style={{textAlign:'center'}} id="Headeremp2"> Full Name : {selectedEmployee?.fname} {selectedEmployee?.lname}</h2>
           {/* Table to display employee details */}
-          <table style={{marginLeft:'40px'}} id="employee-details-" className="employee-details-table">
+          <table  id="employee-details-" className="employee-details-table">
             <tbody style={{fontSize:'18px'}}>
               <tr>
                 <td><b>Employee ID:</b></td>
@@ -343,14 +344,14 @@ export default function AllEmployees() {
                 <td>{selectedEmployee?.hireDate ? new Date(selectedEmployee.hireDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</td>
               </tr>
               <tr>
-                <td><b>Salary:</b></td>
+                <td><b>Base Salary:</b></td>
                 <td>{selectedEmployee?.salary}</td>
               </tr>
             </tbody>
           </table>
         </div>
         {/* Button group at the bottom */}
-        <div style={{textAlign:'center'}} id="button-group" className="button-group">
+        <div style={{textAlign:'center', marginTop:'20px'}} id="button-group" className="button-group">
           <button id="button-4" onClick={() => setSelectedEmployee(null)} className="btn btn-secondary">
             <b>Cancel</b>
           </button>
@@ -368,8 +369,8 @@ export default function AllEmployees() {
         onRequestClose={closeUpdateModal}
         style={{
           overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.2)",
-            backdropFilter: "blur(8px)",
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
+            backdropFilter: "blur(10px)",
           },
           content: {
             backgroundColor: "#fff",
