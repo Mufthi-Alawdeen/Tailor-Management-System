@@ -12,7 +12,7 @@ const EmployeeDashboard = () => {
             <div className={style0.heading1}>
             <h1>Employees Dashboard</h1>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-around', marginTop:'90px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-around', marginTop:'90px', marginLeft:'50px' }}>
                 <Link to="/employee/add" style={{ textDecoration: 'none' }}>
                     <button className={style0.dashboard_button2} >Add Employee</button>
                 </Link>
@@ -21,6 +21,12 @@ const EmployeeDashboard = () => {
                 </Link>
                 <Link to="/employee/admin/leave" style={{ textDecoration: 'none' }}>
                     <button className={style0.dashboard_button2}  >Leave Requests</button>
+                </Link>
+                <Link to="/employee/salary" style={{ textDecoration: 'none' }}>
+                    <button className={style0.dashboard_button2} >Salary Details</button>
+                </Link>
+                <Link to="/employee/addBonus" style={{ textDecoration: 'none' }}>
+                    <button className={style0.dashboard_button2} >Add Bonus Salary</button>
                 </Link>
                 <Link to="/employee/report" style={{ textDecoration: 'none' }}>
                     <button className={style0.dashboard_button2}  >Salary Report</button>
