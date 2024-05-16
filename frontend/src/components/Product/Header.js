@@ -222,6 +222,17 @@ const routes = [
         name: "All Leaves",
         icon: <FaBox />,
       },
+       {
+        path: "/employee/salary",
+        name: "Salary Details",
+        icon: <FaBox />,
+      },
+      
+      {
+        path: "/employee/addBonus",
+        name: "Add Bonus Salary",
+        icon: <FaClipboardList />,
+      },
 
       {
         path: "/employee/report",
