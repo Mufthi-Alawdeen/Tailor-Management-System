@@ -21,6 +21,11 @@ function Header() {
         window.location.href = "/signup";
     };
 
+    const handleLog_In = () => {
+        // Redirect back to the same path
+        window.location.href = "/login";
+    };
+
     if (redirectPath) {
         window.location.href = "/";
     }
@@ -70,12 +75,14 @@ function Header() {
                     </div>
                 ) : (
                     
-                    // <Link to="/signup">
-                        <button className="login" style={{marginRight:'10px', padding:'12px', backgroundColor:'black', color:'white', border:'none', fontWeight:'650'}} onClick={handleLogin}>
-                            Sign Up
+                        <div> 
+                        <button className="login" style={{marginRight:'10px', padding:'12px', backgroundColor:'black', color:'white', border:'none', fontWeight:'650'}} onClick={handleLog_In}>
+                            Log In
                         </button>
-                    // </Link>
-
+                        <button className="login" style={{marginRight:'10px', padding:'12px', backgroundColor:'black', color:'white', border:'none', fontWeight:'650'}} onClick={handleLogin}>
+                        Sign Up
+                        </button>
+                        </div> 
                    
                 )}
               
