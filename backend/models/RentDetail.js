@@ -35,6 +35,10 @@ const rentSchema = new Schema({
     type: String,
     required: true,
   },
+  Amount: {
+    type: Number,
+    required: true,
+  },
   TransactionID: {
     type: String,
     required: true,

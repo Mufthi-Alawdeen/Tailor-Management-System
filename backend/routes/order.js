@@ -535,6 +535,7 @@ router.post("/addOrder", (req, res) => {
     OrderDate,
     PickupDate,
     TransactionID,
+    Amount,
     Description,
   } = req.body;
 
@@ -552,6 +553,7 @@ router.post("/addOrder", (req, res) => {
     OrderDate,
     PickupDate,
     TransactionID,
+    Amount,
     Description,
   });
 

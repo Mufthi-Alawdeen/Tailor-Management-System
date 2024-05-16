@@ -64,6 +64,10 @@ const orderSchema = new Schema({
     type: String,
     required: true,
   },
+  Amount: {
+    type: Number,
+    required: true,
+  },
   Description: {
     type: String,
     required: false,

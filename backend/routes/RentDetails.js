@@ -11,6 +11,7 @@ router.route("/addRent").post((req, res) => {
     PickupDate,
     ReturnDate,
     Type,
+    Amount,
     Status,
     TransactionID,
   } = req.body;
@@ -23,6 +24,7 @@ router.route("/addRent").post((req, res) => {
     PickupDate, // Assuming RentDate is in ISO format or a format that can be parsed by Date constructor
     ReturnDate, // Same assumption for ReturnDate
     Type,
+    Amount,
     Status,
     TransactionID,
   });
