@@ -210,11 +210,9 @@ const AllRentals = () => {
                   <strong>Status:</strong> {selectedRental.Status}
                 </p>
                 <p>
-                  <strong>Payment:</strong> {selectedRental.Payment}
+                  <strong>Payment:</strong> {selectedRental.Amount}
                 </p>
-                <p>
-                  <strong>Description:</strong> {selectedRental.Description}
-                </p>
+                
                 <p>
                   <strong>Type:</strong> {selectedRental.Type}
                 </p>

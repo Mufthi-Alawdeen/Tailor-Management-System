@@ -45,11 +45,7 @@ const Report = () => {
       const ordersResponse = await axios.get(
         "http://localhost:8075/order/getAllOrders"
       );
-      const transactionsResponse = await axios.get(
-        "http://localhost:8075/transaction/getAllTransactions"
-      );
       const orders = ordersResponse.data;
-      const transactions = transactionsResponse.data;
 
       const currentMonthOrders = orders.filter((order) => {
         const orderDate = new Date(order.OrderDate);
@@ -71,18 +67,16 @@ const Report = () => {
       );
 
       const onlineOrders = currentMonthOrders.filter(
-        (order) => order.Type === "online"
+        (order) => order.Type === "Online"
       );
       const manualOrders = currentMonthOrders.filter(
         (order) => order.Type === "Manual"
       );
 
       const totalOrderProfit = finishedOrders.reduce((acc, order) => {
-        const transaction = transactions.find(
-          (trans) => trans.TransactionID === order.TransactionID
-        );
-        return acc + (transaction ? transaction.Amount : 0);
+        return acc + order.Amount;
       }, 0);
+      
 
       setNewOrdersCount(newOrders.length);
       setPendingOrdersCount(pendingOrders.length);
@@ -91,7 +85,7 @@ const Report = () => {
       setOnlineOrdersCount(onlineOrders.length);
       setManualOrdersCount(manualOrders.length);
     } catch (error) {
-      console.error("Error fetching orders or transactions:", error);
+      console.error("Error fetching orders:", error);
     }
   };
 
@@ -100,11 +94,7 @@ const Report = () => {
       const rentalsResponse = await axios.get(
         "http://localhost:8075/rent/getAllRents"
       );
-      const transactionsResponse = await axios.get(
-        "http://localhost:8075/transaction/getAllTransactions"
-      );
       const rentals = rentalsResponse.data;
-      const transactions = transactionsResponse.data;
 
       const currentMonthRentals = rentals.filter((rental) => {
         const rentalDate = new Date(rental.PickupDate);
@@ -130,11 +120,9 @@ const Report = () => {
       );
 
       const totalRentProfit = returnedCloths.reduce((acc, rental) => {
-        const transaction = transactions.find(
-          (trans) => trans.TransactionID === rental.TransactionID
-        );
-        return acc + (transaction ? transaction.Amount : 0);
+        return acc + rental.Amount;
       }, 0);
+      
 
       setRentedClothsCount(rentedCloths.length);
       setReturnedClothsCount(returnedCloths.length);
@@ -142,7 +130,7 @@ const Report = () => {
       setOnlineRentalsCount(onlineRentals.length);
       setManualRentalsCount(manualRentals.length);
     } catch (error) {
-      console.error("Error fetching rentals or transactions:", error);
+      console.error("Error fetching rentals:", error);
     }
   };
 
@@ -156,7 +144,7 @@ const Report = () => {
     <div>
       <Header />
       <div className="container col-md-8">
-        <div className="row" id="report">
+      <div className="row" id="report">
           <div style={{ height: "34px" }}></div>
           <h1 className="text-center mb-3">Order and Rental Report</h1>
           <div className="text-center mb-4"> Date : {currentDate}</div>
@@ -180,8 +168,7 @@ const Report = () => {
                   Total Manual Orders: {manualOrdersCount}
                 </p>
                 <p className="card-text h4 text-success">
-                  Total Profit for This Month (Finished Orders):{" "}
-                  {totalOrderProfit}
+                  Total Profit for This Month (Finished Orders): {totalOrderProfit}
                 </p>
               </div>
             </div>
@@ -201,8 +188,7 @@ const Report = () => {
                   Total Manual Rentals: {manualRentalsCount}
                 </p>
                 <p className="card-text h4 text-success">
-                  Total Profit for This Month (Returned Cloths):{" "}
-                  {totalRentProfit}
+                  Total Profit for This Month (Returned Cloths): {totalRentProfit}
                 </p>
               </div>
             </div>
@@ -231,3 +217,4 @@ const Report = () => {
 };
 
 export default Report;
+

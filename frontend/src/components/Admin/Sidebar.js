@@ -116,17 +116,17 @@ function Ad_Dashboard() {
                 </a>
                 <ul className="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu" style={{marginTop:'-15px'}}>
                   <li className="w-100">
-                    <a href="/" className="nav-link px-0 text-danger">
+                    <a href="/AddOrderNewUser" className="nav-link px-0 text-danger">
                       <span className="d-none d-sm-inline">Add</span> 
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="nav-link px-0 text-danger">
+                    <a href="/ManageOrder" className="nav-link px-0 text-danger">
                       <span className="d-none d-sm-inline">Manage</span> 
                     </a>
                   </li>
                   <li>
-                    <a style={{marginBottom:'10px'}}  href="#" className="nav-link px-0 text-danger">
+                    <a style={{marginBottom:'10px'}}  href="/ReportOrder" className="nav-link px-0 text-danger">
                       <span className="d-none d-sm-inline">Report</span> 
                     </a>
                     <hr></hr>

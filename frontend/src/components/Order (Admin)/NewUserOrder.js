@@ -18,12 +18,13 @@ const OrderAndUserForm = () => {
     orderDetails: {
       OrderID: initialOrderID,
       UserID: initialUserID,
-      ProductID: "",
+      MaterialID: "",
       Status: "New",
       Type: "Manual",
       OrderDate: new Date().toISOString().slice(0, 10),
       PickupDate: "",
       TransactionID: initialTransactionID,
+      Amount: "", // Added here
       Description: "",
     },
     userDetails: {
@@ -37,7 +38,7 @@ const OrderAndUserForm = () => {
     },
     transactionDetails: {
       TransactionID: initialTransactionID,
-      Amount: "",
+      Amount: "", // Added here
       PaymentType: "Manual",
       TransDate: new Date().toISOString().slice(0, 10),
     },
@@ -73,13 +74,29 @@ const OrderAndUserForm = () => {
 
   const handleInputChange = (e, category) => {
     const { name, value } = e.target;
-    setFormDetails((prevFormDetails) => ({
-      ...prevFormDetails,
-      [category]: {
-        ...prevFormDetails[category],
-        [name]: value,
-      },
-    }));
+    setFormDetails((prevFormDetails) => {
+      if (name === "Amount" && (category === "orderDetails" || category === "transactionDetails")) {
+        return {
+          ...prevFormDetails,
+          orderDetails: {
+            ...prevFormDetails.orderDetails,
+            Amount: value,
+          },
+          transactionDetails: {
+            ...prevFormDetails.transactionDetails,
+            Amount: value,
+          },
+        };
+      } else {
+        return {
+          ...prevFormDetails,
+          [category]: {
+            ...prevFormDetails[category],
+            [name]: value,
+          },
+        };
+      }
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -122,9 +139,10 @@ const OrderAndUserForm = () => {
     setFormDetails({
       orderDetails: {
         ...formDetails.orderDetails,
-        ProductID: "",
+        MaterialID: "",
         PickupDate: "",
         Description: "",
+        Amount: "",
       },
       userDetails: {
         ...formDetails.userDetails,
@@ -138,7 +156,7 @@ const OrderAndUserForm = () => {
         ...formDetails.transactionDetails,
         Amount: "",
       },
-      filteredProductIDs: [],
+      filteredProductIDs: formDetails.productIDs,
     });
   };
 
@@ -274,17 +292,17 @@ const OrderAndUserForm = () => {
                 <div className="col-md-12">
                   <div className="mb-3">
                     <label htmlFor="ProductID" className="form-label">
-                      Product ID:
+                      Material ID:
                     </label>
                     <select
                       className="form-select"
-                      name="ProductID"
-                      value={formDetails.orderDetails.ProductID}
+                      name="MaterialID"
+                      value={formDetails.orderDetails.MaterialID}
                       onChange={(e) => handleInputChange(e, "orderDetails")}
                       required
                     >
                       <option value="" disabled>
-                        Select Product ID
+                        Select Material ID
                       </option>
                       {formDetails.filteredProductIDs.map((productID) => (
                         <option key={productID} value={productID}>
@@ -301,9 +319,10 @@ const OrderAndUserForm = () => {
                       type="number"
                       className="form-control"
                       name="Amount"
-                      value={formDetails.transactionDetails.Amount}
+                      value={formDetails.orderDetails.Amount}
                       onChange={(e) =>
-                        handleInputChange(e, "transactionDetails")
+                        handleInputChange(e, "transactionDetails") &&
+                        handleInputChange(e, "orderDetails")
                       }
                       required
                     />

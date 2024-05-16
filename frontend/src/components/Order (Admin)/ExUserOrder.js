@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { generateOrderID, generateTransactionID } from "../../utils/genId";
-
 import { Link } from "react-router-dom";
 import Header from "../Product/Header";
 
@@ -13,13 +12,15 @@ const OrderForm = () => {
   const [formData, setFormData] = useState({
     orderDetails: {
       OrderID: initialOrderID,
-      ProductID: "",
+      // ProductID: "",
       UserID: "",
+      MaterialID: "",
       OrderDate: new Date().toISOString().slice(0, 10),
       PickupDate: "",
       Status: "New",
       Type: "Manual",
       TransactionID: initialTransactionID,
+      Amount: "",
       Description: "",
     },
     transactionDetails: {
@@ -106,23 +107,39 @@ const OrderForm = () => {
       ...prevState,
       orderDetails: {
         ...prevState.orderDetails,
-        ProductID: e.target.value,
+        MaterialID: e.target.value,
       },
     }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      orderDetails: {
-        ...prevState.orderDetails,
-        [name]: value,
-      },
-    }));
+    setFormData((prevState) => {
+      if (name === "Amount") {
+        return {
+          ...prevState,
+          orderDetails: {
+            ...prevState.orderDetails,
+            Amount: value,
+          },
+          transactionDetails: {
+            ...prevState.transactionDetails,
+            Amount: value,
+          },
+        };
+      } else {
+        return {
+          ...prevState,
+          orderDetails: {
+            ...prevState.orderDetails,
+            [name]: value,
+          },
+        };
+      }
+    });
   };
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     // Post transaction details
@@ -148,18 +165,20 @@ const OrderForm = () => {
 
             setFormData({
               orderDetails: {
-                OrderID: "",
-                ProductID: "",
+                OrderID: generateOrderID(),
+                // ProductID: "",
                 UserID: "",
-                OrderDate: "",
+                MaterialID: "",
+                OrderDate: new Date().toISOString().slice(0, 10),
                 PickupDate: "",
-                Status: "",
-                Type: "",
-                TransactionID: "",
+                Status: "New",
+                Type: "Manual",
+                TransactionID: generateTransactionID(),
+                Amount: "",
                 Description: "",
               },
               transactionDetails: {
-                TransactionID: "",
+                TransactionID: generateTransactionID(),
                 Amount: "",
                 PaymentType: "Manual",
                 TransDate: new Date().toISOString().slice(0, 10),
@@ -173,7 +192,7 @@ const OrderForm = () => {
       .catch((error) => {
         console.error("Error submitting transaction:", error);
       });
-  }
+  };
 
   return (
     <div>
@@ -233,13 +252,11 @@ const OrderForm = () => {
                   value={searchTerm}
                   onChange={handleSearchChange}
                   placeholder="Search or Select User ID"
-                  // Apply CSS for border radius
                 />
                 <select
                   className="form-select mt-2"
                   onChange={handleUserIDChange}
                   value={formData.orderDetails.UserID}
-                  // Apply CSS for border radius
                 >
                   <option value="" disabled>
                     Select User ID
@@ -281,11 +298,11 @@ const OrderForm = () => {
               <div className="row">
                 <div className="col-md-6 mb-3">
                   <div className="mb-3">
-                    <label className="form-label">Conatct Number:</label>
+                    <label className="form-label">Contact Number:</label>
                     <input
                       type="text"
                       className="form-control"
-                      name="PhoneNumber"
+                      name="ContactNumber"
                       value={selectedUser.ContactNumber || ""}
                       disabled
                     />
@@ -313,7 +330,7 @@ const OrderForm = () => {
                 <select
                   className="form-select"
                   onChange={handleProductIDChange}
-                  value={formData.orderDetails.ProductID}
+                  value={formData.orderDetails.MaterialID}
                 >
                   <option value="" disabled>
                     Select Product ID
@@ -349,17 +366,10 @@ const OrderForm = () => {
                     type="text"
                     className="form-control"
                     id="TotalAmount"
-                    name="TotalAmount"
-                    value={formData.transactionDetails.Amount}
-                    onChange={(e) =>
-                      setFormData((prevState) => ({
-                        ...prevState,
-                        transactionDetails: {
-                          ...prevState.transactionDetails,
-                          Amount: e.target.value,
-                        },
-                      }))
-                    }
+                    name="Amount"
+                    value={formData.orderDetails.Amount}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
               </div>

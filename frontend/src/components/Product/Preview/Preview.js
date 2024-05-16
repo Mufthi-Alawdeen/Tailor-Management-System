@@ -249,8 +249,8 @@ const Preview = () => {
       </div>
       <div className="sort-buttons" style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
         <button className="sort-button" onClick={() => handleSort('all')} style={{ color: 'gray', borderRadius: '5px', border: 'none', padding: '10px 20px', cursor: 'pointer', marginRight: '10px', backgroundColor: 'transparent' }}>All</button>
-        <span style={{ color: 'gray', padding: '0 5px', marginTop: '10px', marginRight: '-5px' }}>|</span>
-        <div className="dropdown-menu" style={{ position: 'relative', display: 'inline-block' }}>
+        <span style={{ color: 'gray', padding: '0 5px', marginTop: '22px', marginRight: '3px' }}>|</span>
+        <div className="dropdown-menu" style={{ position: 'relative', display: 'inline-block' , border:'none'}}>
           <button className="sort-button" onClick={() => handleSort('rent')} style={{ color: 'gray', borderRadius: '5px', border: 'none', padding: '10px 20px', cursor: 'pointer', backgroundColor: 'transparent' }}>Rent</button>
           <span style={{ color: 'gray', padding: '0 5px', marginTop: '10px' }}>|</span>
           <select className="filter-select" onChange={(e) => handleSort('buy', e.target.value)} style={{ color: 'gray', borderRadius: '5px', border: 'none', padding: '10px 20px', top: '100%', left: '0', cursor: 'pointer', backgroundColor: 'transparent' }}>
@@ -365,6 +365,7 @@ const Preview = () => {
           </button>
         ))}
       </div>
+      <div style={{ height: "34px" }}></div>
     </div>
   );
 };

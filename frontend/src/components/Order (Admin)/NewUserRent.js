@@ -22,6 +22,7 @@ const RentAndUserForm = () => {
     Email: "",
     Address: "",
     ContactNumber: "",
+    Amount: "",
     Type: "offline",
   });
 
@@ -35,6 +36,7 @@ const RentAndUserForm = () => {
     Status: "Rented",
     Type: "Manual",
     TransactionID: initialTransactionID,
+    Amount: "",
   });
 
   const [transactionDetails, setTransactionDetails] = useState({
@@ -49,26 +51,26 @@ const RentAndUserForm = () => {
 
   const handleUserChange = (e) => {
     const { name, value } = e.target;
-    setUserDetails({
-      ...userDetails,
+    setUserDetails((prevUserDetails) => ({
+      ...prevUserDetails,
       [name]: value,
-    });
+    }));
   };
 
   const handleRentChange = (e) => {
     const { name, value } = e.target;
-    setRentDetails({
-      ...rentDetails,
+    setRentDetails((prevRentDetails) => ({
+      ...prevRentDetails,
       [name]: value,
-    });
+    }));
   };
 
   const handleTransactionChange = (e) => {
     const { name, value } = e.target;
-    setTransactionDetails({
-      ...transactionDetails,
+    setTransactionDetails((prevTransactionDetails) => ({
+      ...prevTransactionDetails,
       [name]: value,
-    });
+    }));
   };
 
   useEffect(() => {
@@ -92,15 +94,21 @@ const RentAndUserForm = () => {
       (product) => product._id === selectedProductId
     );
     if (selectedProduct) {
+      const productAmount = selectedProduct.price.toString();
       setRentDetails((prevRentDetails) => ({
         ...prevRentDetails,
         ProductID: selectedProduct._id,
         ProductName: selectedProduct.name,
+        Amount: productAmount,
       }));
-      setProductPrice(selectedProduct.price);
+      setProductPrice(productAmount);
       setTransactionDetails((prevTransactionDetails) => ({
         ...prevTransactionDetails,
-        Amount: selectedProduct.price.toString(),
+        Amount: productAmount,
+      }));
+      setUserDetails((prevUserDetails) => ({
+        ...prevUserDetails,
+        Amount: productAmount,
       }));
     }
   };
@@ -125,33 +133,34 @@ const RentAndUserForm = () => {
 
       // Reset form fields after successful submission
       setUserDetails({
-        UserID: "",
+        UserID: generateUserID(),
         FirstName: "",
         LastName: "",
         Email: "",
         Address: "",
         ContactNumber: "",
-        Type: "",
+        Amount: "",
+        Type: "offline",
       });
 
       setRentDetails({
-        RentID: "",
-        UserID: "",
+        UserID: generateUserID(),
+        RentID: generateRentID(),
         ProductID: "",
         ProductName: "",
         PickupDate: currentDate,
         ReturnDate: "",
-        Payment: "",
-        Description: "",
-        Type: "",
-        Status: "",
+        Status: "Rented",
+        Type: "Manual",
+        TransactionID: generateTransactionID(),
+        Amount: "",
       });
 
       setTransactionDetails({
-        TransactionID: "",
+        TransactionID: generateTransactionID(),
         Amount: "",
-        PaymentType: "",
-        TransDate: "",
+        PaymentType: "Manual",
+        TransDate: new Date().toISOString().slice(0, 10),
       });
 
       Swal.fire({
@@ -368,3 +377,4 @@ const RentAndUserForm = () => {
 };
 
 export default RentAndUserForm;
+

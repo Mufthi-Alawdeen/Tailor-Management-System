@@ -19,6 +19,7 @@ const RentForm = () => {
     ReturnDate: "",
     Status: "Rented",
     Type: "Manual",
+    Amount: "",
     TransactionID: initialTransactionID,
   });
 
@@ -74,11 +75,12 @@ const RentForm = () => {
         ...prevFormData,
         ProductID: selectedProduct._id,
         ProductName: selectedProduct.name,
+        Amount: selectedProduct.price, // Set amount in formData
       }));
       setProductPrice(selectedProduct.price);
       setTransactionDetails((prevTransactionDetails) => ({
         ...prevTransactionDetails,
-        Amount: selectedProduct.price.toString(),
+        Amount: selectedProduct.price.toString(), // Set amount in transactionDetails
       }));
       setSelectedProduct(selectedProduct); // Set selected product
     }
@@ -113,19 +115,6 @@ const RentForm = () => {
         ...prevFormData,
         PickupDate: pickupDate.toISOString().slice(0, 10),
       }));
-    }
-    // Set product price in transactionDetails
-    if (name === "ProductID") {
-      const selectedProduct = products.find(
-        (product) => product.ProductID === value
-      );
-      if (selectedProduct) {
-        setTransactionDetails((prevTransactionDetails) => ({
-          ...prevTransactionDetails,
-          Amount: selectedProduct.Amount,
-        }));
-        setSelectedProduct(selectedProduct);
-      }
     }
   };
 
@@ -193,6 +182,7 @@ const RentForm = () => {
               ReturnDate: "",
               Status: "Rented",
               Type: "Manual",
+              Amount: "",
               TransactionID: generateTransactionID(),
             });
 
@@ -243,7 +233,7 @@ const RentForm = () => {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <Link to="/AddRentNewUser" className="dropdown-item">
+                  <Link                   to="/AddRentNewUser" className="dropdown-item">
                     New User Rental
                   </Link>
                 </li>
@@ -431,3 +421,4 @@ const RentForm = () => {
 };
 
 export default RentForm;
+
