@@ -309,6 +309,7 @@ const OrderList = () => {
                 <p>
                   <strong>Customer Type:</strong> {selectedUser.Type}
                 </p>
+                
               </div>
             )}
           </Modal.Body>

@@ -70,11 +70,11 @@ function Header() {
                     </div>
                 ) : (
                     
-                    <Link to="/signin">
+                    // <Link to="/signup">
                         <button className="login" style={{marginRight:'10px', padding:'12px', backgroundColor:'black', color:'white', border:'none', fontWeight:'650'}} onClick={handleLogin}>
                             Sign Up
                         </button>
-                    </Link>
+                    // </Link>
 
                    
                 )}
