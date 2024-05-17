@@ -89,7 +89,7 @@ export default function DashBoard() {
       setPendingOrders(pendingCount);
 
       const onlineCount = orders.filter(
-        (order) => order.Type === "online"
+        (order) => order.Type === "Online"
       ).length;
       setOnlineOrders(onlineCount);
 
@@ -149,7 +149,7 @@ export default function DashBoard() {
     orderChartRef.current = new Chart(ctx, {
       type: "doughnut",
       data: {
-        labels: ["Manual Orders", "Online Orders"],
+        labels: ["Online Orders", "Manual Orders"],
         datasets: [
           {
             data: [onlineOrders, totalOrders - onlineOrders],
