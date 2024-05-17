@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 import './Cart.css';
 import Header from '../../Inquiry/Contact Us/UserHeader';
 import CartMenu from '../../Header/CartMenu';
@@ -75,16 +76,23 @@ const Cart = () => {
     };
 
     const handleCheckout = () => {
-        console.log('Checkout clicked');
-        window.location.href = "/order/Checkout";
+        if (cartItems.length === 0) {
+            // If there are no items in the cart, show SweetAlert2 message
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'There are no items in the cart to checkout!',
+            });
+        } else {
+            console.log('Checkout clicked');
+            window.location.href = "/order/Checkout";
+        }
     };
 
     return (
         <div>
             <Header />
-
             <CartMenu/>
-
             <div className="container">
                 <h2 className="mt-4 mb-3">Cart Items</h2>
                 {updateMessage && <div className="alert alert-success">{updateMessage}</div>}
