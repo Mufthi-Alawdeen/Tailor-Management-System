@@ -1,5 +1,5 @@
-const accountSid = 'AC1502cadf4bd090da32adabe361f90db9';
-const authToken = '3e9ecb527e6e393ff8b6e82a624cfcbf';
+const accountSid = 'ACe17b45b1bb0cfcf26caa4577907674ed';
+const authToken = 'da4876385f19c1b4c5c978437cc7c2a7';
 const client = require('twilio')(accountSid, authToken);
 const router = require("express").Router();
 const Inquiry = require("../models/Inquiry");
@@ -74,7 +74,7 @@ router.post("/sendSms", (req, res) => {
     client.messages
     .create({
         body: message,
-        from: '+19388370556',
+        from: '+16362671655',
         to: '+94720357757'
     })
         .then(message => {
