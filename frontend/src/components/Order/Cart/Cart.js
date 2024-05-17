@@ -9,6 +9,8 @@ const Cart = () => {
     const [cartItems, setCartItems] = useState([]);
     const [updatedQuantity, setUpdatedQuantity] = useState({});
     const [totalPrice, setTotalPrice] = useState(0);
+    const [updateMessage, setUpdateMessage] = useState("");
+    const [deleteMessage, setDeleteMessage] = useState("");
 
     useEffect(() => {
         // Fetch cart items when the component mounts
@@ -40,6 +42,12 @@ const Cart = () => {
         const currentQuantity = updatedQuantity[id] || cartItems.find(item => item._id === id).quantity;
         const newQuantity = currentQuantity + change;
         setUpdatedQuantity({ ...updatedQuantity, [id]: newQuantity });
+        setUpdateMessage(`Quantity updated for ${cartItems.find(item => item._id === id).product.name}`);
+        
+        // Clear update message after 3 seconds
+        setTimeout(() => {
+            setUpdateMessage("");
+        }, 3000);
     };
 
     const handleDeleteItem = (id) => {
@@ -48,7 +56,12 @@ const Cart = () => {
             .then(response => {
                 // Remove the deleted item from the state
                 setCartItems(cartItems.filter(item => item._id !== id));
-                console.log('Item deleted successfully');
+                setDeleteMessage("Item deleted successfully");
+
+                // Clear delete message after 3 seconds
+                setTimeout(() => {
+                    setDeleteMessage("");
+                }, 3000);
             })
             .catch(error => {
                 // Handle error
@@ -66,7 +79,9 @@ const Cart = () => {
             <Header />
 
             <div className="container">
-                <h2 className="mt-4 mb-3">Cart</h2>
+                <h2 className="mt-4 mb-3">Cart Items</h2>
+                {updateMessage && <div className="alert alert-success">{updateMessage}</div>}
+                {deleteMessage && <div className="alert alert-success">{deleteMessage}</div>}
                 <table className="table">
                     <thead>
                         <tr>
@@ -88,7 +103,7 @@ const Cart = () => {
                                             alt="Product" 
                                             style={{ width: '100px', height: 'auto' }} 
                                         />
-                                        <p className="mb-0">{product.name}</p>
+                                        <p className="mb-0"style={{margin: '10px'}}>{product.name}</p>
                                     </td>
                                     <td className="align-middle">${product.price.toFixed(2)}</td>
                                     <td className="align-middle">
@@ -100,7 +115,7 @@ const Cart = () => {
                                             >
                                                 -
                                             </button>
-                                            <span className="btn btn-light">{updatedQuantity[item._id] || item.quantity}</span>
+                                            <span className="btn" style={{ backgroundColor: '#bf1e2d' }}>{updatedQuantity[item._id] || item.quantity}</span>
                                             <button 
                                                 type="button" 
                                                 className="btn btn-secondary" 
@@ -112,7 +127,7 @@ const Cart = () => {
                                     </td>
                                     <td className="align-middle">${(product.price * (updatedQuantity[item._id] || item.quantity)).toFixed(2)}</td>
                                     <td className="align-middle">
-                                        <button className="btn btn-danger" onClick={() => handleDeleteItem(item._id)}>Delete</button>
+                                        <button onClick={() => handleDeleteItem(item._id)}>Delete</button>
                                     </td>
                                 </tr>
                             );
@@ -120,8 +135,18 @@ const Cart = () => {
                     </tbody>
                 </table>
                 <div className="cart-footer">
-                    <div className="total-price mt-3">Total Price: ${totalPrice.toFixed(2)}</div>
-                    <button onClick={handleCheckout} className="btn btn-success">Checkout</button>
+                    <table className='carttot'>
+                        <tr>
+                            <th>Cart Total</th>
+                        </tr>
+                        <tr>
+                            <td>
+                            <div className="total-price mt-3"><span className='totprice'>Total Price: </span><span className='totdata'>${totalPrice.toFixed(2)}</span></div>
+                            <hr></hr>
+                            <button onClick={handleCheckout} className="btn btn-success">Checkout</button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

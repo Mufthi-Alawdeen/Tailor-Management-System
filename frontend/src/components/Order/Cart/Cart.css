@@ -1,12 +1,15 @@
 .container {
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 table {
     width: 100%;
+    border: 1px solid #202020;
 }
 
-table th, table td {
+table th,
+table td {
     padding: 8px;
     text-align: center;
 }
@@ -16,15 +19,18 @@ table th, table td {
 }
 
 .btn-primary {
-    background-color: #000; /* Black button */
+    background-color: #202020; /* Black button */
 }
 
 .btn-danger {
-    background-color: #000; /* Black button */
+    background-color: #202020; /* Black button */
 }
 
 .btn-success {
-    background-color: #000; /* Black button */
+    background-color: #202020; /* Black button */
+}
+.btn-secondary{
+    background-color: #202020;
 }
 
 .card {
@@ -42,12 +48,9 @@ table th, table td {
 
 .shop-btn {
     display: inline-block;
-    background-color: #000; /* Black button */
-    color: #fff; /* White text */
     padding: 8px 16px;
     text-decoration: none;
     border-radius: 4px;
-    transition: background-color 0.3s;
 }
 
 .shop-btn:hover {
@@ -55,16 +58,16 @@ table th, table td {
 }
 
 button {
-    background-color: #000; /* Black button */
-    color: #fff; /* White text */
+    background-color: #202020;
     padding: 8px 16px;
     text-decoration: none;
     border-radius: 4px;
-    transition: background-color 0.3s;
+    color: #fff;
 }
 
-button:hover{
+button:hover {
     transform: scale(1.1);
+    background-color: #333;
 }
 
 .cart-footer {
@@ -77,14 +80,51 @@ button:hover{
 }
 
 .cart-footer button {
-    background-color: black;
+    background-color:#202020;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    margin-top: 20px;
 }
 
 .cart-footer button:hover {
     background-color: #333;
+}
+
+/* Override text color for delete button */
+.cart-footer button.btn-danger:hover {
+    color: white;
+}
+
+.cart-footer table {
+    border-collapse: collapse;
+    width: 30%;
+    margin: 20px auto; /* Center the table horizontally */
+    text-align: right; /* Align text to the right within the table */
+}
+
+.cart-footer th,
+.cart-footer td {
+    border: 1px solid #ddd; /* Light border */
+    padding: 8px;
+    text-align: center;
+}
+
+.cart-footer th {
+    background-color: #f2f2f2; /* Light gray background */
+}
+
+.total-price {
+    margin-top: 3px;
+}
+
+.totprice {
+    display: inline-block;
+    text-align: left;
+    width: 100px; /* Adjust width as needed */
+}
+
+.totdata {
+    display: inline-block;
+    text-align: center;
 }
