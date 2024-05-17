@@ -17,7 +17,7 @@ const Cart = () => {
 
     useEffect(() => {
         if (!loggedInUser) {
-            window.location.href = "/signup";
+            window.location.href = "/login";
             return;
         }
         // Fetch cart items when the component mounts

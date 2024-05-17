@@ -13,7 +13,7 @@ const OrderHistory = () => {
 
   useEffect(() => {
     if (!loggedInUser) {
-        window.location.href = "/signup";
+        window.location.href = "/login";
         return;
     }
     fetchOrders();

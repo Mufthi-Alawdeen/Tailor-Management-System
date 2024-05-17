@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import './CustomTrouser.css'; // Import CSS file for custom styling
@@ -7,7 +7,7 @@ import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const TrouserCustomizationForm = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    const UserId = loggedInUser._id; // Using loggedInUser.UserID
+    const UserId = loggedInUser ? loggedInUser._id : null; // Using loggedInUser.UserID
     const { productId } = useParams();
     const [fabric, setFabric] = useState('');
     const [color, setColor] = useState('');
@@ -20,6 +20,12 @@ const TrouserCustomizationForm = () => {
     const [quantity, setQuantity] = useState(1);
     const [errors, setErrors] = useState({});
     const [successMessage, setSuccessMessage] = useState('');
+
+    useEffect(() => {
+        if (!loggedInUser) {
+            window.location.href = "/login"; // Redirect to login page if not logged in
+        }
+    }, [loggedInUser]);
 
     const handleFabricChange = (e) => {
         setFabric(e.target.value);

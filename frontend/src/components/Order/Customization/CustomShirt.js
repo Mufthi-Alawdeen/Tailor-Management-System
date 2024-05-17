@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import './CustomShirt.css';
@@ -7,7 +7,7 @@ import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const ShirtCustomizationForm = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    const userId = loggedInUser._id; // Using loggedInUser.UserID
+    const userId = loggedInUser ? loggedInUser._id : null; // Using loggedInUser.UserID
     const { productId } = useParams();
     const [fabric, setFabric] = useState('');
     const [color, setColor] = useState('');
@@ -18,6 +18,12 @@ const ShirtCustomizationForm = () => {
     const [shirtLength, setShirtLength] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        if (!loggedInUser) {
+            window.location.href = "/login"; // Redirect to login page if not logged in
+        }
+    }, [loggedInUser]);
 
     const fabricOptions = ['Cotton', 'Linen', 'Silk', 'Polyester']; // Relevant fabric options for shirts
     const colorOptions = ['black', 'navy', 'gray', 'charcoal']; // Relevant color options for shirts

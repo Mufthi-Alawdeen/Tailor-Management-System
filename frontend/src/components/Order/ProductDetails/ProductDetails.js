@@ -65,7 +65,7 @@ const ProductDetails = () => {
     const handleCustomizationRedirect = () => {
         if (!isLoggedIn) {
             // Redirect to sign-in page if user is not logged in
-            window.location.href = '/signup';
+            window.location.href = '/login';
             return; // Stop further execution
         }
 
@@ -97,7 +97,7 @@ const ProductDetails = () => {
     const handleAddToCart = async () => {
         if (!isLoggedIn) {
             // Redirect to login page if user is not logged in
-            window.location.href = '/signup';
+            window.location.href = '/login';
             return;
         }
         if (Object.keys(errors).length === 0) {
