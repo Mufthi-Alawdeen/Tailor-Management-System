@@ -235,7 +235,7 @@ function Ad_Dashboard() {
                         </a>
                     </li>
                     <li>
-                        <a style={{marginBottom:'10px'}}  href="#" className="nav-link px-0 text-danger">
+                        <a style={{marginBottom:'10px'}}   href="/employee/report" className="nav-link px-0 text-danger">
                         <span className="d-none d-sm-inline">Report</span> 
                         </a>
                     </li>
