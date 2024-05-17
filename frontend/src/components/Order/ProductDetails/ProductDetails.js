@@ -159,8 +159,8 @@ const ProductDetails = () => {
                         </div>
                         <div className="col-md-6">
                             <h2 className={`mb-3 ${styles.productName}`}>{product.name}</h2>
-                            <p className={`mb-3 ${styles.price}`}>Price: ${product.price}</p>
-                            <p className={`mb-3 ${styles.description}`}>Description: {toParagraphCase(product.description)}</p>
+                            <p className={`mb-3 ${styles.price}`} style={{fontSize: '18px' }}>LKR {product.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+                            <p className={`mb-3 ${styles.description}`} style={{fontSize: '20px' }}>{toParagraphCase(product.description)}</p>
                             {product.category === 'bow' || product.category === 'tie' ? (
                                 <div>
                                     <div className="mb-3">

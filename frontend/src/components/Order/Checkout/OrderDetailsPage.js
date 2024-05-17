@@ -2,10 +2,11 @@ import React, { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import html2pdf from 'html2pdf.js';
+import './Checkout.css';
 
 const OrderDetailsPage = () => {
   const location = useLocation();
-  const { orders, transactionId, amount, pickupDate } = location.state || {};
+  const { orders, transactionId, amount } = location.state || {};
   const componentRef = useRef();
 
   const handlePrint = () => {
@@ -21,16 +22,16 @@ const OrderDetailsPage = () => {
   };
 
   return (
-    <div className='container mt-5' >
+    <div className='container mt-5' id='orderdet' >
       <div ref={componentRef}>
-      <h2>Order Details</h2>
+      <h2>Transaction Details</h2>
       <div className="mb-3">
         <strong>Transaction ID:</strong> {transactionId}
       </div>
       <div className="mb-3">
         <strong>Amount:</strong> ${amount}
       </div>
-      <h3>Order IDs:</h3>
+      <h3>Orders</h3>
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -42,16 +43,16 @@ const OrderDetailsPage = () => {
         <tbody>
           {orders.map((order, index) => (
             <tr key={index}>
-              <td>{order._id}</td>
-              <td>{order.PickupDate}</td>
+              <td>{order.OrderID}</td>
+              <td>{new Date(order.PickupDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
               <td>${order.Amount}</td>
             </tr>
           ))}
         </tbody>
       </table>
       </div>
-      <button onClick={handlePrint} className="btn btn-primary d-print-none">Print Report</button>
-      <Link to="/" className="btn btn-secondary ml-2 d-print-none">Home</Link>
+      <button onClick={handlePrint} className="btn">Print Report</button>
+      <Link to="/" className="btn">Home</Link>
     </div>
   );
 };
