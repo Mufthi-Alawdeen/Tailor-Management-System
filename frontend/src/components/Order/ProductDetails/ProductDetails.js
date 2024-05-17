@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../../Inquiry/Contact Us/UserHeader';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import styles from './ProductDetails.module.css'; // Import CSS module
 import '@fortawesome/fontawesome-free/css/all.css';
 import { FaStar } from 'react-icons/fa';
@@ -18,6 +18,7 @@ const ProductDetails = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     const isLoggedIn = !!loggedInUser;
     const UserId = loggedInUser ? loggedInUser._id : null;
+    const navigate = useNavigate(); // Use useNavigate hook
 
     useEffect(() => {
         fetchProductDetails();
@@ -57,24 +58,29 @@ const ProductDetails = () => {
         if (!isLoggedIn) {
             // Redirect to sign-in page if user is not logged in
             window.location.href = '/signup';
-            return null; // Return null when user is not logged in
+            return; // Stop further execution
         }
 
         if (product) {
             const { category } = product;
             switch (category) {
                 case 'suit':
-                    return `http://localhost:3000/order/customsuit/${productId}`;
+                    navigate(`/order/customsuit/${productId}`);
+                    break;
                 case 'shirt':
-                    return `http://localhost:3000/order/customshirt/${productId}`;
+                    navigate(`/order/customshirt/${productId}`);
+                    break;
                 case 'trousers':
-                    return `http://localhost:3000/order/customtrouser/${productId}`;
+                    navigate(`/order/customtrouser/${productId}`);
+                    break;
                 case 'bow':
-                    return null;
+                    navigate('/'); // No customization page for 'bow', navigate to home or another page
+                    break;
                 case 'tie':
-                    return null;
+                    navigate('/'); // No customization page for 'tie', navigate to home or another page
+                    break;
                 default:
-                    return '/';
+                    navigate('/'); // Navigate to home for unknown categories
             }
         }
     };
@@ -105,7 +111,7 @@ const ProductDetails = () => {
         }
     };
 
-    //case converter
+    // Case converter
     const toParagraphCase = (description) => {
         // Split the description into sentences
         const sentences = description.split('. ');
@@ -121,7 +127,6 @@ const ProductDetails = () => {
         // Join the sentences back together with a period and space
         return capitalizedSentences.join('. ');
     };
-
 
     return (
         <div>
@@ -155,16 +160,31 @@ const ProductDetails = () => {
                             <h2 className={`mb-3 ${styles.productName}`}>{product.name}</h2>
                             <p className={`mb-3 ${styles.price}`}>Price: ${product.price}</p>
                             <p className={`mb-3 ${styles.description}`}>Description: {toParagraphCase(product.description)}</p>
-                            {/* Call handleCustomizationRedirect onClick of Customization button */}
-                            <button className={`${styles.customizationButton} btn btn-primary`} onClick={handleCustomizationRedirect}>Customization</button>
+                            {product.category === 'bow' || product.category === 'tie' ? (
+                                <div>
+                                    <div className="mb-3">
+                                        <label htmlFor="quantity" className="form-label">Quantity</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            id="quantity"
+                                            value={quantity}
+                                            onChange={(e) => setQuantity(parseInt(e.target.value))}
+                                            min="1"
+                                            style={{ width: '50%' }}
+                                        />
+                                    </div>
+                                    <button className={`${styles.addToCartButton} btn btn-primary`} onClick={handleAddToCart}>Add to Cart</button>
+                                </div>
+                            ) : (
+                                <button className={`${styles.customizationButton} btn btn-primary`} onClick={handleCustomizationRedirect}>Customization</button>
+                            )}
                         </div>
                     </div>
                 )}
-                {/* HR Line */}
                 <hr className={`${styles.hrLine} mt-5`} />
-                {/* Review Section */}
                 <div className="mt-4">
-                    <h3>Rating and Review</h3><br></br>
+                    <h3>Rating and Review</h3><br />
                     {isLoggedIn && (
                         <>
                             <div className="mb-3">
@@ -173,10 +193,9 @@ const ProductDetails = () => {
                                     placeholder="Your Review"
                                     value={review}
                                     onChange={e => setReview(e.target.value)}
-                                    style={{width: '50%'}}
+                                    style={{ width: '50%' }}
                                 />
                             </div>
-                            {/* Star Rating Component */}
                             <div className={styles.starRating}>
                                 <span>Rating: </span>
                                 {[...Array(5)].map((_, index) => {
@@ -199,13 +218,11 @@ const ProductDetails = () => {
                         </>
                     )}
                 </div>
-                {/* Display All Reviews Section */}
                 <hr className="my-4 bg-primary"></hr>
                 <div className="mt-4">
-                    <h3>Reviews</h3><br></br>
+                    <h3>Reviews</h3><br />
                     <div className="row">
                         {allReviews.map((review, index) => (
-                            // Check if the user's first name is available before rendering the review
                             review.user && review.user.FirstName && (
                                 <div key={index} className={`col-md-6 mb-3 ${styles.review}`}>
                                     <div>

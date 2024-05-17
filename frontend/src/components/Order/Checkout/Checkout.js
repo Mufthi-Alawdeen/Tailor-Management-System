@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaCcMastercard, FaCcVisa, FaArrowLeft } from 'react-icons/fa'; // Import icons
 import './Checkout.css';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = () => {
+  const navigate = useNavigate();
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   const userObjectId = loggedInUser ? loggedInUser._id : null;
   const UserId = loggedInUser ? loggedInUser.UserID : null;
@@ -22,7 +24,7 @@ const CheckoutForm = () => {
       window.location.href = "/signup";
       return;
     }
-    
+
     // Fetch cart items using the user object ID
     const fetchCartItems = async () => {
       try {
@@ -129,6 +131,20 @@ const CheckoutForm = () => {
 
         // Optionally, you can handle the response from the backend here
         console.log('Response from backend:', response.data);
+      } else {
+        throw new Error('Network response was not ok');
+      }
+
+      if (response.status === 201) {
+        // Navigate to OrderDetailsPage upon successful submission
+        navigate('/order/orderdetails', {
+          state: {
+            orderId: response.data.orderId,
+            transactionId: response.data.transactionId,
+            amount: totalAmount,
+            pickupDate: response.data.pickupDate
+          }
+        });
       } else {
         throw new Error('Network response was not ok');
       }

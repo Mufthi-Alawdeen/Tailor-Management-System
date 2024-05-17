@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Cart.css';
 import Header from '../../Inquiry/Contact Us/UserHeader';
+import CartMenu from '../../Header/CartMenu';
 
 const Cart = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -81,6 +82,8 @@ const Cart = () => {
     return (
         <div>
             <Header />
+
+            <CartMenu/>
 
             <div className="container">
                 <h2 className="mt-4 mb-3">Cart Items</h2>

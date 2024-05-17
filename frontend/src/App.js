@@ -77,6 +77,7 @@ import CustomTrouser from "./components/Order/Customization/CustomTrouser";
 import Cart from "./components/Order/Cart/Cart";
 import Checkout from "./components/Order/Checkout/Checkout";
 import ProductListAccessories from "./components/Order/Accessories/Accessories";
+import OrderDetailsPage from "./components/Order/Checkout/OrderDetailsPage";
 
 //Order Admin
 import OrderAndUserForm from "./components/Order (Admin)/NewUserOrder";
@@ -172,6 +173,7 @@ function App() {
             exact
             element={<CustomTrouser />}
           />
+          <Route path="/order/orderdetails" exact element={<OrderDetailsPage />} />
           <Route path="/order/cart" exact element={<Cart />} />
           <Route path="/order/Checkout" exact element={<Checkout />} />
           <Route path="/AddOrderNewUser" element={<OrderAndUserForm />} />

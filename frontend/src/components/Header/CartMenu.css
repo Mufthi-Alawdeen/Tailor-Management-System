@@ -1,0 +1,40 @@
+#cartmenucont .nav-item {
+    position: relative;
+}
+
+#cartmenucont .nav-item::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: grey;
+    /* Default color */
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    transition: width 0.3s ease;
+    /* Transition effect */
+}
+
+#cartmenucont .nav-item:hover::after {
+    width: 100%;
+}
+
+#cartmenucont .active-link::after {
+    background-color: black;
+    /* Active color */
+}
+
+#cartmenucont .selected-link {
+    color: black;
+    /* Change text color to black */
+}
+
+#cartmenucont .selected-link::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    /* Bottom border color for selected link */
+}
