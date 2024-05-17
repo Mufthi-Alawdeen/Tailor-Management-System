@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import html2pdf from 'html2pdf.js';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import logo from '../../../res/MSRLogo.png';
 
 export const generateRentID = () => {
   const date = new Date();
@@ -12,6 +15,8 @@ export const generateRentID = () => {
 };
 
 const RentCheckout = () => {
+  const navigate = useNavigate();
+
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   const userObjectId = loggedInUser._id;
   const UserId = loggedInUser.UserID;
@@ -80,16 +85,16 @@ const RentCheckout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const generateTransactionID = () => {
         const randomNumber = Math.floor(1000 + Math.random() * 9000);
         return `MT${randomNumber}`;
       };
-  
+
       const { cardNumber, cardExpiryDate, cardCVV } = transactionData;
       const transactionID = generateTransactionID();
-  
+
       const postData = {
         TransactionID: transactionID,
         Amount: totalAmount,
@@ -99,15 +104,15 @@ const RentCheckout = () => {
         CardExpDate: cardExpiryDate,
         TransDate: new Date().toISOString()
       };
-  
+
       console.log('Transaction Data before submitting:', postData);
-  
+
       const response = await axios.post('http://localhost:8075/transaction/addTransaction', postData);
-  
+
       if (response.status === 200) {
         for (const item of cartItems) {
           const rentID = generateRentID();
-  
+
           const rentData = {
             RentID: rentID,
             UserID: UserId,
@@ -120,13 +125,13 @@ const RentCheckout = () => {
             Amount: item.product.price,
             TransactionID: transactionID
           };
-  
+
           // Add rent data
           const rentResponse = await axios.post('http://localhost:8075/rent/addRent', rentData);
           if (rentResponse.status !== 200) {
             throw new Error('Failed to create rent');
           }
-  
+
           console.log('Rent created successfully:', rentResponse.data);
         }
 
@@ -147,7 +152,23 @@ const RentCheckout = () => {
           cardCVV: '',
           cardExpiryDate: ''
         });
-  
+
+        // Display SweetAlert upon successful rent placement
+        Swal.fire({
+          icon: 'success',
+          title: 'Rent placed successfully!',
+          showConfirmButton: false,
+          timer: 1500 // Close alert after 1.5 seconds
+        });
+
+        // Clear the checkout total
+        setTotalAmount(0);
+
+        // Redirect to '/rentProducts' page after 1.5 seconds
+        setTimeout(() => {
+          navigate('/rentProducts');
+        }, 1500);
+
         console.log('Response from backend:', response.data);
       } else {
         throw new Error('Network response was not ok');
@@ -158,12 +179,22 @@ const RentCheckout = () => {
   };
 
   const generateInvoice = (invoiceData) => {
-    const { user, transaction, cartItems } = invoiceData;
-
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    const { transaction, cartItems } = invoiceData;
+  
     const invoiceHtml = `
       <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px;">
+          <img src="${logo}" alt="Logo" style="max-width: 100px; margin-left: 30px; margin-top: 20px" />
+          <div style="flex: 1; text-align: right; margin-right: 20px; margin-top: 20px">
+            <h1>MSR Tailors</h1>
+            <p>Address: 271 A9, Kandy 20000</p>
+            <p>Phone: 0812 205 454</p>
+          </div>
+        </div>
+        <hr style="color:#000000"></hr>
         <h2 style="text-align: center;">Invoice</h2>
-        <p><strong>User:</strong> ${user.username}</p>
+        <p><strong>User:</strong> ${loggedInUser.FirstName}</p>
         <p><strong>Transaction ID:</strong> ${transaction.TransactionID}</p>
         <p><strong>Transaction Date:</strong> ${new Date(transaction.TransDate).toLocaleDateString()}</p>
         <h3>Items</h3>
@@ -188,18 +219,18 @@ const RentCheckout = () => {
         </table>
         <p><strong>Total Amount:</strong> $${transaction.Amount.toFixed(2)}</p>
         <p style="color: red; font-weight: bold;">Please pick up your items from the store on the pickup date and keep your NIC at the store until returning the products.</p>
-      </div>
-    `;
-
+      </div>`;
+  
     const options = {
       margin: 1,
       filename: 'invoice.pdf',
       html2canvas: {},
       jsPDF: { orientation: 'portrait' }
     };
-
+  
     html2pdf().from(invoiceHtml).set(options).save();
   };
+  
 
   return (
     <div className="container mt-5">
@@ -225,3 +256,4 @@ const RentCheckout = () => {
 };
 
 export default RentCheckout;
+

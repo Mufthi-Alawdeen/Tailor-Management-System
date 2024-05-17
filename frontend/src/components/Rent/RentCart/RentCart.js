@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import Header from '../../Inquiry/Contact Us/UserHeader';
 import './RentCart.css';
 import CartMenu from '../../Header/CartMenu';
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 const RentCart = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   const userId = loggedInUser._id;
   const [cartItems, setCartItems] = useState([]);
@@ -35,6 +38,19 @@ const RentCart = () => {
       setCartItems(cartItems.filter(item => item._id !== itemId));
     } catch (error) {
       console.error('Error deleting cart item:', error);
+    }
+  };
+
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Cart is empty',
+        text: 'Please add items to your cart before proceeding to checkout.'
+      });
+    } else {
+      // Redirect to checkout page
+      navigate('/rentCheckout');
     }
   };
 
@@ -85,7 +101,7 @@ const RentCart = () => {
         </table>
         <div className="cart-footer">
           <div className="total-price mt-3">Total Price: ${totalPrice.toFixed(2)}</div>
-          <Link to="/rentCheckout" className="btn btn-success">Checkout</Link>
+          <button className="btn btn-success" onClick={handleCheckout}>Checkout</button>
         </div>
       </div>
     </div>
