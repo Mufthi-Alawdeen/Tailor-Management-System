@@ -292,7 +292,7 @@ const InventoryTable = () => {
 
     const handleInstructionsClick = () => {
         Swal.fire({
-          title: 'Before Adding The Same Raw Material Twice In Same Color',
+          title: 'Before Adding The Same Raw Material Color Twice In Same Day',
           text: 'If you are trying to add the same raw material stock in same color which received more than once in the same day then no need to add again just update it in the current stock page and add a note in description as well.',
           icon: 'info',
           confirmButtonText: 'OK'
@@ -347,13 +347,13 @@ const InventoryTable = () => {
             </div>
 
         <h1 style={{textAlign:'center', marginTop:'40px', marginBottom:'20px', textDecoration:'underline', fontWeight:'675'}}>Current Stocks</h1>
-        <div style={{ display: 'flex', textAlign: 'center', marginBottom: '5px' }}>            
-        <div>
-          <a onClick={handleInstructionsClick}>
-        <img src={gif} style={{ marginBottom: '5px', marginLeft: '490px', width: '17%', height: '90%', marginTop: '-10px', cursor: 'pointer' }} alt="Description of GIF" />
+        
+        <div style={{ display: 'flex',alignItems:'center',justifyContent:'center', textAlign: 'center', marginBottom: '15px', marginTop:'25px' }}>            
+          <a onClick={handleInstructionsClick} style={{ display: 'flex',alignItems:'center'}} >
+        <img src={gif} style={{ marginBottom: '5px', width: '90%', height: '90%', marginTop: '-10px', cursor: 'pointer' }} alt="Description of GIF" />
+       
           </a>
-        </div>
-        <h3 style={{ cursor: 'pointer', marginRight:'540px' }} onClick={handleInstructionsClick}>Instructions</h3>
+          <h3 style={{ cursor: 'pointer'}} onClick={handleInstructionsClick}>Instructions</h3>
         </div>   
 
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px', color: 'gray' , marginTop:'10px' }}>
