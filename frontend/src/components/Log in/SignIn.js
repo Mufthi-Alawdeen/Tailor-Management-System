@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Logo from "../Inquiry/Img/MSR.png";
+import Logo from "./img/logo.png";
 import Swal from 'sweetalert2';
 import bgImage from "./img/signup.jpg";
 
@@ -138,15 +138,15 @@ const UserForm = () => {
       <div className="container mt-5" style={{ marginBottom: '30px' }}>
         <div className="row justify-content-center">
           <div className="col-md-6">
-            <div className="card" style={{ padding: '15px', borderRadius: '0px', backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
+            <div className="card" style={{ padding: '15px', borderRadius: '0px', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
               <div className="card-body">
-                <img src={Logo} style={{ width: '80px', margin: '0 auto', display: 'block', marginTop: '10px' }} alt="Logo" />
+                <img src={Logo} style={{ width: '90px', margin: '0 auto', display: 'block', marginTop: '10px' }} alt="Logo" />
                 <hr></hr>
-                <h2 className="mb-4" style={{ textAlign: 'center' }}>Create Account</h2>
+                <h2 className="mb-4" style={{ textAlign: 'center' , color:'white'}}>Create Account</h2>
                 <form onSubmit={handleSubmit}>
                   <div className="row mb-3">
                     <div className="col-md-6">
-                      <label className="form-label"><b>First Name:</b></label>
+                      <label className="form-label"style={{ color:'white'}} ><b>First Name:</b></label>
                       <input
                         type="text"
                         className="form-control"
@@ -157,7 +157,7 @@ const UserForm = () => {
                       />
                     </div>
                     <div className="col-md-6">
-                      <label className="form-label"><b>Last Name:</b></label>
+                      <label className="form-label" style={{ color:'white'}}><b>Last Name:</b></label>
                       <input
                         type="text"
                         className="form-control"
@@ -170,7 +170,7 @@ const UserForm = () => {
                   </div>
                   <div className="row mb-3">
                     <div className="col-md-6">
-                      <label className="form-label"><b>Email:</b></label>
+                      <label className="form-label" style={{ color:'white'}}><b>Email:</b></label>
                       <input
                         type="email"
                         className={`form-control ${errors.email && 'is-invalid'}`}
@@ -186,24 +186,27 @@ const UserForm = () => {
                       )}
                     </div>
                     <div className="col-md-6">
-                      <label className="form-label"><b>Contact Number:</b></label>
-                      <input
-                        type="number"
-                        className={`form-control ${errors.contactNumber && 'is-invalid'}`}
-                        placeholder="Must be 10 digits"
-                        name="ContactNumber"
-                        value={formData.ContactNumber}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        required
-                      />
-                      {errors.contactNumber && (
-                        <div className="invalid-feedback">{errors.contactNumber}</div>
-                      )}
-                    </div>
+  <label className="form-label" style={{ color:'white' }}><b>Contact Number:</b></label>
+  <input
+    type="text"
+    className={`form-control ${errors.contactNumber && 'is-invalid'}`}
+    placeholder="Must be 10 digits"
+    name="ContactNumber"
+    value={formData.ContactNumber}
+    onChange={handleChange}
+    onBlur={handleBlur}
+    maxLength="10"
+    pattern="\d*"
+    required
+  />
+  {errors.contactNumber && (
+    <div className="invalid-feedback">{errors.contactNumber}</div>
+  )}
+</div>
+
                   </div>
                   <div className="mb-3">
-                    <label className="form-label"><b>Address:</b></label>
+                    <label className="form-label" style={{ color:'white'}}><b>Address:</b></label>
                     <input
                       type="text"
                       className="form-control"
@@ -215,7 +218,7 @@ const UserForm = () => {
                   </div>
                   <div className="row mb-3">
                     <div className="col-md-6">
-                      <label className="form-label"><b>Password:</b></label>
+                      <label className="form-label" style={{ color:'white'}}><b>Password:</b></label>
                       <input
                         type="password"
                         className={`form-control ${errors.password && 'is-invalid'}`}
@@ -226,11 +229,11 @@ const UserForm = () => {
                         required
                       />
                       {errors.password && (
-                        <div className="invalid-feedback">{errors.password}</div>
+                        <div className="invalid-feedback" style={{ color:'white'}}>{errors.password}</div>
                       )}
                     </div>
                     <div className="col-md-6">
-                      <label className="form-label"><b>Confirm Password:</b></label>
+                      <label className="form-label" style={{ color:'white'}}><b>Confirm Password:</b></label>
                       <input
                         type="password"
                         className={`form-control ${errors.confirmPassword && 'is-invalid'}`}
@@ -255,7 +258,7 @@ const UserForm = () => {
                         margin: '0 auto',
                         width: '40%',
                         padding: '17px',
-                        backgroundColor: 'black',
+                        backgroundColor: '#a60202',
                         borderRadius: '5px',
                         fontWeight: '650',
                         fontSize: '18px',
@@ -266,12 +269,12 @@ const UserForm = () => {
                     </button>
                   </div>
                 </form>
-                <p className="mt-3" style={{ textAlign: 'center', marginTop: '25px', color: 'black' }}>
-                  Already have an account? <Link to="/login" style={{ color: 'black' }}><b>Sign In</b></Link>
+                <p className="mt-3" style={{ textAlign: 'center', marginTop: '25px', color: 'white' }}>
+                  Already have an account? <Link to="/login" style={{ color: 'white' }}><b>Sign In</b></Link>
                 </p>
                 <div style={{ marginTop: '30px' }}>
                   <p className="mt-3" style={{ textAlign: 'center', fontWeight: '600', fontSize: '17px', color: 'black' }}>
-                    <Link to="/employee/signin" style={{ color: 'black' }}><b>Create An Employee Account</b></Link>
+                    <Link to="/employee/signin" style={{ color: 'white' }}><b>Create An Employee Account</b></Link>
                   </p>
                 </div>
               </div>

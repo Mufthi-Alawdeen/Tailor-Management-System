@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Logo from "../Inquiry/Img/MSR.png";
+import Logo from "./img/logo.png";
 import bgImage from "./img/loginbg.jpg";
 
 const LoginForm = () => {
@@ -76,7 +76,7 @@ const LoginForm = () => {
             src={Logo}
             alt="Logo"
             className="mb-3 mx-auto d-block"
-            style={{ width: "60px" }}
+            style={{ width: "75px" }}
           />
           <h2 className="text-center mb-3">Login</h2>
           {error && <div className="alert alert-danger">{error}</div>}
