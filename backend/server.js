@@ -48,6 +48,7 @@ const orderRouter = require("./routes/order");
 const rentRouter = require("./routes/RentDetails.js");
 const userRouter = require("./routes/UserDetails.js");
 const transectionRouter = require("./routes/TransDetails.js");
+const rentCart = require("./routes/rentCart.js");
 
 app.use("/order", orderRouter);
 app.use("/rent", rentRouter);
@@ -62,7 +63,7 @@ app.use("/leave",leaveRouter);  //using "use" function in express
 app.use("/onlineUser",onlineUserRouter);
 app.use("/employeeAccount",employeeAccountRouter);
 app.use("/employeeBonus",employeeBonusRouter);
-
+app.use("/rentCart", rentCart);
  
 // Define routes
 app.get('/', (req, res) => {
