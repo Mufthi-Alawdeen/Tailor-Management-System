@@ -11,6 +11,10 @@ const employeeBonusSchema = new Schema({
         type: Number,
         required: true
     },
+    bonusType:{
+        type: String,
+        required: true
+    },
     month: {
         type: String,
         required: true
