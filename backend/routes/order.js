@@ -444,7 +444,7 @@ router.post("/createorder", async (req, res) => {
         Type: "Online",
         OrderDate: new Date(), // Record the current date
         PickupDate: pickupDate,
-        TransactionID: transactionId,
+        TransactionID: newTransactionId,
         Amount: cartItem.product.price * cartItem.quantity
       });
       await order.save();

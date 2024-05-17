@@ -79,6 +79,7 @@ import Cart from "./components/Order/Cart/Cart";
 import Checkout from "./components/Order/Checkout/Checkout";
 import ProductListAccessories from "./components/Order/Accessories/Accessories";
 import OrderDetailsPage from "./components/Order/Checkout/OrderDetailsPage";
+import OrderHistory from "./components/Order/History/OrderHistory";
 
 //Rent User Side
 import RentalList from "./components/Rent/rentList";
@@ -182,6 +183,7 @@ function App() {
           />
           <Route path="/order/orderdetails" exact element={<OrderDetailsPage />} />
           <Route path="/order/cart" exact element={<Cart />} />
+          <Route path="/order/orderhistory" exact element={<OrderHistory />} />
           <Route path="/order/Checkout" exact element={<Checkout />} />
           <Route path="/AddOrderNewUser" element={<OrderAndUserForm />} />
           <Route path="/AddOrderExUser" element={<OrderExUserForm />} />
