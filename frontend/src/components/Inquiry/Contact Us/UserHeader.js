@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../Img/MSR.png"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser, faHistory } from '@fortawesome/free-solid-svg-icons'; // Import the history icon
+import './UserHeader.css';
 
 function Header() {
     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("loggedInUser"));
@@ -31,7 +32,7 @@ function Header() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light" id="user-header-cont">
             <a className="navbar-brand" href="/">
                 <img style={{marginLeft:'30px'}} src={logo} alt="Logo" width="60" />
             </a>

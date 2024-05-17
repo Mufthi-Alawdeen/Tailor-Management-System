@@ -318,6 +318,7 @@ router.get("/carts/:userId", async (req, res) => {
             name: product.name,
             price: product.price,
             images: product.images[0], // Assuming images is an array
+            category: product.category,
           },
           fabric: cart.fabric,
           color: cart.color,
@@ -421,15 +422,13 @@ router.post("/createorder", async (req, res) => {
     );
     const cartData = cartResponse.data;
 
-    // Calculate pickup date
-    const pickupDate = calculatePickupDate(cartData);
-
     // Map cart items to orders
     const orders = [];
     const orderIds = []; // Array to store the IDs of the newly created orders
     for (const cartItem of cartData) {
       // Call order ID gen
       const orderID = await generateOrderID();
+      const pickupDate = await calculatePickupDate(cartItem);
 
       const order = new Order({
         UserID: userId,
@@ -463,6 +462,7 @@ router.post("/createorder", async (req, res) => {
     res.status(201).json({
       transaction: newTransaction,
       orders: orders,
+      cartData: cartData,
       message: "Orders created successfully",
     });
   } catch (error) {
@@ -472,21 +472,22 @@ router.post("/createorder", async (req, res) => {
   }
 });
 
-const calculatePickupDate = (carts) => {
-  // Filter cart items based on category
-  const suitItems = carts.filter((item) => item.product.category === "suit");
-  const shirtItems = carts.filter((item) => item.product.category === "shirt");
-  const trousersItems = carts.filter(
-    (item) => item.product.category === "trousers"
-  );
+const calculatePickupDate = (cartItem) => {
+  // Extract product category from the cart item
+  const category = cartItem.product.category;
 
-  // Count the number of items in each category
-  const suitCount = suitItems.length;
-  const shirtCount = shirtItems.length;
-  const trousersCount = trousersItems.length;
-
-  // Calculate the total number of days based on item counts
-  const totalDays = suitCount * 14 + shirtCount * 14 + trousersCount * 14;
+  // Calculate the total number of days based on the category
+  let totalDays = 0;
+  switch (category) {
+    case "suit":
+    case "shirt":
+    case "trousers":
+      totalDays = 14;
+      break;
+    // Add more cases for other categories if needed
+    default:
+      totalDays = 0; // Default to 0 days for unknown categories
+  }
 
   // Get the current date
   const currentDate = new Date();
@@ -518,6 +519,22 @@ router.get("/users", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+router.get("/client/getorderbyid/:userid", async (req, res) => {
+  try {
+    const { userid } = req.params;
+
+    // Find all orders with the given UserID
+    const orders = await Order.find({ UserID: userid });
+
+    // Return the orders
+    res.json(orders);
+  } catch (error) {
+    console.error("Error fetching orders by UserID:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 //order admin
 

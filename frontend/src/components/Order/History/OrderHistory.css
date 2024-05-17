@@ -1,0 +1,31 @@
+/* styles.css */
+
+#histcont h2 {
+    color: #333; /* Example color */
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  #histcont .card {
+    margin-bottom: 20px;
+  }
+  
+  #histcont .card-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  #histcont .card-text {
+    font-size: 16px;
+  }
+  
+  #histcont .card-text .status-icon {
+    margin-right: 5px;
+  }
+  
+  /* OrderHistory.css */
+#histcont .card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }

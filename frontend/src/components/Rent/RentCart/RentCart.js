@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../Inquiry/Contact Us/UserHeader';
 import './RentCart.css';
 import CartMenu from '../../Header/CartMenu';
-import Swal from 'sweetalert2'; // Import SweetAlert
+import Swal from 'sweetalert2';
 
 const RentCart = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   const userId = loggedInUser._id;
@@ -41,6 +41,16 @@ const RentCart = () => {
     }
   };
 
+  const handlePickupDateChange = (itemId, newPickupDate) => {
+    const updatedCartItems = cartItems.map(item => {
+      if (item._id === itemId) {
+        return { ...item, pickupDate: newPickupDate };
+      }
+      return item;
+    });
+    setCartItems(updatedCartItems);
+  };
+
   const handleCheckout = () => {
     if (cartItems.length === 0) {
       Swal.fire({
@@ -49,9 +59,14 @@ const RentCart = () => {
         text: 'Please add items to your cart before proceeding to checkout.'
       });
     } else {
-      // Redirect to checkout page
       navigate('/rentCheckout');
     }
+  };
+
+  const calculateReturnDate = (pickupDate) => {
+    const returnDate = new Date(pickupDate);
+    returnDate.setDate(returnDate.getDate() + 2); // Adding 2 days
+    return returnDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
   };
 
   return (
@@ -73,7 +88,8 @@ const RentCart = () => {
           </thead>
           <tbody>
             {cartItems.map(item => {
-              const { _id, product, pickupDate, returnDate } = item;
+              const { _id, product, pickupDate } = item;
+              const returnDate = calculateReturnDate(pickupDate);
               return (
                 <tr key={_id}>
                   <td className="align-middle">
@@ -89,7 +105,13 @@ const RentCart = () => {
                     <p className="mb-0">{product.name}</p>
                   </td>
                   <td className="align-middle">${product.price.toFixed(2)}</td>
-                  <td className="align-middle">{pickupDate}</td>
+                  <td className="align-middle">
+                    <input
+                      type="date"
+                      value={pickupDate} // Display the selected pickup date
+                      onChange={e => handlePickupDateChange(_id, e.target.value)}
+                    />
+                  </td>
                   <td className="align-middle">{returnDate}</td>
                   <td className="align-middle">
                     <button className="btn btn-danger" onClick={() => handleDeleteItem(_id)}>Delete</button>
