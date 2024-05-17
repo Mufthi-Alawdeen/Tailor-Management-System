@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Header from '../../Product/Header';
 
-const AdminInventoryRequestForm = () => {
+const AddInventoryRequestForm = () => {
   const [formData, setFormData] = useState({
     requested_by: '',
     material_type: '',
@@ -79,13 +80,16 @@ const AdminInventoryRequestForm = () => {
 
   return (
     <div>
-
-    <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '400px', margin: 'auto', border: '1px solid #ccc', padding: '20px' , marginTop : '75px' , marginBottom:'60px'}}>
+      <Header/>
+    <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '400px', margin: 'auto', border: '1px solid #ccc', padding: '20px' , marginTop : '35px', marginBottom:'60px' }}>
     <h2 style={{ textAlign: 'center', marginBottom: '40px',  marginTop : '25px' , textDecoration:'underline' }}>Inventory Check</h2>
     <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '20px' }}>
         <div>
             <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Requested By:</label>
-            <input type="text" name="requested_by" value={formData.requested_by} onChange={handleChange} required style={{ width: 'calc(100% - 16px)', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', outline: 'none' }} />
+            <select name="requested_by"value={formData.requested_by} onChange={handleChange} required style={{ width: 'calc(100% - 16px)', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', outline: 'none' }}>
+                <option value="">Select Role</option>
+                <option value="Admin">Admin</option>
+            </select>
         </div>
         <div>
             <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Material Type:</label>
@@ -131,4 +135,4 @@ const AdminInventoryRequestForm = () => {
   );
 };
 
-export default AdminInventoryRequestForm;
+export default AddInventoryRequestForm;

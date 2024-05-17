@@ -26,17 +26,17 @@ const AddEmployeeForm = () => {
   
     try {
       // Check if Eid exists in the Employee database
-      const response = await axios.get(`http://localhost:8075/employee/getby/${Eid}`);
+      const employeeResponse = await axios.get(`http://localhost:8075/employee/getby/${Eid}`);
   
-      if (response.data.exists) {
-        // Eid already exists in the Employee database
+      if (!employeeResponse.data.exists) {
+        // Eid doesn't exist in the Employee database
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'An account already exists for this Employee ID.',
+          text: 'Employee ID does not exist.',
         });
       } else {
-        // Eid doesn't exist, proceed with creating the account
+        // No account exists, proceed with creating the account
         await axios.post('http://localhost:8075/employeeAccount/add', formData);
         Swal.fire({
           icon: 'success',
@@ -59,8 +59,6 @@ const AddEmployeeForm = () => {
           password: '',
           confirmPassword: '',
         });
-  
-        window.location.href = '/employee/login';
       }
     } catch (error) {
       console.error('Error adding employee:', error);
@@ -71,6 +69,7 @@ const AddEmployeeForm = () => {
       });
     }
   };
+  
   
   
 

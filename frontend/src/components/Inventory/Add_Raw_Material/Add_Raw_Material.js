@@ -87,11 +87,11 @@ const AddInventoryForm = () => {
       </div>
       <div style={{ margin: 'auto', maxWidth: '400px', padding: '30px', border: '1px solid #ccc', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', marginTop: '65px', marginBottom: '45px' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', marginTop: '25px', textDecoration: 'underline' }}>Add New Stock</h2>
-        <div style={{ display: 'flex', textAlign: 'center', marginBottom: '15px' }}>
-          <a onClick={handleInstructionsClick}>
-            <img src={gif} style={{ marginBottom: '15px', marginLeft: '40px', width: '70%', height: '90%', marginTop: '-8px', cursor: 'pointer' }} alt="Description of GIF" />
+        <div style={{ display: 'flex',alignItems:'center',justifyContent:'center', textAlign: 'center', marginBottom: '20px' }}>
+          <a onClick={handleInstructionsClick}style={{ display: 'flex',alignItems:'center'}}>
+            <img src={gif} style={{ marginBottom: '15px',width: '80%', height: '90%', cursor: 'pointer' }} alt="Description of GIF" />
           </a>
-          <h3 style={{ marginRight: '80px', cursor: 'pointer' }} onClick={handleInstructionsClick}>Instructions</h3>
+          <h4 style={{ cursor: 'pointer' }} onClick={handleInstructionsClick}>Instructions</h4>
         </div>
         <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '20px' }}>
           <div>

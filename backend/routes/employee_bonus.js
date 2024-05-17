@@ -5,8 +5,8 @@ const EmployeeBonus = require('../models/Employee_Bonus');
 // Route to add a new employee bonus record
 router.post('/add', async (req, res) => {
     try {
-        const { Eid, bonus, month } = req.body;
-        const newEmployeeBonus = new EmployeeBonus({ Eid, bonus, month });
+        const { Eid, bonus, bonusType, month } = req.body;
+        const newEmployeeBonus = new EmployeeBonus({ Eid, bonus, bonusType, month });
         await newEmployeeBonus.save();
         res.status(201).json({ message: 'Employee bonus record added successfully' });
     } catch (error) {
@@ -46,8 +46,8 @@ router.get('/get/:Eid', async (req, res) => {
 router.put('/update/:Eid', async (req, res) => {
     try {
         const { Eid } = req.params;
-        const { bonus, month } = req.body;
-        const updatedEmployeeBonus = await EmployeeBonus.findOneAndUpdate({ Eid }, { bonus, month }, { new: true });
+        const { bonus, month, bonusType } = req.body;
+        const updatedEmployeeBonus = await EmployeeBonus.findOneAndUpdate({ Eid }, { bonus, bonusType, month }, { new: true });
         if (updatedEmployeeBonus) {
             res.status(200).json({ message: 'Employee bonus record updated successfully' });
         } else {
