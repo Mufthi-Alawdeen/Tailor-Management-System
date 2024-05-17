@@ -310,8 +310,10 @@ const InventoryTable = () => {
     return (
         <div>
             <div className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', backgroundColor: '#f0f0f0'}}>
-                <div className="logo">
+                <div className="logo" >
+                    <a href="/inventory/dashboard">
                     <img src={MSR} alt="Logo" style={{ width: '70px', height: 'auto', marginLeft:'20px' }} />
+                    </a>
                 </div>
 
                 <div style={{ display: 'flex', fontWeight:'700',alignItems: 'center',justifyContent: 'center' , marginTop:'5px', fontFamily:'serif', marginLeft:'40px'}}>
