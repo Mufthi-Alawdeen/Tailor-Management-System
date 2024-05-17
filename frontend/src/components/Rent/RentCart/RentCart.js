@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Header from '../../Inquiry/Contact Us/UserHeader';
 import './RentCart.css';
+import CartMenu from '../../Header/CartMenu';
 
 const RentCart = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -40,6 +41,7 @@ const RentCart = () => {
   return (
     <div>
       <Header />
+      <CartMenu />
 
       <div className="container">
         <h2 className="mt-4 mb-3">Rent Cart</h2>
