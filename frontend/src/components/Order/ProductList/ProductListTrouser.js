@@ -37,6 +37,7 @@ const ProductList = () => {
       <Header />
     
     <div className={styles.container}>
+    <h2 className="h2 text-center">Custom Trousers</h2>
       <div className="row mt-4">
         <div className="col">
           <input
@@ -80,7 +81,7 @@ const ProductList = () => {
                 </div>
                 <div className="card-body">
                   <h5 className={`card-title ${styles.cardTitle}`}>{product.name}</h5>
-                  <p className={`card-text ${styles.cardText}`}>Price: ${product.price}</p>
+                  <p className={`card-text ${styles.cardText}`}>{product.price.toLocaleString('en-US', { style: 'currency', currency: 'LKR' })}</p>
                 </div>
               </Link>
             </div>

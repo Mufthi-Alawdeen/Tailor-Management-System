@@ -49,13 +49,16 @@ const Cart = () => {
         const currentQuantity = updatedQuantity[id] || cartItems.find(item => item._id === id).quantity;
         const newQuantity = currentQuantity + change;
         setUpdatedQuantity({ ...updatedQuantity, [id]: newQuantity });
-        setUpdateMessage(`Quantity updated for ${cartItems.find(item => item._id === id).product.name}`);
-        
-        // Clear update message after 3 seconds
-        setTimeout(() => {
-            setUpdateMessage("");
-        }, 3000);
-    };
+    
+        // Show SweetAlert2 success notification
+        Swal.fire({
+            icon: 'success',
+            title: 'Quantity Updated',
+            text: `Quantity updated for ${cartItems.find(item => item._id === id).product.name}`,
+            timer: 2000, // Auto close the notification after 3 seconds
+            showConfirmButton: false // Hide the "OK" button
+        });
+    };    
 
     const handleDeleteItem = (id) => {
         // Make a DELETE request to delete the cart item
@@ -63,8 +66,14 @@ const Cart = () => {
             .then(response => {
                 // Remove the deleted item from the state
                 setCartItems(cartItems.filter(item => item._id !== id));
-                setDeleteMessage("Item deleted successfully");
-
+                
+                // Show SweetAlert2 success notification
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Item Deleted',
+                    text: 'The item has been removed from the cart.',
+                });
+                
                 // Clear delete message after 3 seconds
                 setTimeout(() => {
                     setDeleteMessage("");
@@ -74,7 +83,7 @@ const Cart = () => {
                 // Handle error
                 console.error('Error deleting cart item:', error);
             });
-    };
+    };    
 
     const handleCheckout = () => {
         if (cartItems.length === 0) {
@@ -121,7 +130,7 @@ const Cart = () => {
                                         />
                                         <p className="mb-0"style={{margin: '10px'}}>{product.name}</p>
                                     </td>
-                                    <td className="align-middle">${product.price.toFixed(2)}</td>
+                                    <td className="align-middle">{product.price.toLocaleString('en-US', { style: 'currency', currency: 'LKR' })}</td>
                                     <td className="align-middle">
                                         <div className="btn-group" role="group">
                                             <button 
@@ -141,7 +150,7 @@ const Cart = () => {
                                             </button>
                                         </div>
                                     </td>
-                                    <td className="align-middle">${(product.price * (updatedQuantity[item._id] || item.quantity)).toFixed(2)}</td>
+                                    <td className="align-middle">{(product.price * (updatedQuantity[item._id] || item.quantity)).toLocaleString('en-US', { style: 'currency', currency: 'LKR' })}</td>
                                     <td className="align-middle">
                                         <button onClick={() => handleDeleteItem(item._id)}>Delete</button>
                                     </td>
@@ -157,7 +166,7 @@ const Cart = () => {
                         </tr>
                         <tr>
                             <td>
-                            <div className="total-price mt-3"><span className='totprice'>Total Price: </span><span className='totdata'>${totalPrice.toFixed(2)}</span></div>
+                            <div className="total-price mt-3"><span className='totprice'>Total Price: </span><span className='totdata'>{totalPrice.toLocaleString('en-US', { style: 'currency', currency: 'LKR' })}</span></div>
                             <hr></hr>
                             <button onClick={handleCheckout} className="btn btn-success">Checkout</button>
                             </td>

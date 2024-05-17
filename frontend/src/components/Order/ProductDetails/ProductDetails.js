@@ -6,6 +6,7 @@ import styles from './ProductDetails.module.css'; // Import CSS module
 import '@fortawesome/fontawesome-free/css/all.css';
 import { FaStar } from 'react-icons/fa';
 import Footer from "../../Inquiry/Contact Us/UserFooter";
+import Swal from 'sweetalert2';
 
 const ProductDetails = () => {
     const { productId } = useParams();
@@ -46,8 +47,13 @@ const ProductDetails = () => {
             console.log('Review submitted successfully:', response.data);
             // Fetch all reviews after submitting a review
             fetchProductDetails();
-            // Show submitted message
-            setSubmittedMessage('Rating submitted successfully!');
+            // Show submitted message with SweetAlert2
+            Swal.fire({
+                icon: 'success',
+                title: 'Rating Submitted Successfully!',
+                showConfirmButton: false,
+                timer: 1500
+            });
             // Clear review and rating inputs
             setReview('');
             setRating(0);
@@ -87,6 +93,7 @@ const ProductDetails = () => {
         }
     };
 
+    //to add accessories to cart
     const handleAddToCart = async () => {
         if (!isLoggedIn) {
             // Redirect to login page if user is not logged in
@@ -102,7 +109,12 @@ const ProductDetails = () => {
                     quantity,
                 });
                 // Show success alert
-                alert('Item added to cart!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Item Added to Cart',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 // Refresh page
                 window.location.reload();
             } catch (error) {
@@ -136,7 +148,6 @@ const ProductDetails = () => {
 
             <div className={styles.container}>
                 <h1 className={`${styles.heading} mt-5 mb-4`}>Product Details</h1>
-                {submittedMessage && <div className={styles.submittedMessage}>{submittedMessage}</div>}
                 {product && (
                     <div className="row">
                         <div className="col-md-6">
@@ -160,23 +171,40 @@ const ProductDetails = () => {
                         </div>
                         <div className="col-md-6">
                             <h2 className={`mb-3 ${styles.productName}`}>{product.name}</h2>
-                            <p className={`mb-3 ${styles.price}`} style={{fontSize: '18px' }}>LKR {product.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
-                            <p className={`mb-3 ${styles.description}`} style={{fontSize: '20px' }}>{toParagraphCase(product.description)}</p>
+                            <p className={`mb-3 ${styles.price}`} style={{ fontSize: '18px' }}>LKR {product.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+                            <p className={`mb-3 ${styles.description}`} style={{ fontSize: '20px' }}>{toParagraphCase(product.description)}</p>
                             {product.category === 'bow' || product.category === 'tie' ? (
                                 <div>
-                                    <div className="mb-3">
+                                    <div className="mb-3 mt-5">
                                         <label htmlFor="quantity" className="form-label">Quantity</label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            id="quantity"
-                                            value={quantity}
-                                            onChange={(e) => setQuantity(parseInt(e.target.value))}
-                                            min="1"
-                                            style={{ width: '50%' }}
-                                        />
+                                        <div className="input-group">
+                                            <button
+                                                className="btn btn-outline-secondary"
+                                                type="button"
+                                                onClick={() => setQuantity(Math.max(quantity - 1, 1))}
+                                                style={{ color: 'black' }} // Change color to black
+                                            >
+                                                <i className="fas fa-minus"></i>
+                                            </button>
+                                            <input
+                                                type="number"
+                                                className={`${styles.quantitycount}`}
+                                                id="quantity-prod"
+                                                value={quantity}
+                                                onChange={(e) => setQuantity(parseInt(e.target.value))}
+                                                min="1"
+                                            />
+                                            <button
+                                                className="btn btn-outline-secondary"
+                                                type="button"
+                                                onClick={() => setQuantity(quantity + 1)}
+                                                style={{ color: 'black' }} // Change color to black
+                                            >
+                                                <i className="fas fa-plus"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <button className={`${styles.addToCartButton} btn btn-primary`} onClick={handleAddToCart}>Add to Cart</button>
+                                    <button className={`${styles.submitButton} btn btn-primary`} onClick={handleAddToCart}>Add to Cart</button>
                                 </div>
                             ) : (
                                 <button className={`${styles.customizationButton} btn btn-primary`} onClick={handleCustomizationRedirect}>Customization</button>
@@ -184,11 +212,12 @@ const ProductDetails = () => {
                         </div>
                     </div>
                 )}
-                <hr className={`${styles.hrLine} mt-5`} />
-                <div className="mt-4">
-                    <h3>Rating and Review</h3><br />
-                    {isLoggedIn && (
-                        <>
+                {isLoggedIn && (
+                    <>
+                        <hr className={`${styles.hrLine} mt-5`} />
+                        <div className="mt-4">
+
+                            <h3>Rating and Review</h3><br />
                             <div className="mb-3">
                                 <textarea
                                     className="form-control"
@@ -217,9 +246,10 @@ const ProductDetails = () => {
                             <button className={`${styles.submitButton} btn btn-primary mt-3`} onClick={handleSubmitReview}>
                                 Submit Review
                             </button>
-                        </>
-                    )}
-                </div>
+
+                        </div>
+                    </>
+                )}
                 <hr className="my-4 bg-primary"></hr>
                 <div className="mt-4">
                     <h3>Reviews</h3><br />

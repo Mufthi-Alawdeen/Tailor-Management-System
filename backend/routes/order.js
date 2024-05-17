@@ -520,6 +520,22 @@ router.get("/users", async (req, res) => {
   }
 });
 
+router.get("/client/getorderbyid/:userid", async (req, res) => {
+  try {
+    const { userid } = req.params;
+
+    // Find all orders with the given UserID
+    const orders = await Order.find({ UserID: userid });
+
+    // Return the orders
+    res.json(orders);
+  } catch (error) {
+    console.error("Error fetching orders by UserID:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
 //order admin
 
 // Create a new order

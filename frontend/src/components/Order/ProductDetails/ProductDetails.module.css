@@ -27,6 +27,14 @@
   background-color: black;
 }
 
+.quantitycount {
+  width: 70px;
+  text-align: center;
+  border: 1px solid #ced4da; /* Add a border */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  padding: 5px; /* Add padding for spacing */
+  font-size: 16px; /* Increase font size */
+}
 .selected {
   color: black; /* Set the color to black when selected */
 }

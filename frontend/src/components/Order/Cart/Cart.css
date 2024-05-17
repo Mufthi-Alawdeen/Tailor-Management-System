@@ -128,3 +128,12 @@ button:hover {
     display: inline-block;
     text-align: center;
 }
+
+/* Customize SweetAlert2 success icon and animation color */
+.swal2-icon.swal2-success .swal2-success-ring {
+    border: 4px solid #bf1e2d; /* Change the border color of the success icon */
+}
+
+.swal2-icon.swal2-success [class^="swal2-success-line"] {
+    background-color: #bf1e2d; /* Change the background color of the success icon */
+}

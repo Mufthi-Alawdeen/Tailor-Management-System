@@ -153,7 +153,7 @@ const CheckoutForm = () => {
       </button>
       <div className="container" id='containercheck'>
         <h2>Checkout</h2><br />
-        <div>Total Amount: ${totalAmount}</div><br />
+        <div>Total Amount: {totalAmount.toLocaleString('en-US', { style: 'currency', currency: 'LKR' })}</div><br />
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Card Number:</label>
