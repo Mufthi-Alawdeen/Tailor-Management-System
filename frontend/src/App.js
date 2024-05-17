@@ -126,7 +126,7 @@ function App() {
           />{" "}
           {/* Route for AddInventoryForm */}
           <Route
-            path="/inventory/request"
+            path="/employee/inventoryRequest"
             element={<AddInventoryRequestForm />}
           />
           <Route path="/inventory/all" element={<InventoryTable />} />

@@ -105,7 +105,7 @@ const HomePage = () => {
           <div className={styles.column}>
             <div className={styles.imageContainer}>
               <img src={img1} className={styles.image} alt="Image 1" />
-              <div className={styles.imageText}>Persanization</div>
+              <div className={styles.imageText}>Personalization</div>
             </div>
           </div>
           <div className={styles.column}>

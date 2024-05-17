@@ -32,25 +32,7 @@ const RentList = () => {
   return (
     <div>
       <Header />
-      <div className="container-fluid p-0">
-        <div className="row">
-          <div className="col-lg-12 p-0">
-            <div className="card bg-dark text-white" style={{ height: "100vh", position: "relative" }}>
-              <img className="card-img" src={cardImage} alt="Rent card" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
-              <div className="card-img-overlay d-flex flex-column justify-content-end">
-                <div className="align-text-left">
-                  <p className="text-left" style={{ fontSize: "48px", fontWeight: "bold", color: "#FFFFFF" }}>
-                    Discover Exquisite<br />
-                    Pieces for Every<br />
-                    Occasion
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br/>
+      <br />
       <div className="container">
         <div className="row">
           <div className="col-lg-3 mb-4">
@@ -61,8 +43,10 @@ const RentList = () => {
                   <input type="text" className="form-control" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                 </div>
                 <div className="mb-3">
-                  <label style={{ color: "#000000" }}>Price Range:</label>
+                  <label style={{ color: "#000000" , marginBottom: "10px" }}>Price Range:</label>
+                  
                   <input type="number" className="form-control" placeholder="Min" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+                  <br />
                   <input type="number" className="form-control" placeholder="Max" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
                 </div>
               </div>
@@ -78,7 +62,7 @@ const RentList = () => {
                       <div className="card-body">
                         <h5 className="card-title" style={{ color: "#000000" }}>{product.name}</h5>
                         <p className="card-text" style={{ color: "#000000" }}>Description: {product.description}</p>
-                        <p className="card-text" style={{ color: "#000000" }}>Price: ${product.price}</p>
+                        <p className="card-text" style={{ color: "#000000" }}>LKR {product.price}.00</p>
                       </div>
                     </div>
                   </Link>

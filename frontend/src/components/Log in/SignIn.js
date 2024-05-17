@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Logo from "../Inquiry/Img/MSR.png"
+import Logo from "../Inquiry/Img/MSR.png";
 import Swal from 'sweetalert2';
+import bgImage from "./img/signup.jpg";
 
 const UserForm = () => {
   const [formData, setFormData] = useState({
@@ -67,30 +68,29 @@ const UserForm = () => {
   };
 
   const handleChange = (e) => {
-  const { name, value } = e.target;
-  let errorMessage = "";
+    const { name, value } = e.target;
+    let errorMessage = "";
 
-  if (name === "Email" && !validateEmail(value)) {
-    errorMessage = "Invalid email address";
-  } else if (name === "ContactNumber" && !validateContactNumber(value)) {
-    errorMessage = "Contact number must be 10 digits";
-  } else if (name === "Password" && value.length < 6) {
-    errorMessage = "Password must be at least 6 characters long";
-  } else if (name === "ConfirmPassword" && value !== formData.Password) {
-    errorMessage = "Passwords do not match";
-  }
+    if (name === "Email" && !validateEmail(value)) {
+      errorMessage = "Invalid email address";
+    } else if (name === "ContactNumber" && !validateContactNumber(value)) {
+      errorMessage = "Contact number must be 10 digits";
+    } else if (name === "Password" && value.length < 6) {
+      errorMessage = "Password must be at least 6 characters long";
+    } else if (name === "ConfirmPassword" && value !== formData.Password) {
+      errorMessage = "Passwords do not match";
+    }
 
-  setFormData((prevFormData) => ({
-    ...prevFormData,
-    [name]: value,
-  }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
 
-  setErrors((prevErrors) => ({
-    ...prevErrors,
-    [name]: errorMessage,
-  }));
-};
-
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage,
+    }));
+  };
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -105,7 +105,7 @@ const UserForm = () => {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     let errorMessage = "";
-  
+
     if (name === "Email" && !validateEmail(value)) {
       errorMessage = "Invalid email address";
     } else if (name === "ContactNumber" && !validateContactNumber(value)) {
@@ -113,142 +113,167 @@ const UserForm = () => {
     } else if (name === "Password" && value.length < 6) {
       errorMessage = "Password must be at least 6 characters long";
     }
-  
+
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: errorMessage,
     }));
   };
-  
 
   return (
-    <div className="container mt-5" style={{marginBottom:'30px'}}>
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card" style={{padding:'10px', borderRadius:'0px', padding:'15px'}}>
-            <div className="card-body">
-            <img src={Logo} style={{ width: '80px', margin: '0 auto', display: 'block', marginTop:'10px'}}></img>
-          <hr></hr>
-              <h2 className="mb-4" style={{textAlign:'center'}}>Create Account</h2>
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label className="form-label">First Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="FirstName"
-                    value={formData.FirstName}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Last Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="LastName"
-                    value={formData.LastName}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3" style={{display:'grid'}}>
-                  <label className="form-label">Email:</label>
-                  <input
-                    type="email"
-                    className={`form-control ${errors.email && "is-invalid"}`}
-                    name="Email"
-                    placeholder="example@g.com"
-                    value={formData.Email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    required
-                    style={{width:'100%'}}
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Address:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="Address"
-                    value={formData.Address}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Contact Number:</label>
-                  <input
-                    type="number"
-                    className={`form-control ${
-                      errors.contactNumber && "is-invalid"
-                    }`}
-                    placeholder="Must be 10 digits"
-                    name="ContactNumber"
-                    value={formData.ContactNumber}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    required
-                  />
-                  {errors.contactNumber && (
-                    <div className="invalid-feedback">
-                      {errors.contactNumber}
+    <div
+      className="position-relative d-flex align-items-center justify-content-center vh-500"
+      style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover' }}
+    >
+      <div className="position-absolute w-100 h-100" style={{ zIndex: -1 }}>
+        <div
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.02)",
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+          }}
+        ></div>
+      </div>
+      <div className="container mt-5" style={{ marginBottom: '30px' }}>
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <div className="card" style={{ padding: '15px', borderRadius: '0px', backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
+              <div className="card-body">
+                <img src={Logo} style={{ width: '80px', margin: '0 auto', display: 'block', marginTop: '10px' }} alt="Logo" />
+                <hr></hr>
+                <h2 className="mb-4" style={{ textAlign: 'center' }}>Create Account</h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="row mb-3">
+                    <div className="col-md-6">
+                      <label className="form-label"><b>First Name:</b></label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="FirstName"
+                        value={formData.FirstName}
+                        onChange={handleChange}
+                        required
+                      />
                     </div>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Password:</label>
-                  <input
-                    type="password"
-                    className={`form-control ${
-                      errors.password && "is-invalid"
-                    }`}
-                    name="Password"
-                    placeholder="Must be at least 6 characters long"
-                    value={formData.Password}
-                    onChange={handleChange}
-                    required
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Confirm Password:</label>
-                  <input
-                    type="password"
-                    className={`form-control ${
-                      errors.confirmPassword && "is-invalid"
-                    }`}
-                    name="ConfirmPassword"
-                    value={formData.ConfirmPassword}
-                    onChange={handleChange}
-                    required
-                  />
-                  {errors.confirmPassword && (
-                    <div className="invalid-feedback">
-                      {errors.confirmPassword}
+                    <div className="col-md-6">
+                      <label className="form-label"><b>Last Name:</b></label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="LastName"
+                        value={formData.LastName}
+                        onChange={handleChange}
+                        required
+                      />
                     </div>
-                  )}
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col-md-6">
+                      <label className="form-label"><b>Email:</b></label>
+                      <input
+                        type="email"
+                        className={`form-control ${errors.email && 'is-invalid'}`}
+                        name="Email"
+                        placeholder="example@g.com"
+                        value={formData.Email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        required
+                      />
+                      {errors.email && (
+                        <div className="invalid-feedback">{errors.email}</div>
+                      )}
+                    </div>
+                    <div className="col-md-6">
+                      <label className="form-label"><b>Contact Number:</b></label>
+                      <input
+                        type="number"
+                        className={`form-control ${errors.contactNumber && 'is-invalid'}`}
+                        placeholder="Must be 10 digits"
+                        name="ContactNumber"
+                        value={formData.ContactNumber}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        required
+                      />
+                      {errors.contactNumber && (
+                        <div className="invalid-feedback">{errors.contactNumber}</div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"><b>Address:</b></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="Address"
+                      value={formData.Address}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col-md-6">
+                      <label className="form-label"><b>Password:</b></label>
+                      <input
+                        type="password"
+                        className={`form-control ${errors.password && 'is-invalid'}`}
+                        name="Password"
+                        placeholder="Must be at least 6 characters long"
+                        value={formData.Password}
+                        onChange={handleChange}
+                        required
+                      />
+                      {errors.password && (
+                        <div className="invalid-feedback">{errors.password}</div>
+                      )}
+                    </div>
+                    <div className="col-md-6">
+                      <label className="form-label"><b>Confirm Password:</b></label>
+                      <input
+                        type="password"
+                        className={`form-control ${errors.confirmPassword && 'is-invalid'}`}
+                        name="ConfirmPassword"
+                        value={formData.ConfirmPassword}
+                        onChange={handleChange}
+                        required
+                      />
+                      {errors.confirmPassword && (
+                        <div className="invalid-feedback">{errors.confirmPassword}</div>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      style={{
+                        border: 'none',
+                        marginBottom: '30px',
+                        display: 'block',
+                        margin: '0 auto',
+                        width: '40%',
+                        padding: '17px',
+                        backgroundColor: 'black',
+                        borderRadius: '5px',
+                        fontWeight: '650',
+                        fontSize: '18px',
+                        marginTop: '35px'
+                      }}
+                    >
+                      Create Account
+                    </button>
+                  </div>
+                </form>
+                <p className="mt-3" style={{ textAlign: 'center', marginTop: '25px', color: 'black' }}>
+                  Already have an account? <Link to="/login" style={{ color: 'black' }}><b>Sign In</b></Link>
+                </p>
+                <div style={{ marginTop: '30px' }}>
+                  <p className="mt-3" style={{ textAlign: 'center', fontWeight: '600', fontSize: '17px', color: 'black' }}>
+                    <Link to="/employee/signin" style={{ color: 'black' }}><b>Create An Employee Account</b></Link>
+                  </p>
                 </div>
-                <div> 
-                <button type="submit" className="btn btn-primary" style={{border:'none',marginBottom:'30px',display: 'block', margin: '0 auto', width:'40%', padding:'17px',backgroundColor:'black', borderRadius:'5px', fontWeight:'650', fontSize:'18px', marginTop:'35px'}}>
-                  Create Account
-                </button>
-                </div>
-              </form>
-              <p className="mt-3" style={{textAlign:'center', marginTop:'25px'}}>
-                Already have an account? <Link to="/login">Sign In</Link>
-              </p>
-              <div style={{ marginTop:'30px'}}>
-              <p className="mt-3" style={{textAlign:'center', fontWeight:'600', fontSize:'17px'}}>
-              <Link to="/employee/signin"> Create An Employee Account</Link>
-              </p>
               </div>
             </div>
           </div>
