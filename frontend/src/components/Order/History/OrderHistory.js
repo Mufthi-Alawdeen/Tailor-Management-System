@@ -44,11 +44,11 @@ const OrderHistory = () => {
   const renderStatusIcon = (status) => {
     switch (status) {
       case 'New':
-        return <MdFiberNew size={24} color="blue" />;
+        return <MdFiberNew size={24} color="black" />;
       case 'Pending':
-        return <MdHourglassEmpty size={24} color="orange" />;
-      case 'Finish':
-        return <MdCheckCircle size={24} color="green" />;
+        return <MdHourglassEmpty size={24} color="black" />;
+      case 'Finished':
+        return <MdCheckCircle size={24} color="black" />;
       default:
         return null;
     }
