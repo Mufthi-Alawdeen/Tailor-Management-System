@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { Button } from 'react-bootstrap'; // Importing Button component from react-bootstrap
-import html2pdf from 'html2pdf.js'; // Import html2pdf
+import html2pdf from 'html2pdf.js';
+import SideBar from '../Product/Header';
+import MSRLogo from '../../res/MSRLogo.png';
 
 const SalaryReport = () => {
   const [employeeBonuses, setEmployeeBonuses] = useState([]);
-  const [employeeDetails, setEmployeeDetails] = useState({});
+  const [employeeDetails, setEmployeeDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedMonth, setSelectedMonth] = useState('');
 
@@ -20,25 +21,13 @@ const SalaryReport = () => {
 
       console.log('Bonuses:', bonuses);
 
-      const employeeDetailsMap = {};
-      await Promise.all(
-        bonuses.map(async (bonus) => {
-          const { Eid } = bonus;
-          if (!employeeDetailsMap[Eid]) {
-            const employeeResponse = await axios.get(`http://localhost:8075/employee/getbyEid/${Eid}`);
-            if (employeeResponse.data.exists) {
-              employeeDetailsMap[Eid] = employeeResponse.data.employee;
-            } else {
-              employeeDetailsMap[Eid] = null;
-            }
-          }
-        })
-      );
+      const employeeResponse = await axios.get('http://localhost:8075/employee/');
+      const employees = employeeResponse.data;
 
-      console.log('Employee Details Map:', employeeDetailsMap);
+      console.log('Employees:', employees);
 
       setEmployeeBonuses(bonuses);
-      setEmployeeDetails(employeeDetailsMap);
+      setEmployeeDetails(employees);
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching employee bonuses or details:', error);
@@ -50,59 +39,99 @@ const SalaryReport = () => {
     setSelectedMonth(event.target.value);
   };
 
-  const bonusMonths = [...new Set(employeeBonuses.map(bonus => bonus.month))];
-
   const handlePrintReport = () => {
-    // Filter bonuses for the selected month
-    const bonusesForSelectedMonth = employeeBonuses.filter(bonus => bonus.month === selectedMonth);
-    // Create HTML content for the PDF
-    const content = `
-      <h2>Salary Report - ${selectedMonth}</h2>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Eid</th>
-            <th>Salary</th>
-            <th>Bonus</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${bonusesForSelectedMonth.map(bonus => `
-            <tr>
-              <td>${bonus.Eid}</td>
-              <td>${employeeDetails[bonus.Eid]?.salary || 'N/A'}</td>
-              <td>${bonus.bonus}</td>
-            </tr>
-          `).join('')}
-        </tbody>
+    const reportContent = generateReportContent();
+    printReport(reportContent);
+  };
+
+  const generateReportContent = () => {
+    let totalSalary = 0;
+    let totalBonus = 0;
+
+    let content = `
+    <div style="text-align: center;">
+    <img src="${MSRLogo}" alt="MSR Logo" style="width: 100px; height: auto;" />
+    </div>
+    <hr style="border: 2px solid red;" />
+    <h2 style="text-align: center;">Salary Report for ${selectedMonth}</h2>
+    <table style="border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr>
+          <th style="border-bottom: 1px solid black; padding: 8px;">EID</th>
+          <th style="border-bottom: 1px solid black; padding: 8px;">Salary</th>
+          <th style="border-bottom: 1px solid black; padding: 8px;">Bonuses</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+    employeeDetails.forEach(employee => {
+      const bonuses = getEmployeeBonuses(employee.Eid, selectedMonth);
+      const salary = employee.salary || 0;
+      totalSalary += salary;
+      totalBonus += bonuses.reduce((sum, bonus) => sum + parseFloat(bonus) || 0, 0);
+      content += `<tr>
+      <td style="padding: 8px;">${employee.Eid}</td>
+      <td style="padding: 8px;">${salary}</td>
+      <td style="padding: 8px;">${bonuses.join('<br>')}</td>
+      </tr>`;    });
+
+      const totalAmount = totalSalary + totalBonus;
+
+    content += `
+    <tr>
+      <td style="border-top: 1px solid black; padding: 8px;">&nbsp;</td>
+      <td style="border-top: 1px solid black; padding: 8px;"><strong>Salary Total:</strong> ${totalSalary}</td>
+      <td style="border-top: 1px solid black; padding: 8px;"><strong>Bonus Total:</strong> ${totalBonus}</td>
+    </tr>
+    </tbody>
       </table>
-    `;
-    // Options for html2pdf
-    const options = {
-      margin:       1,
-      filename:     'salary_report.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-    // Generate PDF and print
-    html2pdf().from(content).set(options).save();
+      <p style="margin-left: 50px; margin-top: 50px;"><strong>Total amount spent in salaries:</strong> Rs. ${totalAmount}</p>
+      `;
+    return content;
+  };
+
+  const printReport = (content) => {
+    html2pdf().set({
+      filename: 'salary_report.pdf',
+    }).from(content).save();
+  };
+
+  const getEmployeeBonuses = (Eid, selectedMonth) => {
+    const bonuses = employeeBonuses.filter(bonus => {
+      return bonus.Eid === Eid && bonus.month.toLowerCase() === selectedMonth.toLowerCase();
+    });
+    return bonuses.length > 0 ? bonuses.map(bonus => bonus.bonus) : ['No Bonus'];
   };
 
   return (
-    <div style={{ marginLeft: 450 }}>
-      <h2>Salary Report</h2>
-      <p>Please choose the month:</p>
-      {/* Dropdown to select month */}
-      <select className="form-select mb-3" value={selectedMonth} onChange={handleMonthChange}>
-        <option value="">Select Month</option>
-        {bonusMonths.map(month => (
-          <option key={month} value={month}>{month}</option>
-        ))}
-      </select>
-      {/* Print button */}
-      <Button className="btn" onClick={handlePrintReport} disabled={!selectedMonth}>Print Report</Button>
-      {/* You can render the fetched data here */}
+    <div>
+      <SideBar/>
+      <div style={{ marginLeft: 150 }}>
+        <h2 style={{textAlign: "center"}}>Salary Report</h2>
+        <hr />
+        <h5>
+          This report generates the total amount spent on employee salaries, including<br />
+          bonuses, for the selected month. Please choose a month from the dropdown<br />
+          menu and click 'Generate Report' to view the details.
+        </h5>
+        <br />
+        <hr />
+        <h6>Please choose the month:</h6>
+        <select className="form-select mb-3" value={selectedMonth} onChange={handleMonthChange}>
+          <option value="">Select Month</option>
+          {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((month, index) => (
+            <option key={index} value={month}>{month}</option>
+          ))}
+        </select>
+        <button className="btn" onClick={handlePrintReport} disabled={!selectedMonth}
+          style={{
+            backgroundColor: 'black',
+            color: 'white',
+            borderRadius: '4px'
+          }}>
+          Print Report
+        </button>
+      </div>
     </div>
   );
 }

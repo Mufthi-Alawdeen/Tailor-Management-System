@@ -154,19 +154,27 @@ export default function AddEmployee() {
             />
           </div>
           <div className="form-group" style={{ marginBottom: "25px" }}>
-            <label for="phoneNumber" style={{ marginBottom: "8px" }}>
+            {/*only takes 10 numerical inputs */}
+            <label htmlFor="phoneNumber" style={{ marginBottom: "8px" }}>
               Phone Number
             </label>
             <input
-              type="number"
+              type="text"
               className="form-control"
               id="phoneNumber"
               placeholder="Enter Employee phone"
               value={phoneNumber}
-              onChange={(e) => setpNumber(e.target.value)}
+              onChange={(e) => {
+                const newValue = e.target.value;
+                // Check if the new value contains only digits and its length is <= 10
+                if (/^\d{0,10}$/.test(newValue)) {
+                  setpNumber(newValue);
+                }
+              }}
               style={{ width: "85%" }}
             />
           </div>
+
 
           <div className="form-group" style={{ marginBottom: "25px" }}>
             <label for="DOB" style={{ marginBottom: "8px" }}>

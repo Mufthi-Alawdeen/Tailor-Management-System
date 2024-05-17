@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../Img/MSR.png"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faUser, faHistory } from '@fortawesome/free-solid-svg-icons'; // Import the history icon
 
 function Header() {
     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("loggedInUser"));
@@ -40,10 +40,10 @@ function Header() {
             </button>
             <div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                 <ul className="navbar-nav">
-                <li className="nav-item">
+                    <li className="nav-item">
                         <a className="nav-link" href="/">Home</a>
                     </li>
-                <li className="nav-item">
+                    <li className="nav-item">
                         <a className="nav-link" href="/productlistCustom/buyproducts">Customize</a>
                     </li>
                     <li className="nav-item">
@@ -63,30 +63,29 @@ function Header() {
             <div className="navbar-nav ml-auto" style={{marginRight:'10px'}}>
                 {isLoggedIn ? (
                     <div style={{display:'flex'}}> 
-                    <a style={{fontSize:'19px',marginRight:'5px'}} className="nav-link" href="/order/cart">
-                        <FontAwesomeIcon icon={faShoppingCart} />
-                    </a>
-                    <a style={{fontSize:'19px',marginRight:'10px'}} className="nav-link" href="/profile">
-                        <FontAwesomeIcon icon={faUser} />
-                    </a>
-                    <button className="logout" style={{marginRight:'5px', padding:'12px', backgroundColor:'black', color:'white', border:'none', fontWeight:'650'}} onClick={handleLogout}>
-                        Log Out
-                    </button>
+                        <a style={{fontSize:'19px',marginRight:'5px'}} className="nav-link" href="/order/cart">
+                            <FontAwesomeIcon icon={faShoppingCart} />
+                        </a>
+                        <a style={{fontSize:'19px',marginRight:'5px'}} className="nav-link" href="/profile">
+                            <FontAwesomeIcon icon={faUser} />
+                        </a>
+                        <a style={{fontSize:'19px',marginRight:'5px'}} className="nav-link" href="/order/orderhistory"> {/* Add link to order history */}
+                            <FontAwesomeIcon icon={faHistory} />
+                        </a>
+                        <button className="logout" style={{marginRight:'5px', padding:'12px', backgroundColor:'black', color:'white', border:'none', fontWeight:'650'}} onClick={handleLogout}>
+                            Log Out
+                        </button>
                     </div>
                 ) : (
-                    
-                        <div> 
+                    <div> 
                         <button className="login" style={{marginRight:'10px', padding:'12px', backgroundColor:'black', color:'white', border:'none', fontWeight:'650'}} onClick={handleLog_In}>
                             Log In
                         </button>
                         <button className="login" style={{marginRight:'10px', padding:'12px', backgroundColor:'black', color:'white', border:'none', fontWeight:'650'}} onClick={handleLogin}>
-                        Sign Up
+                            Sign Up
                         </button>
-                        </div> 
-                   
+                    </div> 
                 )}
-              
-                
             </div>
         </nav>
     );
