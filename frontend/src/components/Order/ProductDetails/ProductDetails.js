@@ -30,6 +30,7 @@ const ProductDetails = () => {
             const response = await axios.get(`http://localhost:8075/order/products/${productId}`);
             setProduct(response.data);
             setAllReviews(response.data.ratings);
+            console.log(response.data);
         } catch (error) {
             console.error('Error fetching product details:', error);
         }
