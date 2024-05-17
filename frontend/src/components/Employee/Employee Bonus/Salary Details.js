@@ -80,21 +80,30 @@ const handleDelete = async (Eid) => {
   const handleEdit = (bonus) => {
     setEditBonus(bonus);
   };
+
   const handleUpdateBonus = async (event) => {
+    event.preventDefault();
     try {
       await axios.put(`http://localhost:8075/employeeBonus/update/${editBonus.Eid}`, {
         bonus: editBonus.bonus,
       }).then(() => {
-        alert('Bonus updated successfully'); // Show an alert
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated!',
+          text: 'Bonus updated successfully.',
+        });
         setEditBonus(null); // Update the state after the alert is shown
+        fetchEmployeeBonuses(); // Refresh the data after update
       });
     } catch (error) {
       console.error('Error updating employee bonus:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'An error occurred while updating employee bonus.',
+      });
     }
   };
-  
-  
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -126,6 +135,7 @@ const handleDelete = async (Eid) => {
           <td style={{ border: '1px solid #ccc', padding: '8px' }}>{employee ? employee.lname : 'N/A'}</td>
           <td style={{ border: '1px solid #ccc', padding: '8px' }}>{bonus.month}</td>
           <td style={{ border: '1px solid #ccc', padding: '6px' }}>{salary.toString()}</td>
+          <td style={{ border: '1px solid #ccc', padding: '6px' }}>{bonus.bonusType}</td>
           <td style={{ border: '1px solid #ccc', padding: '6px' }}>{bonusAmount.toString()}</td>
           <td style={{ border: '1px solid #ccc', padding: '6px' }}>{totalSalary.toString()}</td>
           <td style={{ border: '1px solid #ccc', padding: '8px'}}>
@@ -151,6 +161,7 @@ const handleDelete = async (Eid) => {
               <th style={{ border: '1px solid #B7B7B7', padding: '8px' , backgroundColor:'#ccc'}}>Last Name</th>
               <th style={{ border: '1px solid #B7B7B7', padding: '8px', backgroundColor:'#ccc' }}>Month</th>
               <th style={{ border: '1px solid #B7B7B7', padding: '8px', backgroundColor:'#ccc' }}>Base Salary</th>
+              <th style={{ border: '1px solid #B7B7B7', padding: '6px', backgroundColor:'#ccc' }}>Bonus Type</th>
               <th style={{ border: '1px solid #B7B7B7', padding: '6px', backgroundColor:'#ccc' }}>Bonus Amount</th>
               <th style={{ border: '1px solid #B7B7B7', padding: '8px' , backgroundColor:'#ccc'}}>Total Salary</th>
               <th style={{ border: '1px solid #B7B7B7', padding: '4px', backgroundColor:'#ccc' }}>Actions</th>
