@@ -5,7 +5,7 @@ import Header from '../../Inquiry/Contact Us/UserHeader';
 
 const Cart = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    const UserId = loggedInUser._id;
+    const UserId = loggedInUser ? loggedInUser._id : null;
     const [cartItems, setCartItems] = useState([]);
     const [updatedQuantity, setUpdatedQuantity] = useState({});
     const [totalPrice, setTotalPrice] = useState(0);
@@ -13,6 +13,10 @@ const Cart = () => {
     const [deleteMessage, setDeleteMessage] = useState("");
 
     useEffect(() => {
+        if (!loggedInUser) {
+            window.location.href = "/signup";
+            return;
+        }
         // Fetch cart items when the component mounts
         fetchCartItems();
     }, []);

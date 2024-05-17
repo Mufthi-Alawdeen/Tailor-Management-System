@@ -11,7 +11,7 @@ const ProductListCustom = () => {
         <div>
             <Header />
 
-            <div className="container mt-4">
+            <div className="container mt-4" id='prodcust'>
             
                 {/* Horizontal tiles */}
                 <div className="col mt-4" style={{ margin: '30px', marginLeft: '100px', marginRight: '100px' }}>

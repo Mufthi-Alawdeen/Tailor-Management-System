@@ -5,8 +5,8 @@ import './Checkout.css';
 
 const CheckoutForm = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  const userObjectId = loggedInUser._id;
-  const UserId = loggedInUser.UserID;
+  const userObjectId = loggedInUser ? loggedInUser._id : null;
+  const UserId = loggedInUser ? loggedInUser.UserID : null;
   const [transactionData, setTransactionData] = useState({
     paymentType: 'Credit Card',
     cardNumber: '',
@@ -17,6 +17,12 @@ const CheckoutForm = () => {
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
+    //check if user logged in
+    if (!loggedInUser) {
+      window.location.href = "/signup";
+      return;
+    }
+    
     // Fetch cart items using the user object ID
     const fetchCartItems = async () => {
       try {

@@ -12,12 +12,12 @@
     
 }
 
-.card {
+#prodcust .card {
     margin-bottom: 20px;
 }
 
 /* Custom CSS for ProductCustom */
-.mid {
+#prodcust .mid {
     text-align: right; /* Align text to the right */
     direction: rtl; /* Set text direction to right-to-left */
   }
@@ -30,11 +30,11 @@
   }
   
 /* Custom CSS for ProductCustom */
-.card {
+#prodcust .card {
     display: flex;
 }
   
-.card-body {
+#prodcust .card-body {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,17 +43,17 @@
 }
 
     
-.card {
+#prodcust .card {
     position: relative; /* Position relative for the parent container */
 }
 
 /* Custom CSS for ProductCustom */
-.card {
+#prodcust .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out; /* Add transition for smooth animation */
 }
 
-.card:hover {
+#prodcust .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     transform: scale(1.05); /* Increase the size of the card on hover */
 }
