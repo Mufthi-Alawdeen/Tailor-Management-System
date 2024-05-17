@@ -48,6 +48,34 @@ const RentAndUserForm = () => {
 
   const [products, setProducts] = useState([]);
   const [productPrice, setProductPrice] = useState("");
+  const [rentedDates, setRentedDates] = useState([]);
+
+  useEffect(() => {
+    retrieveProductIDs();
+    fetchRentedDates();
+  }, []);
+
+  const retrieveProductIDs = () => {
+    axios
+      .get("http://localhost:8075/product/rentproducts")
+      .then((response) => {
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching product IDs:", error);
+      });
+  };
+
+  const fetchRentedDates = () => {
+    axios
+      .get("http://localhost:8075/rent/getRentedDates")
+      .then((response) => {
+        setRentedDates(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching rented dates:", error);
+      });
+  };
 
   const handleUserChange = (e) => {
     const { name, value } = e.target;
@@ -71,21 +99,6 @@ const RentAndUserForm = () => {
       ...prevTransactionDetails,
       [name]: value,
     }));
-  };
-
-  useEffect(() => {
-    retrieveProductIDs();
-  }, []);
-
-  const retrieveProductIDs = () => {
-    axios
-      .get("http://localhost:8075/product/rentproducts")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching product IDs:", error);
-      });
   };
 
   const handleProductSelect = (e) => {
@@ -113,8 +126,36 @@ const RentAndUserForm = () => {
     }
   };
 
+  const isDateRangeAvailable = () => {
+    const pickupDate = new Date(rentDetails.PickupDate);
+    const returnDate = new Date(rentDetails.ReturnDate);
+
+    for (const rentedDate of rentedDates) {
+      const rentedPickupDate = new Date(rentedDate.PickupDate);
+      const rentedReturnDate = new Date(rentedDate.ReturnDate);
+
+      if (
+        (pickupDate >= rentedPickupDate && pickupDate <= rentedReturnDate) ||
+        (returnDate >= rentedPickupDate && returnDate <= rentedReturnDate) ||
+        (pickupDate <= rentedPickupDate && returnDate >= rentedReturnDate)
+      ) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isDateRangeAvailable()) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Date Range",
+        text: "The selected date range overlaps with an existing rental period.",
+      });
+      return;
+    }
     try {
       const userResponse = await axios.post(
         "http://localhost:8075/user/addUser",
@@ -183,8 +224,7 @@ const RentAndUserForm = () => {
         <div className="row">
           <div className="col-2">
             <div className="dropdown">
-              <button
-                className="btn btn-secondary dropdown-toggle"
+              <button               className="btn btn-secondary dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -378,3 +418,4 @@ const RentAndUserForm = () => {
 
 export default RentAndUserForm;
 
+               

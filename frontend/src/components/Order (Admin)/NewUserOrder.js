@@ -42,6 +42,19 @@ const OrderAndUserForm = () => {
       PaymentType: "Manual",
       TransDate: new Date().toISOString().slice(0, 10),
     },
+    measurementDetails: {
+      chest: "",
+      waist: "",
+      hips: "",
+      shoulders: "",
+      sleeveLength: "",
+      jacketLength: "",
+      inseam: "",
+      outseam: "",
+      rise: "",
+      neck: "",
+      shirtLength: "",
+    },
     productIDs: [],
     filteredProductIDs: [],
   });
@@ -74,29 +87,13 @@ const OrderAndUserForm = () => {
 
   const handleInputChange = (e, category) => {
     const { name, value } = e.target;
-    setFormDetails((prevFormDetails) => {
-      if (name === "Amount" && (category === "orderDetails" || category === "transactionDetails")) {
-        return {
-          ...prevFormDetails,
-          orderDetails: {
-            ...prevFormDetails.orderDetails,
-            Amount: value,
-          },
-          transactionDetails: {
-            ...prevFormDetails.transactionDetails,
-            Amount: value,
-          },
-        };
-      } else {
-        return {
-          ...prevFormDetails,
-          [category]: {
-            ...prevFormDetails[category],
-            [name]: value,
-          },
-        };
-      }
-    });
+    setFormDetails((prevFormDetails) => ({
+      ...prevFormDetails,
+      [category]: {
+        ...prevFormDetails[category],
+        [name]: value,
+      },
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -109,7 +106,10 @@ const OrderAndUserForm = () => {
 
       const orderResponse = await axios.post(
         "http://localhost:8075/order/addOrder",
-        formDetails.orderDetails
+        {
+          ...formDetails.orderDetails,
+          Measurement: formDetails.measurementDetails,
+        }
       );
 
       const transactionResponse = await axios.post(
@@ -155,6 +155,19 @@ const OrderAndUserForm = () => {
       transactionDetails: {
         ...formDetails.transactionDetails,
         Amount: "",
+      },
+      measurementDetails: {
+        chest: "",
+        waist: "",
+        hips: "",
+        shoulders: "",
+        sleeveLength: "",
+        jacketLength: "",
+        inseam: "",
+        outseam: "",
+        rise: "",
+        neck: "",
+        shirtLength: "",
       },
       filteredProductIDs: formDetails.productIDs,
     });
@@ -321,7 +334,6 @@ const OrderAndUserForm = () => {
                       name="Amount"
                       value={formDetails.orderDetails.Amount}
                       onChange={(e) =>
-                        handleInputChange(e, "transactionDetails") &&
                         handleInputChange(e, "orderDetails")
                       }
                       required
@@ -355,6 +367,66 @@ const OrderAndUserForm = () => {
                   </div>
                 </div>
               </div>
+              <h3>Measurement Details</h3>
+              <div className="row">
+                <div className="col-md-4">
+                  {Object.entries(formDetails.measurementDetails)
+                    .slice(0, 4)
+                    .map(([key, value]) => (
+                      <div className="mb-3" key={key}>
+                        <label className="form-label">{key}:</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          name={key}
+                          value={value}
+                          onChange={(e) =>
+                            handleInputChange(e, "measurementDetails")
+                          }
+                          
+                        />
+                      </div>
+                    ))}
+                </div>
+                <div className="col-md-4">
+                  {Object.entries(formDetails.measurementDetails)
+                    .slice(4, 8)
+                    .map(([key, value]) => (
+                      <div className="mb-3" key={key}>
+                        <label className="form-label">{key}:</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          name={key}
+                          value={value}
+                          onChange={(e) =>
+                            handleInputChange(e, "measurementDetails")
+                          }
+                          
+                        />
+                      </div>
+                    ))}
+                </div>
+                <div className="col-md-4">
+                  {Object.entries(formDetails.measurementDetails)
+                    .slice(8)
+                    .map(([key, value]) => (
+                      <div className="mb-3" key={key}>
+                        <label className="form-label">{key}:</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          name={key}
+                          value={value}
+                          onChange={(e) =>
+                            handleInputChange(e, "measurementDetails")
+                          }
+                          
+                        />
+                      </div>
+                    ))}
+                </div>
+              </div>
               <button type="submit" className="btn btn-dark mt-3">
                 Submit
               </button>
@@ -368,3 +440,5 @@ const OrderAndUserForm = () => {
 };
 
 export default OrderAndUserForm;
+
+

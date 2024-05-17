@@ -8,12 +8,16 @@ const OrderList = () => {
   const [newOrders, setNewOrders] = useState([]);
   const [pendingOrders, setPendingOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [products, setProducts] = useState({}); // State to store product details
 
   useEffect(() => {
     fetchOrders();
+  }, []);
+
+  useEffect(() => {
+    fetchProducts(); // Fetch products when component mounts
   }, []);
 
   const fetchOrders = () => {
@@ -34,15 +38,19 @@ const OrderList = () => {
       });
   };
 
-  const fetchUserDetails = (userId) => {
+  const fetchProducts = () => {
     axios
-      .get(`http://localhost:8075/user/getUserByUserID/${userId}`)
+      .get("http://localhost:8075/product/buyproducts")
       .then((response) => {
-        setSelectedUser(response.data);
-        setShowModal(true);
+        // Create a product dictionary for easy access
+        const productDict = {};
+        response.data.forEach((product) => {
+          productDict[product._id] = product.name;
+        });
+        setProducts(productDict);
       })
       .catch((error) => {
-        console.error("Error fetching user details:", error);
+        console.error("Error fetching products:", error);
       });
   };
 
@@ -57,19 +65,17 @@ const OrderList = () => {
       });
   };
 
-  const handleStatusChangePendding = (id, status, productID) => {
+  const handleStatusChangePending = (id, status, productID) => {
     axios
       .put(`http://localhost:8075/order/updateOrder/${id}`, { Status: status })
       .then(() => {
-        // Fetch current inventory item
         axios
           .get(
             `http://localhost:8075/inventory/getInventoryItemByProductId/${productID}`
           )
           .then((response) => {
             const currentUsedStock = response.data.used_stock;
-            const newUsedStock = currentUsedStock + 5; // Increment by 5
-            // Update used stock
+            const newUsedStock = currentUsedStock + 5;
             axios
               .put(
                 `http://localhost:8075/inventory/updateInventoryItemByProductId/${productID}`,
@@ -91,10 +97,9 @@ const OrderList = () => {
       });
   };
 
-  const handleViewDetails = async (order) => {
+  const handleViewDetails = (order) => {
     setSelectedOrder(order);
-    const userId = order.UserID;
-    await fetchUserDetails(userId);
+    setShowModal(true);
   };
 
   const handleCloseModal = () => {
@@ -180,11 +185,12 @@ const OrderList = () => {
           <thead>
             <tr>
               <th>Order ID</th>
-              <th>Product ID</th>
+              <th>Product Name</th>
+              <th>Material ID</th>
               <th>User ID</th>
               <th>Order Date</th>
               <th>Delivery Date</th>
-
+              <th>Amount</th>
               <th>Description</th>
               <th>Type</th>
               <th>Actions</th>
@@ -195,11 +201,12 @@ const OrderList = () => {
             {filteredNewOrders.map((order) => (
               <tr key={order.OrderID}>
                 <td>{order.OrderID}</td>
-                <td>{order.ProductID}</td>
+                <td>{products[order.ProductID]}</td> {/* Display product name */}
+                <td>{order.MaterialID}</td>
                 <td>{order.UserID}</td>
                 <td>{formatDate(order.OrderDate)}</td>
                 <td>{formatDate(order.PickupDate)}</td>
-
+                <td>{order.Amount}</td>
                 <td>{order.Description}</td>
                 <td>{order.Type}</td>
                 <td>
@@ -207,10 +214,10 @@ const OrderList = () => {
                     <Button
                       variant="warning"
                       onClick={() =>
-                        handleStatusChangePendding(
+                        handleStatusChangePending(
                           order._id,
                           "Pending",
-                          order.ProductName
+                          order.MaterialID
                         )
                       }
                     >
@@ -220,103 +227,129 @@ const OrderList = () => {
                 </td>
                 <td>
                   <Button
-                    variant="primary"
-                    onClick={() => handleViewDetails(order)}
-                  >
-                    More
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <div style={{ height: "10px" }}></div>
-        <h2>Pending Orders</h2>
+                   
+                   variant="primary"
+                   onClick={() => handleViewDetails(order)}
+                 >
+                   More
+                 </Button>
+               </td>
+             </tr>
+           ))}
+         </tbody>
+       </Table>
+       <div style={{ height: "10px" }}></div>
+       <h2>Pending Orders</h2>
 
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Product ID</th>
-              <th>User ID</th>
-              <th>Order Date</th>
-              <th>Delivery Date</th>
+       <Table striped bordered hover>
+         <thead>
+           <tr>
+             <th>Order ID</th>
+             <th>Product Name</th>
+             <th>Material ID</th>
+             <th>User ID</th>
+             <th>Order Date</th>
+             <th>Delivery Date</th>
+             <th>Amount</th>
+             <th>Description</th>
+             <th>Type</th>
+             <th>Actions</th>
+             <th>View More</th>
+           </tr>
+         </thead>
+         <tbody>
+           {filteredPendingOrders.map((order) => (
+             <tr key={order.OrderID}>
+               <td>{order.OrderID}</td>
+               <td>{products[order.ProductID]}</td> {/* Display product name */}
+               <td>{order.MaterialID}</td>
+               <td>{order.UserID}</td>
+               <td>{formatDate(order.OrderDate)}</td>
+               <td>{formatDate(order.PickupDate)}</td>
+               <td>{order.Amount}</td>
+               <td>{order.Description}</td>
+               <td>{order.Type}</td>
+               <td>
+                 {order.Status !== "Finished" && (
+                   <Button
+                     variant="success"
+                     onClick={() => handleStatusChange(order._id, "Finished")}
+                   >
+                     Finish
+                   </Button>
+                 )}
+               </td>
+               <td>
+                 <Button
+                   variant="primary"
+                   onClick={() => handleViewDetails(order)}
+                 >
+                   More
+                 </Button>
+               </td>
+             </tr>
+           ))}
+         </tbody>
+       </Table>
 
-              <th>Description</th>
-              <th>Type</th>
-              <th>Actions</th>
-              <th>View More</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredPendingOrders.map((order) => (
-              <tr key={order.OrderID}>
-                <td>{order.OrderID}</td>
-                <td>{order.ProductID}</td>
-                <td>{order.UserID}</td>
-                <td>{formatDate(order.OrderDate)}</td>
-                <td>{formatDate(order.PickupDate)}</td>
+       <Modal show={showModal} onHide={handleCloseModal}>
+         <Modal.Header closeButton>
+           <Modal.Title>Order Details</Modal.Title>
+         </Modal.Header>
+         <Modal.Body>
+           {selectedOrder && (
+             <div>
+               
+               <h4>Measurement Details</h4>
+               <p>
+                 <strong>Chest:</strong> {selectedOrder.Measurement?.chest}
+               </p>
+               <p>
+                 <strong>Waist:</strong> {selectedOrder.Measurement?.waist}
+               </p>
+               <p>
+                 <strong>Hips:</strong> {selectedOrder.Measurement?.hips}
+               </p>
+               <p>
+                 <strong>Shoulders:</strong> {selectedOrder.Measurement?.shoulders}
+               </p>
+               <p>
+                 <strong>Sleeve Length:</strong> {selectedOrder.Measurement?.sleeveLength}
+               </p>
+               <p>
+                 <strong>Jacket Length:</strong> {selectedOrder.Measurement?.jacketLength}
+               </p>
+               <p>
+                 <strong>Inseam:</strong> {selectedOrder.Measurement?.inseam}
+               </p>
+               <p>
+                 <strong>Outseam:</strong> {selectedOrder.Measurement?.outseam}
+               </p>
+               <p>
+                 <strong>Rise:</strong> {selectedOrder.Measurement?.rise}
+               </p>
+               <p>
+                 <strong>Neck:</strong> {selectedOrder.Measurement?.neck}
+               </p>
+               <p>
+                 <strong>Shirt Length:</strong> {selectedOrder.Measurement?.shirtLength}
+               </p>
+               <p>
+                 <strong>Description:</strong> {selectedOrder.Description}
+               </p>
 
-                <td>{order.Description}</td>
-                <td>{order.Type}</td>
-                <td>
-                  {order.Status !== "Finished" && (
-                    <Button
-                      variant="success"
-                      onClick={() => handleStatusChange(order._id, "Finished")}
-                    >
-                      Finish
-                    </Button>
-                  )}
-                </td>
-                <td>
-                  <Button
-                    variant="primary"
-                    onClick={() => handleViewDetails(order)}
-                  >
-                    More
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          <div style={{ height: "20px" }}></div>
-        </Table>
-
-        <Modal show={showModal} onHide={handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Order Details</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {selectedOrder && selectedUser && (
-              <div>
-                <p>
-                  <strong>User ID:</strong> {selectedOrder.UserID}
-                </p>
-                <p>
-                  <strong>User Name:</strong> {selectedUser.FirstName}{" "}
-                  {selectedUser.LastName}
-                </p>
-                <p>
-                  <strong>Email:</strong> {selectedUser.Email}
-                </p>
-                <p>
-                  <strong>Address:</strong> {selectedUser.Address}
-                </p>
-                <p>
-                  <strong>Contact Number:</strong> {selectedUser.ContactNumber}
-                </p>
-                <p>
-                  <strong>Customer Type:</strong> {selectedUser.Type}
-                </p>
-                
-              </div>
-            )}
-          </Modal.Body>
-        </Modal>
-      </div>
-    </div>
-  );
+             </div>
+           )}
+         </Modal.Body>
+         <Modal.Footer>
+           <Button variant="secondary" onClick={handleCloseModal}>
+             Close
+           </Button>
+         </Modal.Footer>
+       </Modal>
+     </div>
+   </div>
+ );
 };
 
 export default OrderList;

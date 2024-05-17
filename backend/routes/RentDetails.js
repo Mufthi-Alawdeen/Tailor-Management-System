@@ -79,4 +79,11 @@ router.route("/getRentsByUserID/:userId").get((req, res) => {
     .catch((err) => res.status(400).json({ error: err.message }));
 });
 
+// Get rented dates
+router.route("/getRentedDates").get((req, res) => {
+  Rent.find({}, 'PickupDate ReturnDate')
+    .then((rents) => res.status(200).json(rents))
+    .catch((err) => res.status(400).json({ error: err.message }));
+});
+
 module.exports = router;
