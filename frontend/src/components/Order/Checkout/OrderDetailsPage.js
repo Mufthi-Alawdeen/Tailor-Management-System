@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import html2pdf from 'html2pdf.js';
@@ -7,11 +7,8 @@ const OrderDetailsPage = () => {
   const location = useLocation();
   const { orders, transactionId, amount, pickupDate } = location.state || {};
   const componentRef = useRef();
-  const [buttonsVisible, setButtonsVisible] = useState(true);
 
   const handlePrint = () => {
-    setButtonsVisible(false);
-
     const opt = {
       margin:       1,
       filename:     'order_details.pdf',
@@ -21,22 +18,17 @@ const OrderDetailsPage = () => {
     };
 
     html2pdf().from(componentRef.current).set(opt).save();
-    
-    // Set the state to true after the PDF is generated and saved
-    setButtonsVisible(true);
   };
 
   return (
-    <div className='container mt-5' ref={componentRef}>
+    <div className='container mt-5' >
+      <div ref={componentRef}>
       <h2>Order Details</h2>
       <div className="mb-3">
         <strong>Transaction ID:</strong> {transactionId}
       </div>
       <div className="mb-3">
         <strong>Amount:</strong> ${amount}
-      </div>
-      <div className="mb-3">
-        <strong>Pickup Date:</strong> {pickupDate}
       </div>
       <h3>Order IDs:</h3>
       <table className="table table-bordered">
@@ -57,13 +49,9 @@ const OrderDetailsPage = () => {
           ))}
         </tbody>
       </table>
-      {/* Render buttons based on state */}
-      {buttonsVisible && (
-        <>
-          <button onClick={handlePrint} className="btn btn-primary d-print-none">Print Report</button>
-          <Link to="/" className="btn btn-secondary ml-2 d-print-none">Home</Link>
-        </>
-      )}
+      </div>
+      <button onClick={handlePrint} className="btn btn-primary d-print-none">Print Report</button>
+      <Link to="/" className="btn btn-secondary ml-2 d-print-none">Home</Link>
     </div>
   );
 };
