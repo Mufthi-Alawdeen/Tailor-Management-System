@@ -34,21 +34,26 @@ function Em_Header() {
             <div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <ul className="navbar-nav">
 
-                    <li  className="nav-item">
-                        <a className="nav-link" href="#">Home</a>
-                    </li>
                     <li style={{marginLeft:'8px'}} className="nav-item">
                         <a className="nav-link" href="/employee/leaveRequest">Request Leave</a>
                     </li>
                     <li style={{marginLeft:'6px'}} className="nav-item">
-                        <a className="nav-link" href="/inventory/request">Inventory Request</a>
+                        <a className="nav-link" href="/employee/inventoryRequest">Inventory Request</a>
                     </li>
                     <li style={{marginLeft:'8px'}} className="nav-item">
                         <a className="nav-link" href="/employee/leave">Leaves</a>
                     </li>
             </ul>  
             </div>
+
+            
+
             <div className="navbar-nav ml-auto" style={{marginRight:'10px'}}>
+
+            <a style={{marginRight:'13px', fontSize:'20px'}} className="nav-link" href="/employee/profile">
+                    <FontAwesomeIcon icon={faUser} />
+            </a>
+
                 {isLoggedIn ? (
                     <button className="logout" style={{marginRight:'15px', padding:'12px', backgroundColor:'black', color:'white', border:'none', fontWeight:'650'}} onClick={handleLogout}>
                         Log Out
@@ -60,9 +65,8 @@ function Em_Header() {
                         </button>
                     </Link>
                 )}
-                <a style={{marginRight:'15px'}} className="nav-link" href="/employee/profile">
-                    <FontAwesomeIcon icon={faUser} />
-                </a>
+            
+           
             </div>
         </nav>
     );
