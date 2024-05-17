@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaCcMastercard, FaCcVisa, FaArrowLeft } from 'react-icons/fa'; // Import icons
+import { FaCcMastercard, FaCcVisa, FaArrowLeft } from 'react-icons/fa';
 import './Checkout.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,13 +19,11 @@ const CheckoutForm = () => {
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
-    //check if user logged in
     if (!loggedInUser) {
       window.location.href = "/signup";
       return;
     }
 
-    // Fetch cart items using the user object ID
     const fetchCartItems = async () => {
       try {
         const response = await axios.get(`http://localhost:8075/order/carts/${userObjectId}`);
@@ -41,7 +39,6 @@ const CheckoutForm = () => {
   }, [userObjectId]);
 
   useEffect(() => {
-    // Calculate total amount based on cart items
     let total = 0;
     cartItems.forEach(item => {
       const itemTotal = item.quantity * item.product.price;
@@ -53,20 +50,12 @@ const CheckoutForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Validations for Card Number (only numbers and maximum length of 16)
     if (name === 'cardNumber') {
-      // Remove any non-digit characters from the value
       const newValue = value.replace(/\D/g, '');
-
-      // Group the digits into sets of four with spaces
       const formattedValue = newValue.replace(/(.{4})/g, '$1 ').trim();
-
-      // Enforce maximum length of 16 after formatting
       if (formattedValue.length > 19) {
-        return; // Do not update state if card number exceeds maximum length
+        return;
       }
-
-      // Update the state with the formatted value
       setTransactionData(prevData => ({
         ...prevData,
         [name]: formattedValue
@@ -74,14 +63,12 @@ const CheckoutForm = () => {
       return;
     }
 
-    // Validations for CVV (only numbers and 3 length)
     if (name === 'cardCVV') {
       if (!/^\d{0,3}$/.test(value)) {
-        return; // Do not update state if CVV doesn't match the pattern
+        return;
       }
     }
 
-    // Validations for Expiry Date (check if the expiry date is expired)
     if (name === 'cardExpiryDate') {
       const currentDate = new Date();
       const inputDate = new Date(value);
@@ -90,7 +77,6 @@ const CheckoutForm = () => {
       }
     }
 
-    // Update other fields as usual
     setTransactionData(prevData => ({
       ...prevData,
       [name]: value
@@ -101,10 +87,7 @@ const CheckoutForm = () => {
     e.preventDefault();
 
     try {
-      // Extracting only the required data to be sent to the backend
       const { cardNumber, cardExpiryDate } = transactionData;
-
-      // Constructing the data object to be sent
       const postData = {
         userId: UserId,
         userObjectId: userObjectId,
@@ -114,43 +97,32 @@ const CheckoutForm = () => {
         Amount: totalAmount
       };
 
-      // Log the transaction data before sending it to the backend
       console.log('Transaction Data before submitting:', postData);
 
-      // Send POST request using axios
       const response = await axios.post('http://localhost:8075/order/createorder', postData);
 
-      // Check if response is successful
+      console.log('Response from backend:', response.data);
+
       if (response.status === 201) {
-        // Reset form fields after successful submission
         setTransactionData({
           paymentType: 'Credit Card',
           cardNumber: '',
-          expiryDate: '',
+          cardCVV: '',
+          cardExpiryDate: ''
         });
 
-        // Optionally, you can handle the response from the backend here
-        console.log('Response from backend:', response.data);
-      } else {
-        throw new Error('Network response was not ok');
-      }
-
-      if (response.status === 201) {
-        // Navigate to OrderDetailsPage upon successful submission
         navigate('/order/orderdetails', {
           state: {
-            orderId: response.data.orderId,
-            transactionId: response.data.transactionId,
+            orders: response.data.orders,
+            transactionId: response.data.transaction.TransactionID,
             amount: totalAmount,
-            pickupDate: response.data.pickupDate
           }
         });
       } else {
         throw new Error('Network response was not ok');
       }
     } catch (error) {
-      console.error('Error:front:', error.message);
-      // Handle error (e.g., display error message to the user)
+      console.error('Error:', error.message);
     }
   };
 
