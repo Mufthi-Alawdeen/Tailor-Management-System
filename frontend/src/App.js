@@ -80,6 +80,12 @@ import Checkout from "./components/Order/Checkout/Checkout";
 import ProductListAccessories from "./components/Order/Accessories/Accessories";
 import OrderDetailsPage from "./components/Order/Checkout/OrderDetailsPage";
 
+//Rent User Side
+import RentalList from "./components/Rent/rentList";
+import RentProductDescription from "./components/Rent/rentProductDescription/rentProductDescription";
+import RentCart from './components/Rent/RentCart/RentCart';
+import RentCheckout from "./components/Rent/RentCheckout/RentCheckout";
+
 //Order Admin
 import OrderAndUserForm from "./components/Order (Admin)/NewUserOrder";
 import OrderExUserForm from "./components/Order (Admin)/ExUserOrder";
@@ -235,6 +241,12 @@ function App() {
             exact
             element={<EmployeeTable />}
           />
+
+          <Route path="/rentProducts" element={<RentalList />} />
+          <Route path="/product/:productId" element={<RentProductDescription />} />
+          <Route exact path="/rentCart" element={<RentCart />} />
+          <Route path = "/rentCheckout" element = {<RentCheckout/>}/>
+          
         </Routes>
       </Router>
     </div>

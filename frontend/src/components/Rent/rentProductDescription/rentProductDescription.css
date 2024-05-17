@@ -1,0 +1,56 @@
+/* RentProductDescription.css */
+
+.product-details {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn {
+    border-radius: 6px;
+  }
+  
+  .btn-dark {
+    background-color: #343a40;
+    border-color: #343a40;
+  }
+  
+  .btn-dark:hover {
+    background-color: #23272b;
+    border-color: #23272b;
+  }
+  
+  .text-danger {
+    color: #dc3545;
+  }
+  
+  .text-success {
+    color: #28a745;
+  }
+  
+  /* RentProductDescription.css */
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  
+  .image-item {
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .image-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .image-item img {
+    width: 100%;
+    height: auto;
+  }
+  
