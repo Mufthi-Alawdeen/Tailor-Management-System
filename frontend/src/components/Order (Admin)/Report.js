@@ -73,10 +73,9 @@ const Report = () => {
         (order) => order.Type === "Manual"
       );
 
-      const totalOrderProfit = finishedOrders.reduce((acc, order) => {
+      const totalOrderProfit = currentMonthOrders.reduce((acc, order) => {
         return acc + order.Amount;
       }, 0);
-      
 
       setNewOrdersCount(newOrders.length);
       setPendingOrdersCount(pendingOrders.length);
@@ -119,11 +118,11 @@ const Report = () => {
         (rental) => rental.Type === "Manual"
       );
 
-      const totalRentProfit = returnedCloths.reduce((acc, rental) => {
+      const totalRentProfit = currentMonthRentals.reduce((acc, rental) => {
         return acc + rental.Amount;
       }, 0);
-      
 
+    
       setRentedClothsCount(rentedCloths.length);
       setReturnedClothsCount(returnedCloths.length);
       setTotalRentProfit(totalRentProfit);
@@ -144,7 +143,7 @@ const Report = () => {
     <div>
       <Header />
       <div className="container col-md-8">
-      <div className="row" id="report">
+        <div className="row" id="report">
           <div style={{ height: "34px" }}></div>
           <h1 className="text-center mb-3">Order and Rental Report</h1>
           <div className="text-center mb-4"> Date : {currentDate}</div>
@@ -190,7 +189,7 @@ const Report = () => {
                 <p className="card-text h4 text-success">
                   Total Profit for This Month (Returned Cloths): {totalRentProfit}
                 </p>
-              </div>
+                </div>
             </div>
             <div className="card">
               <div className="card-body bg-secondary text-white">

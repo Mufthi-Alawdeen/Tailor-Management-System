@@ -47,7 +47,7 @@ function Header() {
                         <a className="nav-link" href="/productlistCustom/buyproducts">Customize</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Rental</a>
+                        <a className="nav-link" href="/rentProducts">Rental</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/buyproducts/accessories">Accessories</a>

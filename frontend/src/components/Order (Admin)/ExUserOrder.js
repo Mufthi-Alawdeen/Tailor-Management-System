@@ -12,7 +12,6 @@ const OrderForm = () => {
   const [formData, setFormData] = useState({
     orderDetails: {
       OrderID: initialOrderID,
-      // ProductID: "",
       UserID: "",
       MaterialID: "",
       OrderDate: new Date().toISOString().slice(0, 10),
@@ -22,6 +21,19 @@ const OrderForm = () => {
       TransactionID: initialTransactionID,
       Amount: "",
       Description: "",
+      Measurement: {
+        chest: "",
+        waist: "",
+        hips: "",
+        shoulders: "",
+        sleeveLength: "",
+        jacketLength: "",
+        inseam: "",
+        outseam: "",
+        rise: "",
+        neck: "",
+        shirtLength: "",
+      },
     },
     transactionDetails: {
       TransactionID: initialTransactionID,
@@ -127,6 +139,18 @@ const OrderForm = () => {
             Amount: value,
           },
         };
+      } else if (name.startsWith("Measurement")) {
+        const measurementKey = name.split("_")[1];
+        return {
+          ...prevState,
+          orderDetails: {
+            ...prevState.orderDetails,
+            Measurement: {
+              ...prevState.orderDetails.Measurement,
+              [measurementKey]: value,
+            },
+          },
+        };
       } else {
         return {
           ...prevState,
@@ -166,7 +190,6 @@ const OrderForm = () => {
             setFormData({
               orderDetails: {
                 OrderID: generateOrderID(),
-                // ProductID: "",
                 UserID: "",
                 MaterialID: "",
                 OrderDate: new Date().toISOString().slice(0, 10),
@@ -176,6 +199,19 @@ const OrderForm = () => {
                 TransactionID: generateTransactionID(),
                 Amount: "",
                 Description: "",
+                Measurement: {
+                  chest: "",
+                  waist: "",
+                  hips: "",
+                  shoulders: "",
+                  sleeveLength: "",
+                  jacketLength: "",
+                  inseam: "",
+                  outseam: "",
+                  rise: "",
+                  neck: "",
+                  shirtLength: "",
+                },
               },
               transactionDetails: {
                 TransactionID: generateTransactionID(),
@@ -217,7 +253,7 @@ const OrderForm = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/AddOrderExUser" className="dropdown-item">
+                <Link to="/AddOrderExUser" className="dropdown-item">
                     Existing User Order
                   </Link>
                 </li>
@@ -363,7 +399,7 @@ const OrderForm = () => {
                     Total Amount:
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
                     id="TotalAmount"
                     name="Amount"
@@ -373,6 +409,161 @@ const OrderForm = () => {
                   />
                 </div>
               </div>
+
+              <h2>Add Measurement Details</h2>
+              <div className="row">
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="chest" className="form-label">
+                    Chest:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="chest"
+                    name="Measurement_chest"
+                    value={formData.orderDetails.Measurement.chest}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="waist" className="form-label">
+                    Waist:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="waist"
+                    name="Measurement_waist"
+                    value={formData.orderDetails.Measurement.waist}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="hips" className="form-label">
+                    Hips:
+                  </label>
+                  <input
+                    type="number"
+                    className="
+                    form-control"
+                    id="hips"
+                    name="Measurement_hips"
+                    value={formData.orderDetails.Measurement.hips}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="shoulders" className="form-label">
+                    Shoulders:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="shoulders"
+                    name="Measurement_shoulders"
+                    value={formData.orderDetails.Measurement.shoulders}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="sleeveLength" className="form-label">
+                    Sleeve Length:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="sleeveLength"
+                    name="Measurement_sleeveLength"
+                    value={formData.orderDetails.Measurement.sleeveLength}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="jacketLength" className="form-label">
+                    Jacket Length:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="jacketLength"
+                    name="Measurement_jacketLength"
+                    value={formData.orderDetails.Measurement.jacketLength}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="inseam" className="form-label">
+                    Inseam:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="inseam"
+                    name="Measurement_inseam"
+                    value={formData.orderDetails.Measurement.inseam}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="outseam" className="form-label">
+                    Outseam:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="outseam"
+                    name="Measurement_outseam"
+                    value={formData.orderDetails.Measurement.outseam}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="rise" className="form-label">
+                    Rise:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="rise"
+                    name="Measurement_rise"
+                    value={formData.orderDetails.Measurement.rise}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="neck" className="form-label">
+                    Neck:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="neck"
+                    name="Measurement_neck"
+                    value={formData.orderDetails.Measurement.neck}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="shirtLength" className="form-label">
+                    Shirt Length:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="shirtLength"
+                    name="Measurement_shirtLength"
+                    value={formData.orderDetails.Measurement.shirtLength}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
               <div className="row mb-3">
                 <div className="col-md-12">
                   <label htmlFor="Description" className="form-label">
@@ -401,3 +592,5 @@ const OrderForm = () => {
 };
 
 export default OrderForm;
+
+                 

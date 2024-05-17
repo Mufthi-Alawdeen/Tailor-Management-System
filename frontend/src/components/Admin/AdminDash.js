@@ -149,11 +149,11 @@ export default function DashBoard() {
     orderChartRef.current = new Chart(ctx, {
       type: "doughnut",
       data: {
-        labels: ["Online Orders", "Manual Orders"],
+        labels: ["Manual Orders", "Online Orders"],
         datasets: [
           {
             data: [onlineOrders, totalOrders - onlineOrders],
-            backgroundColor: ["#d11002", "#333"], // Red and Black
+            backgroundColor: ["#333", "#d11002"], // Red and Black
           },
         ],
       },

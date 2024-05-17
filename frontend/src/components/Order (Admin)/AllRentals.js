@@ -156,8 +156,8 @@ const AllRentals = () => {
                 <td>{rental.ProductID}</td>
                 <td>{rental.ProductName}</td>
                 <td>{rental.UserID}</td>
-                <td>{formatDate(rental.RentDate)}</td>
                 <td>{formatDate(rental.PickupDate)}</td>
+                <td>{formatDate(rental.ReturnDate)}</td>
                 <td>{rental.Status}</td>
                 <td>{rental.Type}</td>
                 <td>
