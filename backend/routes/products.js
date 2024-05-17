@@ -80,6 +80,27 @@ router.get('/rentproducts', async (req, res) => {
   }
 });
 
+// Route to get details of a specific rental product by ID
+router.get('/rentproducts/:productId', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.json({
+      id: product._id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      size: product.size,
+      images: product.images,
+      // Add any other necessary details here
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Route for fetching buy products
 router.get('/buyproducts', async (req, res) => {
   try {
