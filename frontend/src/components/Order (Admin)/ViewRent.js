@@ -131,12 +131,10 @@ const RentalList = () => {
           <thead>
             <tr>
               <th>Rental ID</th>
-              <th>Product ID</th>
               <th>Product Name</th>
               <th>User ID</th>
               <th>Rental Date</th>
               <th>Return Date</th>
-
               <th>Status</th>
               <th>Actions</th>
               <th>View More</th>
@@ -148,12 +146,10 @@ const RentalList = () => {
                 rental.Status !== "returned" && (
                   <tr key={rental._id}>
                     <td>{rental.RentID}</td>
-                    <td>{rental.ProductID}</td>
                     <td>{rental.ProductName}</td>
                     <td>{rental.UserID}</td>
                     <td>{formatDate(rental.PickupDate)}</td>
                     <td>{formatDate(rental.ReturnDate)}</td>
-
                     <td>{rental.Status}</td>
                     <td>
                       {rental.Status !== "returned" && (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Header from '../../Product/Header';
+import { Link } from 'react-router-dom';
 
 const AddInventoryRequestForm = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +12,6 @@ const AddInventoryRequestForm = () => {
     required_quantity: ''
   });
 
-  const [status, setStatus] = useState('');
   const [inventoryRequests, setInventoryRequests] = useState([]);
 
   const handleChange = (e) => {
@@ -32,13 +32,16 @@ const AddInventoryRequestForm = () => {
         required_quantity: ''
       });
 
-     
       // Fetch updated inventory requests after adding the new request
       fetchInventoryRequests();
     } catch (error) {
       console.error('Error adding inventory request:', error);
-      // Set status to error
-      setStatus('Error');
+      // Show error alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'There was an issue adding your inventory request.',
+      });
     }
   };
 
@@ -72,7 +75,7 @@ const AddInventoryRequestForm = () => {
         Swal.fire({
           icon: 'warning',
           title: 'Product is not available, we will restock soon',
-          text: `we have informed to the department.`
+          text: 'We have informed the department.'
         });
       }
     });
@@ -80,58 +83,94 @@ const AddInventoryRequestForm = () => {
 
   return (
     <div>
-      <Header/>
-    <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '400px', margin: 'auto', border: '1px solid #ccc', padding: '20px' , marginTop : '35px', marginBottom:'60px' }}>
-    <h2 style={{ textAlign: 'center', marginBottom: '40px',  marginTop : '25px' , textDecoration:'underline' }}>Inventory Check</h2>
-    <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '20px' }}>
-        <div>
-            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Requested By:</label>
-            <select name="requested_by"value={formData.requested_by} onChange={handleChange} required style={{ width: 'calc(100% - 16px)', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', outline: 'none' }}>
-                <option value="">Select Role</option>
-                <option value="Admin">Admin</option>
-            </select>
+      <Header />
+      <div className="container mt-5">
+        <Link to="/ManageOrder" className="btn btn-secondary mb-3">
+          Back to Manage Orders
+        </Link>
+        <div className="card" style={{ maxWidth: '500px', margin: 'auto' }}>
+          <div className="card-body">
+            <h2 className="card-title text-center mb-4" style={{ textDecoration: 'underline' }}>
+              Inventory Check
+            </h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">Requested By:</label>
+                <select 
+                  name="requested_by" 
+                  value={formData.requested_by} 
+                  onChange={handleChange} 
+                  className="form-select" 
+                  required>
+                  <option value="">Select Role</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Material Type:</label>
+                <select 
+                  name="material_type" 
+                  value={formData.material_type} 
+                  onChange={handleChange} 
+                  className="form-select" 
+                  required>
+                  <option value="">Select Material Type</option>
+                  <option value="Material">Material</option>
+                  <option value="Button">Button</option>
+                  <option value="Threads">Threads</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              {formData.material_type === 'Other' && (
+                <div className="mb-3">
+                  <label className="form-label">Name:</label>
+                  <input 
+                    type="text" 
+                    name="name" 
+                    value={formData.name} 
+                    onChange={handleChange} 
+                    className="form-control" 
+                    required />
+                </div>
+              )}
+              <div className="mb-3">
+                <label className="form-label">Color:</label>
+                <select 
+                  name="color" 
+                  value={formData.color} 
+                  onChange={handleChange} 
+                  className="form-select" 
+                  required>
+                  <option value="">Select Color</option>
+                  <option value="Red">Red</option>
+                  <option value="Blue">Blue</option>
+                  <option value="Green">Green</option>
+                  <option value="Yellow">Yellow</option>
+                  <option value="Orange">Orange</option>
+                  <option value="Purple">Purple</option>
+                  <option value="Pink">Pink</option>
+                  <option value="Brown">Brown</option>
+                  <option value="Gray">Gray</option>
+                  <option value="Black">Black</option>
+                  {/* Add more color options as needed */}
+                </select>
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Required Quantity:</label>
+                <input 
+                  type="number" 
+                  name="required_quantity" 
+                  value={formData.required_quantity} 
+                  onChange={handleChange} 
+                  className="form-control" 
+                  required />
+              </div>
+              <button type="submit" className="btn btn-primary w-100">Check Status</button>
+            </form>
+          </div>
         </div>
-        <div>
-            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Material Type:</label>
-            <select name="material_type" value={formData.material_type} onChange={handleChange} required style={{ width: 'calc(100% - 75px)', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', outline: 'none'  }}>
-                <option value="">Select Material Type</option>
-                <option value="Material">Material</option>
-                <option value="Button">Button</option>
-                <option value="Threads">Threads</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
-        {formData.material_type === 'Other' && (
-            <div>
-                <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Name:</label>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} required style={{ width: 'calc(100% - 16px)', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', outline: 'none' }} />
-            </div>
-        )}
-        <div>
-            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Color:</label>
-            <select name="color" value={formData.color} onChange={handleChange} required style={{ width: 'calc(100% - 75px)', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', outline: 'none' }}>
-                <option value="">Select Color</option>
-                <option value="Red">Red</option>
-                <option value="Blue">Blue</option>
-                <option value="Green">Green</option>
-                <option value="Yellow">Yellow</option>
-                <option value="Orange">Orange</option>
-                <option value="Purple">Purple</option>
-                <option value="Pink">Pink</option>
-                <option value="Brown">Brown</option>
-                <option value="Gray">Gray</option>
-                <option value="Black">Black</option>
-                {/* Add more color options as needed */}
-            </select>
-        </div>
-        <div>
-            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Required Quantity:</label>
-            <input type="number" name="required_quantity" value={formData.required_quantity} onChange={handleChange} required style={{ width: 'calc(100% - 16px)', padding: '8px', borderRadius: '5px', border: '1px solid #ccc', outline: 'none' }} />
-        </div>
-        <button type="submit" style={{ width: '100%', padding: '10px 0', border: 'none', backgroundColor: 'black', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>Check Status</button>
-    </form>
-  </div>
-  </div>
+      </div>
+    </div>
   );
 };
 

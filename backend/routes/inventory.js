@@ -115,4 +115,97 @@ router.get("/get/:id", (req, res) => {
         .catch(err => res.status(400).json({ error: err.message }));
 });
 
+// Update an inventory item by ProductID
+router.put("/updateInventoryItemByProductId/:productId", (req, res) => {
+    const { productId } = req.params;
+    const {
+      raw_material_type,
+      color,
+      received_stock,
+      used_stock,
+      date,
+      unit_price,
+      retailer_name,
+      name,
+      description,
+    } = req.body;
+    const updatedInventoryItem = {
+      raw_material_type,
+      color,
+      received_stock,
+      used_stock,
+      date,
+      unit_price,
+      retailer_name,
+      name,
+      description,
+    };
+  
+    Inventory.findOneAndUpdate({ productId }, updatedInventoryItem, { new: true }) // Set { new: true } to return the updated document
+      .then((inventoryItem) => {
+        if (!inventoryItem) {
+          return res.status(404).json({ error: "Inventory Item not found" });
+        }
+        res
+          .status(200)
+          .json({ message: "Inventory Item updated", inventoryItem }); // Return the updated inventory item in the response
+      })
+      .catch((err) => res.status(400).json({ error: err.message }));
+  });
+  
+  // Route to update an inventory item by ID
+  router.put("/update/:id", (req, res) => {
+    const inventoryItemId = req.params.id;
+    const {
+      raw_material_type,
+      color,
+      received_stock,
+      used_stock,
+      available_stock,
+      date,
+      unit_price,
+      retailer_name,
+      name,
+      description,
+    } = req.body;
+    const updatedInventoryItem = {
+      raw_material_type,
+      color,
+      received_stock,
+      used_stock,
+      available_stock,
+      date,
+      unit_price,
+      retailer_name,
+      name,
+      description,
+    };
+  
+    Inventory.findByIdAndUpdate(inventoryItemId, updatedInventoryItem, {
+      new: true,
+    }) // Set { new: true } to return the updated document
+      .then((inventoryItem) => {
+        if (!inventoryItem) {
+          return res.status(404).json({ error: "Inventory Item not found" });
+        }
+        res.json({ message: "Inventory Item updated", inventoryItem }); // Return the updated inventory item in the response
+      })
+      .catch((err) => res.status(400).json({ error: err.message }));
+  });
+  
+  // Get an inventory item by ProductID
+  router.get("/getInventoryItemByProductId/:productId", (req, res) => {
+    const { productId } = req.params;
+  
+    Inventory.findOne({ productId })
+      .then((inventoryItem) => {
+        if (!inventoryItem) {
+          return res.status(404).json({ error: "Inventory Item not found" });
+        }
+        res.status(200).json(inventoryItem);
+      })
+      .catch((err) => res.status(400).json({ error: err.message }));
+  });
+  
+
 module.exports = router;

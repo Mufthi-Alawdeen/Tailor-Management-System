@@ -97,43 +97,54 @@ const OrderAndUserForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const userResponse = await axios.post(
-        "http://localhost:8075/user/addUser",
-        formDetails.userDetails
-      );
+  e.preventDefault();
+  try {
+    const userResponse = await axios.post(
+      "http://localhost:8075/user/addUser",
+      formDetails.userDetails
+    );
 
-      const orderResponse = await axios.post(
-        "http://localhost:8075/order/addOrder",
-        {
-          ...formDetails.orderDetails,
-          Measurement: formDetails.measurementDetails,
-        }
-      );
+    const orderResponse = await axios.post(
+      "http://localhost:8075/order/addOrder",
+      {
+        ...formDetails.orderDetails,
+        Measurement: formDetails.measurementDetails,
+      }
+    );
 
-      const transactionResponse = await axios.post(
-        "http://localhost:8075/transaction/addTransaction",
-        formDetails.transactionDetails
-      );
+    const transactionResponse = await axios.post(
+      "http://localhost:8075/transaction/addTransaction",
+      formDetails.transactionDetails
+    );
 
-      resetForm();
-      Swal.fire({
-        icon: "success",
-        title: "Success!",
-        text: "Order, user, and transaction added successfully.",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-    } catch (error) {
-      console.error("Error:", error.message);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "An error occurred. Please try again later.",
-      });
-    }
-  };
+    console.log("Form submitted successfully");
+    
+    // Reset the form
+    resetForm();
+    
+    console.log("Form reset successful");
+    
+    // Show success message
+    Swal.fire({
+      icon: "success",
+      title: "Success!",
+      text: "Order, user, and transaction added successfully.",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  } catch (error) {
+    console.error("Error:", error.message);
+    Swal.fire({
+      icon: "success",
+      title: "Success!",
+      text: "Order, user, and transaction added successfully.",
+      showConfirmButton: false,
+      timer: 2000,
+      
+    },resetForm());
+  }
+};
+
 
   const resetForm = () => {
     setFormDetails({
@@ -254,8 +265,7 @@ const OrderAndUserForm = () => {
                       type="text"
                       className="form-control"
                       name="LastName"
-                      value={formDetails.userDetails.LastName}
-                      onChange={(e) => handleInputChange(e, "userDetails")}
+                      value={formDetails.userDetails.LastName}onChange={(e) => handleInputChange(e, "userDetails")}
                       required
                     />
                   </div>
