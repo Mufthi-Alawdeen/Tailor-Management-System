@@ -58,6 +58,13 @@ const InventoryRecord = () => {
         }
     };
 
+    const handleLogout = () => {
+        // Clear user details from local storage
+        localStorage.removeItem("loggedInUser");
+        // Redirect to the home page
+        window.location.href = "/";
+    };
+
     const filteredInventoryData = filterType
         ? inventoryData.filter(item => item.raw_material_type === filterType)
         : inventoryData;
@@ -95,6 +102,7 @@ const InventoryRecord = () => {
                             boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)',
                             marginLeft: '10px'
                         }}
+                        onClick={handleLogout}
                     >
                         Logout
                     </button>
