@@ -95,7 +95,7 @@ const RentProductDescription = () => {
             <div className="product-details">
               <h2>{product.name}</h2>
               <p>Description: {product.description}</p>
-              <p>Price: ${product.price}</p>
+              <p style={{fontSize: '20px' , fontWeight:'bold'}}>LKR {product.price}.00</p>
               <div className="form-group">
                 <label htmlFor="startDate">PickUp Date:</label>
                 <input type="date" id="startDate" name="startDate" className="form-control" value={pickupDate} min={today} onChange={(e) => handlePickupDateChange(e.target.value)} />
