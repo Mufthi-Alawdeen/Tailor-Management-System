@@ -12,7 +12,7 @@ const CartMenu = () => {
         <div className="collapse navbar-collapse d-flex justify-content-center" id="navbarNavAltMarkup">
           <div className="navbar-nav">
             <NavLink exact to="/order/cart" className="nav-item nav-link" activeClassName="selected-link">Buy</NavLink>
-            <NavLink exact to="/rent" className="nav-item nav-link" activeClassName="selected-link">Rent</NavLink>
+            <NavLink exact to="/rentCart" className="nav-item nav-link" activeClassName="selected-link">Rent</NavLink>
           </div>
         </div>
       </nav>
