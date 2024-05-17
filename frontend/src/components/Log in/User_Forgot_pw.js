@@ -69,7 +69,7 @@ const ResetPassword = () => {
           text: 'Your password has been reset.',
         }).then(() => {
           // Redirect to login page
-          window.location.href = '/'; // Modify this to your login page URL
+          window.location.href = '/login'; // Modify this to your login page URL
         });
       } else {
         setError('Failed to update password. Please try again.');
