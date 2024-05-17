@@ -1,0 +1,65 @@
+.maincont {
+    margin: 100px;
+    margin-left: 500px;
+    margin-right: 500px;
+}
+
+#containercheck .btn {
+    background-color: black;
+    color: white;
+}
+
+#containercheck .btn:hover {
+    background-color: black;
+    color: white;
+    transform: scale(1.1);
+}
+
+#containercheck {
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 70%;
+}
+
+#containercheck .form-label {
+    font-weight: bold;
+}
+
+#containercheck .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#containercheck .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#containercheck .btn-back {
+    background-color: black;
+    color: white;
+    padding: 10px 10px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  #containercheck .btn-back:hover {
+    background-color: black;
+  }
+  
+  #containercheck .btn-back svg {
+    margin-right: 5px;
+  }

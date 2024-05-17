@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaCcMastercard, FaCcVisa, FaArrowLeft } from 'react-icons/fa'; // Import icons
+import './Checkout.css';
 
 const CheckoutForm = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -42,20 +44,20 @@ const CheckoutForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     // Validations for Card Number (only numbers and maximum length of 16)
     if (name === 'cardNumber') {
       // Remove any non-digit characters from the value
       const newValue = value.replace(/\D/g, '');
-  
+
       // Group the digits into sets of four with spaces
       const formattedValue = newValue.replace(/(.{4})/g, '$1 ').trim();
-  
+
       // Enforce maximum length of 16 after formatting
       if (formattedValue.length > 19) {
         return; // Do not update state if card number exceeds maximum length
       }
-  
+
       // Update the state with the formatted value
       setTransactionData(prevData => ({
         ...prevData,
@@ -63,14 +65,14 @@ const CheckoutForm = () => {
       }));
       return;
     }
-  
+
     // Validations for CVV (only numbers and 3 length)
     if (name === 'cardCVV') {
       if (!/^\d{0,3}$/.test(value)) {
         return; // Do not update state if CVV doesn't match the pattern
       }
     }
-  
+
     // Validations for Expiry Date (check if the expiry date is expired)
     if (name === 'cardExpiryDate') {
       const currentDate = new Date();
@@ -79,22 +81,21 @@ const CheckoutForm = () => {
         alert('Expiry date is expired.');
       }
     }
-  
+
     // Update other fields as usual
     setTransactionData(prevData => ({
       ...prevData,
       [name]: value
     }));
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       // Extracting only the required data to be sent to the backend
       const { cardNumber, cardExpiryDate } = transactionData;
-  
+
       // Constructing the data object to be sent
       const postData = {
         userId: UserId,
@@ -104,13 +105,13 @@ const CheckoutForm = () => {
         CardExpDate: cardExpiryDate,
         Amount: totalAmount
       };
-  
+
       // Log the transaction data before sending it to the backend
       console.log('Transaction Data before submitting:', postData);
-  
+
       // Send POST request using axios
       const response = await axios.post('http://localhost:8075/order/createorder', postData);
-  
+
       // Check if response is successful
       if (response.status === 201) {
         // Reset form fields after successful submission
@@ -119,7 +120,7 @@ const CheckoutForm = () => {
           cardNumber: '',
           expiryDate: '',
         });
-  
+
         // Optionally, you can handle the response from the backend here
         console.log('Response from backend:', response.data);
       } else {
@@ -130,28 +131,56 @@ const CheckoutForm = () => {
       // Handle error (e.g., display error message to the user)
     }
   };
-  
-   
+
+  const handleBackClick = () => {
+    window.history.back();
+  };
 
   return (
-    <div className="container mt-5">
-      <h2>Checkout</h2><br />
-      <div>Total Amount: ${totalAmount}</div>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Card Number:</label>
-          <input type="text" className="form-control" name="cardNumber" value={transactionData.cardNumber} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">CVV:</label>
-          <input type="text" className="form-control" name="cardCVV" value={transactionData.cardCVV} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Expiry Date:</label>
-          <input type="date" className="form-control" name="cardExpiryDate" value={transactionData.cardExpiryDate} onChange={handleChange} required />
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
+    <div className='maincont card'>
+      <button
+        className="btn-back"
+        onClick={handleBackClick}
+        style={{
+          position: 'absolute',
+          top: '20px',
+          left: '20px',
+          backgroundColor: 'black',
+          color: 'white',
+          padding: '10px',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center'
+        }}
+      >
+        <FaArrowLeft style={{ marginRight: '5px' }} />
+      </button>
+      <div className="container" id='containercheck'>
+        <h2>Checkout</h2><br />
+        <div>Total Amount: ${totalAmount}</div><br />
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Card Number:</label>
+            <input type="text" className="form-control" name="cardNumber" value={transactionData.cardNumber} onChange={handleChange} placeholder="Enter card number" required />
+            <div className="mt-2">
+              <label className="form-label">Card Type:</label><br />
+              <FaCcVisa size={40} color="#1a1aff" style={{ marginRight: '10px' }} />
+              <FaCcMastercard size={40} color="#ff4d4d" />
+            </div>
+          </div>
+          <div className="mb-3">
+            <label className="form-label">CVV:</label>
+            <input type="text" className="form-control" name="cardCVV" value={transactionData.cardCVV} onChange={handleChange} placeholder="Enter CVV" required />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Expiry Date:</label>
+            <input type="date" className="form-control" name="cardExpiryDate" value={transactionData.cardExpiryDate} onChange={handleChange} placeholder="MM/YYYY" required />
+          </div>
+          <button type="submit" className="btn">Submit</button>
+        </form>
+      </div>
     </div>
   );
 };

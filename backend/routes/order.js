@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const PDFDocument = require("pdfkit");
 const axios = require("axios");
+const bcrypt = require("bcrypt");
 
 //models
 const Rating = require("../models/Rating");
@@ -444,6 +445,7 @@ router.post("/createorder", async (req, res) => {
         OrderDate: new Date(), // Record the current date
         PickupDate: pickupDate,
         TransactionID: transactionId,
+        Amount: cartItem.product.price * cartItem.quantity
       });
       await order.save();
       orders.push(order);
