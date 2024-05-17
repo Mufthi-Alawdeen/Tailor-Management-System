@@ -1,76 +1,93 @@
 .container {
-    /* Your container styles */
-    margin-left: 2em;
-    margin-right: 2em;
-  }
-  
-  .carousel img {
-    height: 580px;
-    width: 300px; /* Use 100% width */
-    object-fit: cover; /* Maintain aspect ratio */
-  }
-  
+  /* Your container styles */
+  margin-left: 8em;
+  margin-right: 8em;
+}
 
-  .customizationButton {
-    background-color: black;
-    text-decoration: none;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: transform 0.3s ease;
+.carousel img {
+  height: 580px;
+  width: 300px; /* Use 100% width */
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+.customizationButton {
+  background-color: black;
+  text-decoration: none;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
 }
 
 .customizationButton:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
+  background-color: black;
 }
 
-  
-  .selected {
-    color: white; /* Set the color to white when selected */
-  }
+.selected {
+  color: black; /* Set the color to black when selected */
+}
 
-  .submitButton{
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: transform 0.3s ease;
-  }
+.submitButton {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
 
-  .submitButton:hover {
-    transform: scale(1.1);
-    background-color:black;
-  }
+.submitButton:hover {
+  transform: scale(1.1);
+  background-color: black;
+}
+
+.submittedMessage {
+  background-color: #4d4d4d;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.review {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: 47%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   
-  .submittedMessage {
-    background-color: #28a745;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .review {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .userName {
-    font-weight: bold;
-  }
-  
-  .rating {
-    font-style: italic;
-  }
-  
-  .reviewContent {
-    margin-top: 5px;
-  }
+}
+
+.review:nth-child(odd) {
+  margin-right: 50px;
+  margin-left: 12px;
+}
+
+.userName {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+
+.starIcon {
+  color: gold;
+  margin-left: 5px;
+}
+
+.reviewContent {
+  margin-top: 10px;
+}
+
+
+.fa-star{
+  background-color: black;
+  color: #000;
+  cursor: pointer;
+}
