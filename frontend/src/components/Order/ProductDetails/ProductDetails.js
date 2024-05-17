@@ -5,6 +5,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import styles from './ProductDetails.module.css'; // Import CSS module
 import '@fortawesome/fontawesome-free/css/all.css';
 import { FaStar } from 'react-icons/fa';
+import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const ProductDetails = () => {
     const { productId } = useParams();
@@ -244,6 +245,7 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

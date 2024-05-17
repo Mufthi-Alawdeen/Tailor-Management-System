@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import './CustomSuit.css'; // Import CSS file for custom styling
+import Header from "../../Inquiry/Contact Us/UserHeader";
+import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const SuitCustomizationForm = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -98,6 +100,9 @@ const SuitCustomizationForm = () => {
     };
 
     return (
+        <div>
+            <Header />
+        
         <div className="suit-customization-form">
             <h1>Suit Customization Form</h1>
             {successMessage && <div className="success-message">{successMessage}</div>}
@@ -179,6 +184,8 @@ const SuitCustomizationForm = () => {
                     <li>Quantity: Select the quantity of suits you want to order (between 1 and 10).</li>
                 </ul>
             </div>
+        </div>
+        <Footer />
         </div>
     );
 };

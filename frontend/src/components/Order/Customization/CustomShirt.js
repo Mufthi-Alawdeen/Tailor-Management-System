@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import './CustomShirt.css';
+import Header from "../../Inquiry/Contact Us/UserHeader";
+import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const ShirtCustomizationForm = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -101,6 +103,9 @@ const ShirtCustomizationForm = () => {
     };
 
     return (
+        <div>
+            <Header />
+        
         <div className="shirt-customization-form">
             <h1>Shirt Customization Form</h1>
             <form onSubmit={handleSubmit}>
@@ -172,6 +177,8 @@ const ShirtCustomizationForm = () => {
                 <li>Waist: Measure around your natural waistline, typically just above the belly button.</li>
                 <li>Shirt Length: Measure from the base of the neck to the bottom hem of a well-fitting shirt.</li>
             </ul>
+        </div>
+        <Footer />
         </div>
     );
 };

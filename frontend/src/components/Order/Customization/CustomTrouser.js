@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import './CustomTrouser.css'; // Import CSS file for custom styling
+import Header from "../../Inquiry/Contact Us/UserHeader";
+import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const TrouserCustomizationForm = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -99,6 +101,9 @@ const TrouserCustomizationForm = () => {
     };
 
     return (
+        <div>
+            <Header />
+        
         <div className='trouser-customization-form'>
             <h1>Trouser Customization Form</h1>
             {successMessage && <div className="success-message">{successMessage}</div>}
@@ -160,6 +165,8 @@ const TrouserCustomizationForm = () => {
                 </div>
                 <button type="submit">Submit</button>
             </form>
+        </div>
+        <Footer />
         </div>
     );
 };

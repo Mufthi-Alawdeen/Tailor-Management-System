@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import styles from './ProductList.module.css'; // Import CSS module
 import Header from '../../Inquiry/Contact Us/UserHeader'; // Import your Header component
+import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -86,6 +87,8 @@ const ProductList = () => {
         ))}
       </div>
     </div>
+
+    <Footer />
     </div>
   );
 };

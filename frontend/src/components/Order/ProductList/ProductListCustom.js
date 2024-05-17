@@ -4,6 +4,7 @@ import './ProductCustom.css'; // Import CSS for styling
 import suitImage from '../../../img/suit1.jpg';
 import shirtImage from '../../../img/shirt1.jpg';
 import trouserImage from '../../../img/trouser1.jpg';
+import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const ProductListCustom = () => {
 
@@ -71,6 +72,7 @@ const ProductListCustom = () => {
                     </Link>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 };

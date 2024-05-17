@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'; // Import SweetAlert2
 import './Cart.css';
 import Header from '../../Inquiry/Contact Us/UserHeader';
 import CartMenu from '../../Header/CartMenu';
+import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const Cart = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -164,6 +165,7 @@ const Cart = () => {
                     </table>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

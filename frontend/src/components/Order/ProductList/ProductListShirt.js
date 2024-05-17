@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import styles from './ProductList.module.css'; // Import CSS module
+import Header from "../../Inquiry/Contact Us/UserHeader";
+import Footer from "../../Inquiry/Contact Us/UserFooter";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -31,6 +33,9 @@ const ProductList = () => {
   });
 
   return (
+    <div>
+      <Header />
+    
     <div className={styles.container}>
       <div className="row mt-4">
         <div className="col">
@@ -82,6 +87,8 @@ const ProductList = () => {
           </div>
         ))}
       </div>
+    </div>
+    <Footer />
     </div>
   );
 };
