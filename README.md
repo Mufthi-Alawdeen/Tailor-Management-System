@@ -57,6 +57,13 @@ MSR Tailors and Fashion Management System is a comprehensive web-based applicati
 5. **Employee Management:** Handle employee details and leave requests.
 6. **Report Generation:** Create reports on various system functionalities.
 
+## Technologies
+
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Node.js](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+
 ## Project Contributors
 
 <table>
