@@ -58,15 +58,18 @@ MSR Tailors and Fashion Management System is a comprehensive web-based applicati
 6. **Report Generation:** Create reports on various system functionalities.
 
 ## Project Contributors
-- [M.H.M Ahamed](https://github.com/mushrifahamed)
-- [M.N.A Ahmed](https://github.com/ashifahmed-924)
-- [M.Z.M Aathif](https://github.com/CrypticDroid)
-- [B. Iroshan](https://github.com/ProfAbeMalkovitch)
-- [M.A.M Mufthi](https://github.com/Mufthi-Alawdeen)
-- [M.Z.M Ayyash](https://github.com/ayyashzamny)
-- [M.N.A Ahamed](https://github.com/Arshadofficial)
-- [S.M.A.C.M Rashad](https://github.com/R21Rash)
 
+| ![M.H.M Ahamed](https://github.com/mushrifahamed.png?size=100) | ![M.N.A Ahmed](https://github.com/ashifahmed-924.png?size=100) | ![M.Z.M Aathif](https://github.com/CrypticDroid.png?size=100) | ![B. Iroshan](https://github.com/ProfAbeMalkovitch.png?size=100) |
+|:--:|:--:|:--:|:--:|
+| [M.H.M Ahamed](https://github.com/mushrifahamed) | [M.N.A Ahmed](https://github.com/ashifahmed-924) | [M.Z.M Aathif](https://github.com/CrypticDroid) | [B. Iroshan](https://github.com/ProfAbeMalkovitch) |
+| ![M.A.M Mufthi](https://github.com/Mufthi-Alawdeen.png?size=100) | ![M.Z.M Ayyash](https://github.com/ayyashzamny.png?size=100) | ![M.N.A Ahamed](https://github.com/Arshadofficial.png?size=100) | ![S.M.A.C.M Rashad](https://github.com/R21Rash.png?size=100) |
+| [M.A.M Mufthi](https://github.com/Mufthi-Alawdeen) | [M.Z.M Ayyash](https://github.com/ayyashzamny) | [M.N.A Ahamed](https://github.com/Arshadofficial) | [S.M.A.C.M Rashad](https://github.com/R21Rash) |
 
 ## Conclusion
 MSR Tailors and Fashion Management System provides a robust platform for managing customer orders, employee activities, and administrative tasks. This application ensures an efficient and seamless experience for all stakeholders involved.
+
+
+
+Looking forward to your feedback and insights!
+
+#WebDevelopment #FashionTech #ProjectManagement #TeamWork #Innovation
