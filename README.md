@@ -59,11 +59,61 @@ MSR Tailors and Fashion Management System is a comprehensive web-based applicati
 
 ## Project Contributors
 
-| ![M.H.M Ahamed](https://github.com/mushrifahamed.png?size=100) | ![M.N.A Ahmed](https://github.com/ashifahmed-924.png?size=100) | ![M.Z.M Aathif](https://github.com/CrypticDroid.png?size=100) | ![B. Iroshan](https://github.com/ProfAbeMalkovitch.png?size=100) |
-|:--:|:--:|:--:|:--:|
-| [M.H.M Ahamed](https://github.com/mushrifahamed) | [M.N.A Ahmed](https://github.com/ashifahmed-924) | [M.Z.M Aathif](https://github.com/CrypticDroid) | [B. Iroshan](https://github.com/ProfAbeMalkovitch) |
-| ![M.A.M Mufthi](https://github.com/Mufthi-Alawdeen.png?size=100) | ![M.Z.M Ayyash](https://github.com/ayyashzamny.png?size=100) | ![M.N.A Ahamed](https://github.com/Arshadofficial.png?size=100) | ![S.M.A.C.M Rashad](https://github.com/R21Rash.png?size=100) |
-| [M.A.M Mufthi](https://github.com/Mufthi-Alawdeen) | [M.Z.M Ayyash](https://github.com/ayyashzamny) | [M.N.A Ahamed](https://github.com/Arshadofficial) | [S.M.A.C.M Rashad](https://github.com/R21Rash) |
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/mushrifahamed">
+        <img src="https://github.com/mushrifahamed.png?size=100" width="80" height="80" style="border-radius: 50%;" /><br />
+        M.H.M Ahamed
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/ashifahmed-924">
+        <img src="https://github.com/ashifahmed-924.png?size=100" width="80" height="80" style="border-radius: 50%;" /><br />
+        M.N.A Ahmed
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/CrypticDroid">
+        <img src="https://github.com/CrypticDroid.png?size=100" width="80" height="80" style="border-radius: 50%;" /><br />
+        M.Z.M Aathif
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/ProfAbeMalkovitch">
+        <img src="https://github.com/ProfAbeMalkovitch.png?size=100" width="80" height="80" style="border-radius: 50%;" /><br />
+        B. Iroshan
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Mufthi-Alawdeen">
+        <img src="https://github.com/Mufthi-Alawdeen.png?size=100" width="80" height="80" style="border-radius: 50%;" /><br />
+        M.A.M Mufthi
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/ayyashzamny">
+        <img src="https://github.com/ayyashzamny.png?size=100" width="80" height="80" style="border-radius: 50%;" /><br />
+        M.Z.M Ayyash
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Arshadofficial">
+        <img src="https://github.com/Arshadofficial.png?size=100" width="80" height="80" style="border-radius: 50%;" /><br />
+        M.N.A Ahamed
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/R21Rash">
+        <img src="https://github.com/R21Rash.png?size=100" width="80" height="80" style="border-radius: 50%;" /><br />
+        S.M.A.C.M Rashad
+      </a>
+    </td>
+  </tr>
+</table>
+
 
 ## Conclusion
 MSR Tailors and Fashion Management System provides a robust platform for managing customer orders, employee activities, and administrative tasks. This application ensures an efficient and seamless experience for all stakeholders involved.
