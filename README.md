@@ -1,2 +1,2 @@
-##MSR-ITP
-2024
+##README##
+this web-based application about the Online tailor store and Fashion
