@@ -58,14 +58,15 @@ MSR Tailors and Fashion Management System is a comprehensive web-based applicati
 6. **Report Generation:** Create reports on various system functionalities.
 
 ## Project Contributors
-- M.H.M Ahamed
-- M.N.A Ahmed
-- M.Z.M Aathif
-- B. Iroshan
-- M.A.M Mufthi
-- M.Z.M Ayyash
-- M.N.A Ahamed
-- S.M.A.C.M Rashad
+- [M.H.M Ahamed](https://github.com/mushrifahamed)
+- [M.N.A Ahmed](https://github.com/ashifahmed-924)
+- [M.Z.M Aathif](https://github.com/CrypticDroid)
+- [B. Iroshan](https://github.com/ProfAbeMalkovitch)
+- [M.A.M Mufthi](https://github.com/Mufthi-Alawdeen)
+- [M.Z.M Ayyash](https://github.com/ayyashzamny)
+- [M.N.A Ahamed](https://github.com/Arshadofficial)
+- [S.M.A.C.M Rashad](https://github.com/R21Rash)
+
 
 ## Conclusion
 MSR Tailors and Fashion Management System provides a robust platform for managing customer orders, employee activities, and administrative tasks. This application ensures an efficient and seamless experience for all stakeholders involved.
