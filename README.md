@@ -14,13 +14,13 @@ As an administrator, individuals can log in using their email address and passwo
 In summary, the customer workflow begins with registration, granting access to account features like profile editing and browsing and purchasing clothing items. Customers can track orders, customize purchases, and contact administration for inquiries. Employees register and access profile management tools, including leave applications and inventory monitoring. Administrators oversee the system, managing inquiries, orders, and inventory, as well as facilitating communication between customers and employees. They can process manual orders, manage rentals, and approve employee leave requests while maintaining comprehensive control over system functionalities, including editing, deleting, and generating reports.
 
 
-Project contributers : 
-M.H.M Ahamed
-M.N.A Ahmed
-M.Z.M Aathif
-B.Iroshan
-M.A.M Mufthi
-M.Z.M Ayyash
-M.N.A Ahamed
-S.M.A.C.M Rashad
+Project contributors : 
+M.H.M Ahamed <br>
+M.N.A Ahmed <br>
+M.Z.M Aathif <br>
+B.Iroshan <br>
+M.A.M Mufthi <br>
+M.Z.M Ayyash <br>
+M.N.A Ahamed <br>
+S.M.A.C.M Rashad 
 
