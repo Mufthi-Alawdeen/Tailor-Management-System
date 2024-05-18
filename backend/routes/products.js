@@ -154,7 +154,7 @@ const updateStorage = multer.diskStorage({
   }
 });
 
-// Upload middleware for update route
+// Upload middleware for update route checked done
 const update = multer({ storage: updateStorage });
 
 // Update product with image upload

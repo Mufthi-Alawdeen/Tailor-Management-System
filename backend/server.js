@@ -35,7 +35,7 @@ db.once('open', () => {
 });
 
 
-const productRouter = require('./routes/products.js');
+const productRouter = require('./routes/products.js'); // check done
 const inventoryRouter = require("./routes/inventory");
 const inventoryRequestRouter = require("./routes/inventory_request");
 const inquiryRouter = require("./routes/inquiry");
