@@ -1,6 +1,3 @@
-Certainly! Below is the code for the README file in Markdown format:
-
-```markdown
 # MSR Tailors and Fashion Management System
 
 ## Overview
@@ -72,6 +69,3 @@ MSR Tailors and Fashion Management System is a comprehensive web-based applicati
 
 ## Conclusion
 MSR Tailors and Fashion Management System provides a robust platform for managing customer orders, employee activities, and administrative tasks. This application ensures an efficient and seamless experience for all stakeholders involved.
-```
-
-You can copy and paste this code into a README.md file in your project repository. This will format the document correctly when viewed on GitHub or any other Markdown viewer.
