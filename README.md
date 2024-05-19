@@ -1,12 +1,12 @@
 # MSR Tailors and Fashion Management System
 
-## Overview
+## OverView
 MSR Tailors and Fashion Management System is a comprehensive web-based application designed to streamline operations for customers seeking clothing services. It offers a variety of features to efficiently manage inquiries, users, products, orders, employees, rentals, and inventory.
 
 ## Key Features
 
 ### Customer Features
-- **Registration and Login:** Users can create an account with valid details and log in using their email and password.
+- **Registration and Login:** Users can create an account with valid details and log in using their email and password.     
 - **Profile Management:** Edit profile, change password, or delete the account.
 - **Clothing Browsing and Purchasing:** Browse rental clothes and purchase items like suits, trousers, shirts, and accessories.
 - **Customization:** Customize purchased items (shirts, suits, trousers).
