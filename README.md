@@ -24,7 +24,7 @@ MSR Tailors and Fashion Management System is a comprehensive web-based applicati
 - **Login:** Administrators can log in using their email and password.
 - **Dashboard:** View inquiry counts, order counts, and inventory status.
 - **Inquiry Management:** Respond to customer inquiries via the system.
-- **Product Management:** Add products to rental and purchasing sections using voice recognition.
+- **Product Management:** Add products to rental and purchasing sections using voice recognition.  
 - **Manual Orders:** Process in-store customer orders manually.
 - **Rental Management:** Manage rental orders and restock items as needed.
 - **Employee Management:** Add, edit, delete, and manage employee details, and approve or reject leave requests.
