@@ -74,4 +74,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 ### product management  - rashad ###
-2024/02/09  - i have finished that product manager uploading product.
+2024/02/09  - i have finished that product manager uploading product yes.
